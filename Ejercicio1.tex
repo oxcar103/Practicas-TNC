@@ -1,8 +1,18 @@
-$d1$, $d2$, $d3$, $d4$, $d5$, $d6$, $d7$ y $d8$ serán los valores de los dígitos de tu DNI o pasaporte, donde $d1$
-es tu primer dígito. Si te faltan dígitos, añades ceros. Así, $d1d2d3d4d5d6d7d8$ será un número de 8 cifras.
+	$d1$, $d2$, $d3$, $d4$, $d5$, $d6$, $d7$ y $d8$ serán los valores de los dígitos de tu DNI o pasaporte, donde $d1$
+	es tu primer dígito. Si te faltan dígitos, añades ceros. Así, $d1d2d3d4d5d6d7d8$ será un número de 8 cifras.
+	
+	Dado tu número de 8 cifras, $n$:
+	\begin{enumerate}
+		\item Con el algoritmo de la exponencialización rápida, calcula sus $a-sucesiones$ para los 5 primeros primos.
+		\item ¿Qué dice el test de Solovay-Strassen para esas 5 bases? ¿Con qué probabilidad tu $n$ es primo?
+	\end{enumerate}
 
-Dado tu número de 8 cifras, $n$:
-\begin{enumerate}
-	\item Con el algoritmo de la exponencialización rápida, calcula sus $a-sucesiones$ para los 5 primeros primos.
-	\item ¿Qué dice el test de Solovay-Strassen para esas 5 bases? ¿Con qué probabilidad tu $n$ es primo?
-\end{enumerate}
+\section*{Solución}
+	Lo primero que calcularemos es $n$, que en mi caso sería $n = 26050919 =_b 0001 1000 1101 1000 0001 0110 0111$
+	
+	\begin{enumerate}
+		\item El algoritmo que he utilizado es el de exponencialización rápida de izquierda a derecha modificado
+		para que en cada iteración $i$ calcule $a^{exp_i} \mod{n}$ en lugar de $a^{exp_i}$ para poder tratar el
+		número pues de otro modo sería intratable. El algoritmo es el siguiente:
+		
+	\end{enumerate}
