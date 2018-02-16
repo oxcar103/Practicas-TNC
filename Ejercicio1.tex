@@ -14,5 +14,26 @@
 		\item El algoritmo que he utilizado es el de exponencialización rápida de izquierda a derecha modificado
 		para que en cada iteración $i$ calcule $a^{exp_i} \mod{n}$ en lugar de $a^{exp_i}$ para poder tratar el
 		número pues de otro modo sería intratable. El algoritmo es el siguiente:
-		
+		\begin{algorithm}[H]
+			\begin{algorithmic}[1]
+				\REQUIRE \ \\
+					\texttt{$a$}, base \\
+					\texttt{$b =_b e_je_{j-1}e_{j-2}\dots e_2e_1e_0$}, exponente y su expresión en binario\\ \
+				\STATE{\texttt{$acu = 1$}}
+				\STATE{\texttt{$exp = 0$}}
+				\STATE{\texttt{$i = j$; $j$ es el número de dígitos en binario de $b$}}
+				\WHILE{\texttt{$i > 0$}}
+					\STATE{\texttt{$acu = acu^2$}}
+					\STATE{\texttt{$exp = 2 \cdot exp$}}
+					\IF{\texttt{$e_i = 1$}}
+						\STATE{\texttt{$acu = acu \cdot a$}}
+						\STATE{\texttt{$exp = exp + 1$}}
+					\ENDIF
+					\STATE{\texttt{$i = i - 1$}}
+				\ENDWHILE
+				\PRINT{\texttt{$acu$, $exp$}}
+			\end{algorithmic}
+			\caption{Exponencialización rápida de izquierda a derecha}
+			\label{Fast-exp}
+		\end{algorithm}
 	\end{enumerate}
