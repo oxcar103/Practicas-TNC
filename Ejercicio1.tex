@@ -40,7 +40,7 @@
 		
 		Dado que $\displaystyle \frac{n-1}{2} = 13025459$ es impar, las $a-sucesiones$ tendrás sólo 2 términos.
 		
-		\begin{enumerate}
+		\begin{itemize}
 			\item Para $a = 2$ tenemos:
 				$acu = 2^{13025459} \equiv 3764029$
 				$acu = 2^{26050918} \equiv 17811015$
@@ -62,11 +62,13 @@
 				$acu = 11^{26050918} \equiv 22153099$
 				
 			Claramente, $n$ es compuesto. De hecho, no engaña a ningún $a$ primo tomado.
-		\end{enumerate}
+		\end{itemize}
 		
-		\item El algoritmo que he utilizado es el de cálculo del símbolo de Jacobi\footnote{Este valor coincide
-		con el símbolo de Legendre cuando $n$ es un primo impar.} excepto para el caso del primo 2. El algoritmo
-		es el siguiente:
+		\item Para realizar el test de Solovay-Strassen, es necesario comprobar si se cumple $\displaystyle \left(
+		\frac{a}{n} \right) \equiv a^{\frac{n-1}{2}}$. Para la parte de la derecha usaremos los resultados del
+		apartado anterior mientras que para la parte izquierda utilizaremos el algoritmo de cálculo del símbolo
+		de Jacobi\footnote{Este valor coincide con el símbolo de Legendre cuando $n$ es un primo impar.} excepto
+		para el caso del primo 2. El algoritmo es el siguiente:
 		\begin{algorithm}[H]
 			\begin{algorithmic}[1]
 				\REQUIRE \ \\
@@ -97,4 +99,39 @@
 			\caption{Símbolo de Jacobi}
 			\label{Jac-symbol}
 		\end{algorithm}
+		
+		Ahora, vayamos a los resultados de nuestro $n$ particular:
+				
+		\begin{itemize}
+			\item Para $a = 2$ claramente tenemos $\displaystyle \left(\frac{2}{26050919} \right) = 1$ por ser
+			$n$ impar. Recordemos que $ a^{\frac{n-1}{2}} = 2^{13025459} \equiv 3764029 \mod 26050919$.
+			
+			Por tanto, \textbf{NO} pasa el test para $a = 2$.
+				
+			\item Para $a = 3$ tenemos $\displaystyle \left(\frac{3}{26050919} \right) = 1$ usando el algoritmo.
+			Recordemos que $ a^{\frac{n-1}{2}} = 3^{13025459} \equiv 21679447 \mod 26050919$.
+
+			Por tanto, \textbf{NO} pasa el test para $a = 3$.
+				
+			\item Para $a = 5$ tenemos $\displaystyle \left(\frac{5}{26050919} \right) = 1$ usando el algoritmo.
+			Recordemos que $ a^{\frac{n-1}{2}} = 5^{13025459} \equiv 6820151 \mod 26050919$.
+
+			Por tanto, \textbf{NO} pasa el test para $a = 5$.
+				
+			\item Para $a = 7$ tenemos $\displaystyle \left(\frac{7}{26050919} \right) = 1$ usando el algoritmo.
+			Recordemos que $ a^{\frac{n-1}{2}} = 7^{13025459} \equiv 16034947 \mod 26050919$.
+
+			Por tanto, \textbf{NO} pasa el test para $a = 7$.
+											
+			\item Para $a = 11$ tenemos $\displaystyle \left(\frac{11}{26050919} \right) = 1$ usando el algoritmo.
+			Recordemos que $ a^{\frac{n-1}{2}} = 11^{13025459} \equiv 14340865 \mod 26050919$.
+
+			Por tanto, \textbf{NO} pasa el test para $a = 11$.		
+		\end{itemize}
+	
+		Para concluir que nuestro número $n$ es compuesto nos basta con ver que falla una única de las pruebas
+		anteriores y las falla todas. Por tanto, $n$ es compuesto con probabilidad de 1\footnote{En caso de que
+		hubiera pasado las pruebas, nuestro número sería primo con una probabilidad mayor que $1-2^{-k} =
+		1-2^{-5} = 0.96875$.}.
+	
 	\end{enumerate}
