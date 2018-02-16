@@ -49,10 +49,15 @@
 \usepackage[T1]{fontenc}
 \selectlanguage{spanish}
 
-
 %% Matemáticas.
 % Paquetes de la AMS. Para entornos de ecuaciones.
 \usepackage{amsmath,amsfonts,amsthm}
+
+% Para algoritmos
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{amsthm}
+\input{spanishAlgorithmic.tex}
 
 %----------------------------------------------------------------------------------------
 %	TÍTULO
@@ -85,8 +90,8 @@
 	\tableofcontents % Table de contenidos
 	\newpage
 
-
-	\section{Ejercicio 1}
+	\section
+	{Ejercicio 1}
 	\input{Ejercicio1.tex} % Primer ejercicio
 
 \end{document}
