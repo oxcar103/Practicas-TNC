@@ -64,4 +64,37 @@
 			Claramente, $n$ es compuesto. De hecho, no engaña a ningún $a$ primo tomado.
 		\end{enumerate}
 		
+		\item El algoritmo que he utilizado es el de cálculo del símbolo de Jacobi\footnote{Este valor coincide
+		con el símbolo de Legendre cuando $n$ es un primo impar.} excepto para el caso del primo 2. El algoritmo
+		es el siguiente:
+		\begin{algorithm}[H]
+			\begin{algorithmic}[1]
+				\REQUIRE \ \\
+					\texttt{$a$}, elemento \\
+					\texttt{$n$}, base \\ \
+				\STATE{\texttt{$t = 1$}}
+				\STATE{\texttt{$m = |n|$}}
+				\STATE{\texttt{$b \equiv a \mod m$}}
+				\WHILE{\texttt{$b != 0$}}
+					\WHILE{\texttt{$b$ par}}
+						\STATE{\texttt{$\displaystyle b = \frac{b}{2}$}}
+						\IF{\texttt{$m \mod 8 \in \{3, 5\}$}}
+							\STATE{\texttt{$t = -t$}}
+						\ENDIF
+					\ENDWHILE
+					\STATE{\texttt{$(b, m) = (m, b)$}}
+					\IF{\texttt{$b \equiv m \equiv 3 \mod 4$}}
+						\STATE{\texttt{$b \equiv b \mod{m}$}}
+						\STATE{\texttt{$t = -t$}}
+					\ENDIF
+				\ENDWHILE
+				\IF{\texttt{$m = 1$}}
+					\PRINT{\texttt{$t$}}
+				\ELSE
+					\PRINT{\texttt{$0$}}
+				\ENDIF
+			\end{algorithmic}
+			\caption{Símbolo de Jacobi}
+			\label{Jac-symbol}
+		\end{algorithm}
 	\end{enumerate}
