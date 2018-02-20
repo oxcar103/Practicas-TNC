@@ -67,8 +67,8 @@
 		\item Para realizar el test de Solovay-Strassen, es necesario comprobar si se cumple $\displaystyle \left(
 		\frac{a}{n} \right) \equiv a^{\frac{n-1}{2}}$. Para la parte de la derecha usaremos los resultados del
 		apartado anterior mientras que para la parte izquierda utilizaremos el algoritmo de cálculo del símbolo
-		de Jacobi\footnote{Este valor coincide con el símbolo de Legendre cuando $n$ es un primo impar.} excepto
-		para el caso del primo 2. El algoritmo es el siguiente:
+		de Jacobi\footnote{Este valor coincide con el símbolo de Legendre cuando $n$ es un primo impar.}. El
+		algoritmo es el siguiente:
 		\begin{algorithm}[H]
 			\begin{algorithmic}[1]
 				\REQUIRE \ \\
@@ -103,8 +103,9 @@
 		Ahora, vayamos a los resultados de nuestro $n$ particular:
 		
 		\begin{itemize}
-			\item Para $a = 2$ claramente tenemos $\displaystyle \left(\frac{2}{26050919} \right) = 1$ por ser
-			$n$ impar. Recordemos que $ a^{\frac{n-1}{2}} = 2^{13025459} \equiv 3764029 \mod 26050919$.
+			\item Para $a = 2$ tenemos usando el algoritmo:
+			$$\left(\frac{2}{26050919} \right) = 1$$
+			Recordemos que $ a^{\frac{n-1}{2}} = 2^{13025459} \equiv 3764029 \mod 26050919$.
 			
 			Por tanto, \textbf{NO} pasa el test para $a = 2$.
 			
