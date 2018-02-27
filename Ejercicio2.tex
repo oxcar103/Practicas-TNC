@@ -10,3 +10,30 @@
 	\end{enumerate}
 
 \section*{Solución}
+	\begin{enumerate}
+		\item El algoritmo que he utilizado para la descomposición en factores primos de un número dado es el
+		siguiente:
+		\begin{algorithm}[H]
+			\begin{algorithmic}[1]
+				\REQUIRE \ \\
+					\texttt{$n$}, número a descomponer en primos \
+				\STATE{\texttt{$lim = \sqrt{n}$}}
+				\STATE{\texttt{$prime = 2$}}
+				\WHILE{\texttt{$prime < lim$}}
+					\WHILE{\texttt{$n \% prime = 0$}}
+						\PRINT{\texttt{prime}}
+						\STATE{\texttt{$\displaystyle n = \frac{n}{prime}$}}
+						\STATE{\texttt{$lim = \sqrt{n}$}}
+					\ENDWHILE
+					\STATE{\texttt{$prime = nextPrime(n)$}}
+				\ENDWHILE
+				
+				\IF{\texttt{$n != 1$}}
+					\PRINT{\texttt{n}}
+				\ENDIF
+			\end{algorithmic}
+			\caption{Factorización de un número dado.}
+			\label{Factors}
+		\end{algorithm}
+		
+	\end{enumerate}
