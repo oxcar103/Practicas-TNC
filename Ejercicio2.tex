@@ -39,7 +39,8 @@
 		En particular, para nuestro $n$ obtenemos la descomposición:
 		$$n = 26050919 = 17 \cdot 19 \cdot 59 \cdot 1367$$
 		
-		\item Para calcular los índices de la Fracción Continua Simple de un número usaremos el siguiente algoritmo:
+		\item Para calcular los índices de la Fracción Continua Simple(FCS) de la raíz de un número usaremos el
+		siguiente algoritmo:
 		\begin{algorithm}[H]
 			\begin{algorithmic}[1]
 				\REQUIRE \ \\
@@ -60,5 +61,33 @@
 			\caption{Algoritmo de cálculo de la FCS de la raíz de un número.}
 			\label{FCS}
 		\end{algorithm}
+		
+		Una vez mostrado el algoritmo, veamos el resultado de aplicarlo sobre $n_1 = 1367$ y $n_2 = 59$:
+		\begin{itemize}
+			\item Claramente, tenemos que $n_1 = 1367 = 37^2-2 = a^2 - 2$ con $a = 37$, por lo que teóricamente
+			$\sqrt{n_1} = [a-1, \overline{1, a-2, 1, 2 \cdot (a-1)}] = [36, \overline{1, 35, 1, 72}]$ y efectivamente
+			tenemos que:
+			\begin{itemize}
+				\item $\textbf{i = 0:} \quad P_0 = 0, \quad Q_0 = 1, \quad q_0 = 36$
+				\item $\textbf{i = 1:} \quad P_1 = 36, \quad Q_1 = 71, \quad q_1 = 1$
+				\item $\textbf{i = 2:} \quad P_2 = 35, \quad Q_2 = 2, \quad q_2 = 35$
+				\item $\textbf{i = 3:} \quad P_3 = 35, \quad Q_3 = 71, \quad q_3 = 1$
+				\item $\textbf{i = 4:} \quad P_4 = 36, \quad Q_4 = 1, \quad q_4 = 72$
+			\end{itemize}
+			
+			\item Por otra parte, tenemos que $n_2 = 59$, para el cuál teóricamente no tenemos ningún patrón
+			específico, sólo el común para todas las raíces que no son cuadrados perfectos, es decir, $\sqrt{n_2}
+			= [q_0, \overline{\dots, 2 \cdot q_0}]$. Su descomposición sería $\sqrt{n_2} = [7, \overline{1, 2,
+			7, 2, 1, 14}]$ y su proceso de cálculo sería:
+			\begin{itemize}
+				\item $\textbf{i = 0:} \quad P_0 = 0, \quad Q_0 = 1, \quad q_0 = 7$
+				\item $\textbf{i = 1:} \quad P_1 = 7, \quad Q_1 = 10, \quad q_1 = 1$
+				\item $\textbf{i = 2:} \quad P_2 = 3, \quad Q_2 = 5, \quad q_2 = 2$
+				\item $\textbf{i = 3:} \quad P_3 = 7, \quad Q_3 = 2, \quad q_3 = 7$
+				\item $\textbf{i = 4:} \quad P_4 = 7, \quad Q_4 = 5, \quad q_4 = 2$
+				\item $\textbf{i = 5:} \quad P_5 = 3, \quad Q_5 = 10, \quad q_5 = 1$
+				\item $\textbf{i = 6:} \quad P_6 = 7, \quad Q_6 = 1, \quad q_6 = 14$
+			\end{itemize}
+		\end{itemize}
 		
 	\end{enumerate}
