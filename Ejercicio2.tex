@@ -19,8 +19,8 @@
 					\texttt{$n$}, número a descomponer en primos \
 				\STATE{\texttt{$lim = \sqrt{n}$}}
 				\STATE{\texttt{$prime = 2$}}
-				\WHILE{\texttt{$prime <= lim$}}
-					\WHILE{\texttt{$n \% prime = 0$}}
+				\WHILE{\texttt{$prime \le lim$}}
+					\WHILE{\texttt{$n \equiv 0 \mod prime$}}
 						\PRINT{\texttt{prime}}
 						\STATE{\texttt{$\displaystyle n = \frac{n}{prime}$}}
 						\STATE{\texttt{$lim = \sqrt{n}$}}
@@ -28,7 +28,7 @@
 					\STATE{\texttt{$prime = nextPrime(n)$}}
 				\ENDWHILE
 				
-				\IF{\texttt{$n != 1$}}
+				\IF{\texttt{$n \neq 1$}}
 					\PRINT{\texttt{n}}
 				\ENDIF
 			\end{algorithmic}
@@ -51,10 +51,10 @@
 				\STATE{\texttt{$Q_i = 1$}}
 				\STATE{\texttt{$q_i = q_0$}}
 				\WHILE{\texttt{$q_i < 2 \cdot q_0$}}
-					\STATE{\texttt{$i = i+1$}}
-					\STATE{\texttt{$P_i = q_{i-1}*Q_{i-1} - P_{i-1}$}}
-					\STATE{\texttt{$Q_i = (n-P_i^2) / Q_{i-1}$}}
-					\STATE{\texttt{$q_i = (P_i+q_0) / Q_i$}}
+					\STATE{\texttt{$i = i + 1$}}
+					\STATE{\texttt{$P_i = q_{i-1} \cdot Q_{i-1} - P_{i-1}$}}
+					\STATE{\texttt{$\displaystyle Q_i = \frac{n - P_i^2}{Q_{i-1}}$}}
+					\STATE{\texttt{$\displaystyle q_i = \frac{P_i + q_0}{Q_i}$}}
 					\PRINT{\texttt{$P_i, Q_i, q_i$}}
 				\ENDWHILE
 			\end{algorithmic}
