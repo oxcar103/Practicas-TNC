@@ -39,5 +39,26 @@
 		En particular, para nuestro $n$ obtenemos la descomposición:
 		$$n = 26050919 = 17 \cdot 19 \cdot 59 \cdot 1367$$
 		
-		\item
+		\item Para calcular los índices de la Fracción Continua Simple de un número usaremos el siguiente algoritmo:
+		\begin{algorithm}[H]
+			\begin{algorithmic}[1]
+				\REQUIRE \ \\
+					\texttt{$n$}, número a sobre el que trabajar \
+				\STATE{\texttt{$q_0 = \lfloor \sqrt{n} \rfloor$}}
+				\STATE{\texttt{$i = 0$}}
+				\STATE{\texttt{$P_i = 0$}}
+				\STATE{\texttt{$Q_i = 1$}}
+				\STATE{\texttt{$q_i = q_0$}}
+				\WHILE{\texttt{$q_i < 2 \cdot q_0$}}
+					\STATE{\texttt{$i = i+1$}}
+					\STATE{\texttt{$P_i = q_{i-1}*Q_{i-1} - P_{i-1}$}}
+					\STATE{\texttt{$Q_i = (n-P_i^2) / Q_{i-1}$}}
+					\STATE{\texttt{$q_i = (P_i+q_0) / Q_i$}}
+					\PRINT{\texttt{$P_i, Q_i, q_i$}}
+				\ENDWHILE
+			\end{algorithmic}
+			\caption{Algoritmo de cálculo de la FCS de la raíz de un número.}
+			\label{FCS}
+		\end{algorithm}
+		
 	\end{enumerate}
