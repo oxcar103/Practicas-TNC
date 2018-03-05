@@ -28,5 +28,8 @@ for q_i in `cat tmp.txt | cut -f 2- -d ' '`
         b=$aux_B
     done
 
+sub=`echo "scale=20; sqrt($num)-$A/$B" | bc`
+echo "|sqrt(\$num) - A_{r-1}/B_{r-1}| = |sqrt($num) - $A/$B| = ${sub#-}"
+
 rm tmp.txt                                      # Eliminamos el archivo temporal
 
