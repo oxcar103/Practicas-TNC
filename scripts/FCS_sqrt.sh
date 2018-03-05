@@ -3,8 +3,6 @@
 # Parámetros del programa:
 num=$1                                          # Primer parámetro: número al que calcularemos el FCS de su raíz
 
-touch tmp.txt                                   # Archivo para el scipt Convergent.sh
-
 q_0=$(echo "sqrt($1)/1" | bc)                   # En el caso de querer calcular la FCS del número dado, eliminar sqrt().
 
 # Valores iniciales
