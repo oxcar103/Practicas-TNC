@@ -8,3 +8,33 @@
 	\end{enumerate}
 
 \section*{Solución}
+	Antes de resolver nuestro problema, recordemos que $\sqrt{n} = \sqrt{1367} = [36, \overline{1, 35, 1, 72}]$
+
+	\begin{enumerate}
+		\item La recurrencia que tenemos que aplicar es:
+		$$\left.
+			A_i = q_i \cdot A_{i-1} + A_{i-2}, \quad \text{con } A_{-1} = 1, A_0 = q_0 = 36 \atop
+			B_i = q_i \cdot B_{i-1} + B_{i-2}, \quad \text{con } B_{-1} = 0, B_0 = 1
+		\right.$$
+		
+		El resultado de aplicar la misma es:
+		\begin{itemize}
+			\item $A_1 = 37, \quad B_1 = 1$
+			\item $A_2 = 1331, \quad B_2 = 36$
+			\item $A_3 = 1368, \quad B_3 = 37$
+			\item $A_4 = 99827, \quad B_4 = 2700$
+		\end{itemize}
+		
+		Como nuestro ciclo es de tamaño $r = 4$, tenemos que la penúltima convergencia es $\displaystyle
+		\frac{A_3}{B_3} = \frac{1368}{37}$ es solución de la ecuación de Pell $x^2 - n \cdot y^2 = \pm 1$ con
+		$x = A_3$ e $y = B_3$.
+		
+		\item La diferencia entre esta convergencia y nuestra raíz es:
+		$$\sqrt{n} - \frac{A_3}{B_3} = 0.00000987830067160728 < 1 \cdot 10^{-5}$$
+		
+		\item Como nuestro ciclo es de tamaño $r = 4$, es decir, par, la ecuación $x^2 - n \cdot y^2 = -1$ no
+		tiene soluciones mientras que $x^2 - n \cdot y^2 = 1$ tiene las soluciones $x = A_{n \cdot r - 1}$ e
+		$y = B_{n \cdot r - 1}$ con $n \in \mathbb{N}^*$, siendo la menor de ellas $x = A_3 = 1368$ e
+		$y = B_3 = 37$ como podemos comprobar:
+		$$A_3^2 - n \cdot B_3^2 = 1368^2 - 1367 \cdot 37^2 = 1368^2 - 1367 \cdot 1369 = 1$$
+	\end{enumerate}
