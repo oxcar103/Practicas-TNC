@@ -84,6 +84,31 @@
 		$$\left(a+b\sqrt{e}\right)\left(c+d\sqrt{e}\right)=\left(ac+bde\right)+\left(ad+cb\right)\sqrt{e}$$
 		
 		Finalmente, el algoritmo quedaría:
+		\begin{algorithm}[H]
+			\begin{algorithmic}[1]
+				\REQUIRE \ \\
+					\texttt{$a_r$}, base racional\\
+					\texttt{$a_i$}, base irracional\\
+					\texttt{$b =_b e_je_{j-1}e_{j-2}\dots e_2e_1e_0$}, exponente y su expresión en binario \\
+					\texttt{$c$}, módulo\\ \
+				\STATE{\texttt{$acu_r = 1$}}
+				\STATE{\texttt{$acu_i = 0$}}
+				\STATE{\texttt{$exp = 0$}}
+				\STATE{\texttt{$i = j$; $j$ es el número de dígitos en binario de $b$}}
+				\WHILE{\texttt{$i > 0$}}
+					\STATE{\texttt{$(acu_r, acu_i) \equiv (acu_r, acu_i)^2 \mod{c}$ }}
+					\STATE{\texttt{$exp = 2 \cdot exp$}}
+					\IF{\texttt{$e_i = 1$}}
+						\STATE{\texttt{$(acu_r, acu_i) \equiv (acu_r, acu_i) \cdot (a_r, a_i) \mod{c}$}}
+						\STATE{\texttt{$exp = exp + 1$}}
+					\ENDIF
+					\STATE{\texttt{$i = i - 1$}}
+				\ENDWHILE
+				\PRINT{\texttt{$2 \cdot (acu_r, acu_i) \mod{c}$, $exp$}}
+			\end{algorithmic}
+			\caption{Exponencialización rápida de irracionales de izquierda a derecha}
+			\label{Fast-exp-irr}
+		\end{algorithm}
 		
 		Los resultados obtenidos son:
 		\begin{center}
