@@ -75,5 +75,49 @@
 		
 		Por lo que para nuestro caso particular se tiene que $\alpha^r \equiv_n Q = -1$. Trivialmente se deduce
 		que $U_r \equiv_n 0$ y $V_r \equiv_n 2Q = -2$
+		
+		\item Para este apartado, reutilizaremos el algoritmo de la primera práctica con pequeñas modificaciones
+		pues, aunque sirve para calcular $\alpha^r$, no es tan fácil calcular $U_r$ y $V_r$ a partir de él.
+		Principalmente, tenemos que modificar la salida para que nos devuelva por separado la componente racional
+		de la irracional, tener en cuenta que $V_i$ y $U_i$ son el doble de las componentes racional e irracional
+		respectivamente y redefinir el producto aprovechándonos de la siguiente propiedad:
+		$$\left(a+b\sqrt{e}\right)\left(c+d\sqrt{e}\right)=\left(ac+bde\right)+\left(ad+cb\right)\sqrt{e}$$
+		
+		Finalmente, el algoritmo quedaría:
+		
+		Los resultados obtenidos son:
+		\begin{center}
+		  \begin{tabular}{ | r | c | c |}
+		    \hline
+		    i	& $V_i$	& $U_i$ \\
+		    \hline
+			1       & 3     & 1 \\
+			3       & 36    & 10 \\
+			6       & 1298  & 360 \\
+			12      & 1684802       & 467280 \\
+			24      & 18363915      & 14055820 \\
+			49      & 11672958      & 4428956 \\
+			99      & 20937720      & 23911249 \\
+			198     & 23382471      & 21523686 \\
+			397     & 15848977      & 22985641 \\
+			795     & 25678459      & 18739467 \\
+			1590    & 14759824      & 15744084 \\
+			3180    & 20679959      & 20945882 \\
+			6360    & 6271843       & 2028203 \\
+			12720   & 18332426      & 13856864 \\
+			25440   & 22940247      & 25097842 \\
+			50880   & 25379149      & 18394763 \\
+			101761  & 463429        & 21134127 \\
+			203523  & 14461565      & 17713358 \\
+			407046  & 11784831      & 20336956 \\
+			814092  & 3753301       & 21713753 \\
+			1628185 & 5185797       & 9148345 \\
+			3256371 & 11511884      & 520085 \\
+			6512742 & 15819230      & 20750332 \\
+			13025484        & 0     & 2635672 \\
+			26050968        & 26050965      & 0 \\
+		    \hline
+		  \end{tabular}
+		\end{center}
+		
     \end{enumerate}
-
