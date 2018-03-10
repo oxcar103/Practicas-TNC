@@ -53,8 +53,7 @@
    		llamaremos \textit{Sucesiones de Lucas}.
    		
 		\item Para calcular el símbolo de Jacobi $\displaystyle \left(\frac{\Delta}{n}\right)$ haremos uso del
-		algorimto de cálculo explicado algunos ejercicios más atrás, por lo que no veo necesaria la explicación
-		del algoritmo o del proceso pues ya se detalló en su momento, que sería el siguiente:
+		algorimto \ref{Jac-symbol}, dándonos el siguiente resultado:
 		$$\left(\frac{\Delta}{n}\right) =\footnote{Recordemos que para este ejercicio, nuestro $n$ era
 		distinto, en lugar de ser el DNI, es el siguiente primo, en mi caso, $n = 26050967$.} \left(\frac{13}
 		{26050967} \right)= \left(\frac{26050967}{13}\right) = \left(\frac{7}{13}\right) = \left(\frac{13}{7}\right)
@@ -76,8 +75,8 @@
 		Por lo que para nuestro caso particular se tiene que $\alpha^r \equiv_n Q = -1$. Trivialmente se deduce
 		que $U_r \equiv_n 0$ y $V_r \equiv_n 2Q = -2$
 		
-		\item Para este apartado, reutilizaremos el algoritmo de la primera práctica con pequeñas modificaciones
-		pues, aunque sirve para calcular $\alpha^r$, no es tan fácil calcular $U_r$ y $V_r$ a partir de él.
+		\item Para este apartado, reutilizaremos el algoritmo \ref{Fast-exp} con pequeñas modificaciones pues,
+		aunque sirve para calcular $\alpha^r$, no es tan fácil calcular $U_r$ y $V_r$ a partir de él.
 		Principalmente, tenemos que modificar la salida para que nos devuelva por separado la componente racional
 		de la irracional, tener en cuenta que $V_i$ y $U_i$ son el doble de las componentes racional e irracional
 		respectivamente y redefinir el producto aprovechándonos de la siguiente propiedad:
