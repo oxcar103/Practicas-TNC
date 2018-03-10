@@ -51,5 +51,29 @@
    		
    		A las sucesiones de estos valores $V_n$ y $U_n$ que siguen la recurrencia que acabamos de ver es lo que
    		llamaremos \textit{Sucesiones de Lucas}.
+   		
+		\item Para calcular el símbolo de Jacobi $\displaystyle \left(\frac{\Delta}{n}\right)$ haremos uso del
+		algorimto de cálculo explicado algunos ejercicios más atrás, por lo que no veo necesaria la explicación
+		del algoritmo o del proceso pues ya se detalló en su momento, que sería el siguiente:
+		$$\left(\frac{\Delta}{n}\right) =\footnote{Recordemos que para este ejercicio, nuestro $n$ era
+		distinto, en lugar de ser el DNI, es el siguiente primo, en mi caso, $n = 26050967$.} \left(\frac{13}
+		{26050967} \right)= \left(\frac{26050967}{13}\right) = \left(\frac{7}{13}\right) = \left(\frac{13}{7}\right)
+		= \left(\frac{6}{7}\right) = \left(\frac{2}{7}\right) \cdot \left(\frac{3}{7}\right) = 1 \cdot
+		\left(\frac{3}{7}\right) = -\left(\frac{7}{3}\right) = -\left(\frac{1}{3}\right) = -1$$
+		
+		De aquí, deducimos inmediatamente que $\displaystyle r = n - \left(\frac{\Delta}{n}\right) = 26050968$
+		
+		Ahora, estudiaremos los valores teóricos de $\alpha^r$, $U_r$ y $V_r$ en el caso de que $n$ fuese primo.
+		Si $n$ es primo, tenemos que $\displaystyle |m| < |n| \Rightarrow \gcd(m, n) = 1 \quad \forall m \in
+		\mathbb{Q}$ y podemos aplicar un resultado que se deduce del Pequeño Teorema de Fermat(PTF)\footnote{Hay
+		un resultado análogo para $V_r$ y $U_r$ que básicamente dice que $U_r \equiv_n 0$ y que $V_r \equiv_n
+		2\alpha^r$.}. En particular, tenemos que $|2Q\Delta| < |n|$ por lo que se cumple dicho resultado:
+		$$\alpha^r = \alpha^{n-\left(\frac{\Delta}{n}\right)} \equiv_n \left\lbrace
+			1 \qquad \text{Si } \left(\frac{\Delta}{n}\right) = 1 \atop
+			Q \qquad \text{Si } \left(\frac{\Delta}{n}\right) = -1
+		\right.$$
+		
+		Por lo que para nuestro caso particular se tiene que $\alpha^r \equiv_n Q = -1$. Trivialmente se deduce
+		que $U_r \equiv_n 0$ y $V_r \equiv_n 2Q = -2$
     \end{enumerate}
 
