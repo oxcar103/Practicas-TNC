@@ -3,7 +3,7 @@
 	como un número que queremos ver si es primo.} mayor estricto que tu DNI, así $n$ tendrá 8 cifras decimales.
 	\begin{enumerate}
 		\item Con $P = 3$ y $Q = -1$, define un entero cuadrático $\alpha$ y sus sucesiones de Lucas.
-		\item Para el discriminante correspondiente, $\Delta = P^2 - 4 \cdot Q = 13$, calcula el símbolo de Jacobi
+		\item Para el discriminante correspondiente, $\Delta = P^2 - 4Q = 13$, calcula el símbolo de Jacobi
 		$\displaystyle \left(\frac{\Delta}{n}\right)$ y define $\displaystyle r = n - \left(\frac{\Delta}{n}\right)$.
 		Si tu $n$ fuera primo, ¿qué debería pasarle a $\alpha^r$? ¿Y a los términos $V_r$ y $U_r$?
 		\item Calcula los términos $V_r$ y $U_r$ módulo $n$ de las sucesiones de Lucas con el algoritmo de izquierda
@@ -13,3 +13,43 @@
 	\end{enumerate}
 
 \section*{Solución}
+   \begin{enumerate}
+        \item Claramente, definimos $\displaystyle \alpha = \frac{P + \sqrt{\Delta}}{2}$ con $\Delta = P^2 - 4Q$,
+        y tenemos que $\Delta = 3^2 - 4(-1) = 9+4 = 13$ y $\displaystyle \alpha = \frac{3 + \sqrt{13}}{2}$
+        
+        Podemos comprobar que nuestro $\alpha$ es un entero algebraico pues $a = \alpha + \beta, b = \alpha
+        \beta \in \mathbb{Z}$ con $\displaystyle \beta = \overline{\alpha} = \frac{P - \sqrt{\Delta}}{2}$:
+        $$\displaystyle a = \frac{P + \sqrt{\Delta}}{2} + \frac{P - \sqrt{\Delta}}{2} = P = 3, \qquad
+        b = \frac{P + \sqrt{\Delta}}{2} \cdot \frac{P - \sqrt{\Delta}}{2} = \frac{P^2-\Delta}{2^2} =
+        \frac{3^2-13}{4} = -1$$
+        
+        De aquí deducimos que su polinomio primitivo mínimo es $f(x) = x^2 -3x -1$. A partir de aquí, podemos
+        deducir que $\alpha^2 -3\alpha -1 = 0 \Leftrightarrow \alpha^2  = 3\alpha +1 \Leftrightarrow \alpha^n  =
+        3\alpha^{n-1} + \alpha^{n-2}$
+        
+        Ahora, como $\mathbb{Q\left(\alpha\right)} = \mathbb{Q\left(\sqrt{\Delta}\right)}$ con $\left\lbrace1,
+        \sqrt{\Delta}\right\rbrace$ es una base de este cuerpo, podemos escribir $\displaystyle \alpha^n =
+        \frac{V_n}{2} + \frac{U_n}{2}\sqrt{\Delta}$ con $U_i, V_i \in \mathbb{Z}$.
+        
+        Además, podemos usar la expresión $\alpha^n  = 3\alpha^{n-1} + \alpha^{n-2}$ encontrada antes para
+        concluir que $\displaystyle \frac{V_n}{2} + \frac{U_n}{2}\sqrt{\Delta} = \alpha^n  = 3\alpha^{n-1} +
+        \alpha^{n-2} = 3\left(\frac{V_{n-1}}{2} + \frac{U_{n-1}}{2}\sqrt{\Delta}\right) -\left(\frac{V_{n-2}}{2} +
+        \frac{U_{n-2}}{2}\sqrt{\Delta}\right) = \frac{3V_{n-1}-V_{n-2}}{2} + \frac{3U_{n-1}-U_{n-2}}{2}\sqrt{\Delta}$
+
+        De donde concluimos que:
+        $$\left\lbrace
+   			V_n = 3V_{n-1}-V_{n-2} \atop
+   			U_n = 3U_{n-1}-U_{n-2}
+   		\right.$$
+   		
+   		Cumplen por tanto una relación de recurrencia, ahora sólo tenemos que calcular algunos valores para tener
+   		completamente determinada la recurrencia. En nuestro caso, es fácil ver que:
+		$$\left.
+   			\displaystyle 1 = \alpha^0 = \frac{V_0}{2} + \frac{U_0}{2}\sqrt{\Delta} \Rightarrow V_0 = 2, \quad U_0 = 0 \atop
+   			\displaystyle \frac{P + \sqrt{\Delta}}{2} = \alpha^1 = \frac{V_1}{2} + \frac{U_1}{2}\sqrt{\Delta}\Rightarrow V_1 = P = 3, \quad U_1 = 1 
+   		\right.$$
+   		
+   		A las sucesiones de estos valores $V_n$ y $U_n$ que siguen la recurrencia que acabamos de ver es lo que
+   		llamaremos \textit{Sucesiones de Lucas}.
+    \end{enumerate}
+
