@@ -11,8 +11,6 @@ let half_P=P*half%mod                           # Calculamos P/2 módulo n
 symbol=`./scripts/Jacobi_symbol.sh $Delta $mod` # Calculamos el símbolo de Jacobi
 let exp=mod-symbol                              # Calculamos el exponente
 
-echo $half_P, $half, $Delta, $exp, $mod
-
 touch tmp.txt                                   # Archivo para el scipt Fast_exp_irr.sh
 ./scripts/Fast_exp_irr.sh $half_P $half $Delta $exp $mod > /dev/null
 
@@ -22,7 +20,7 @@ for j in `cat tmp.txt`
 
         aux=`echo $j | cut -f 1 -d ","`
         let aux=aux*2%mod
-        echo -ne "V_$i = $aux,\t"
+        echo -ne "V_$i = $aux, "
         aux=`echo $j | cut -f 2 -d ","`
         let aux=aux*2%mod
         echo "U_$i = $aux"
