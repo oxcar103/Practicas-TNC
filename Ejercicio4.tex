@@ -85,9 +85,9 @@
 		Finalmente, el algoritmo quedaría:
 		\begin{algorithm}[H]
 			\begin{algorithmic}[1]
-				\REQUIRE \ \\
-					\texttt{$a_r$}, base racional\\
-					\texttt{$a_i$}, base irracional\\
+				\REQUIRE \footnote \ \\
+					\texttt{$a_r$}, base racional \\
+					\texttt{$a_i$}, base irracional \\
 					\texttt{$b =_b e_je_{j-1}e_{j-2}\dots e_2e_1e_0$}, exponente y su expresión en binario \\
 					\texttt{$c$}, módulo\\ \
 				\STATE{\texttt{$acu_r = 1$}}
@@ -108,6 +108,9 @@
 			\caption{Exponencialización rápida de irracionales de izquierda a derecha}
 			\label{Fast-exp-irr}
 		\end{algorithm}
+
+		\footnotetext{Nótese que las bases que se le pasan como entrada deben ser los valores $\displaystyle
+		\frac{V_1}{2} \text{ y } \frac{U_1}{2}$ módulo $n$ respectivamente.}
 		
 		Los resultados obtenidos son:
 		\begin{center}
