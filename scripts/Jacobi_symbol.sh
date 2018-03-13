@@ -5,7 +5,7 @@ element=$1                                      # Primer parámetro: elemento
 base=${2#-}                                     # Segundo parámetro: base
 
 symbol=1
-let element=element%base
+let element=(base+element%base)%base
 
 until [  $element == 0 ]
     do
