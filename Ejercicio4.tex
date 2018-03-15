@@ -24,7 +24,7 @@
         \frac{P^2-(P^2-4Q)}{4} = Q = -1$$
         
         De aquí deducimos que su polinomio primitivo mínimo es $f(x) = x^2 -3x -1$. A partir de aquí, podemos
-        deducir que $\alpha^2 -3\alpha -1 = 0 \Leftrightarrow \alpha^2  = 3\alpha +1 \Leftrightarrow \alpha^n  =
+        deducir que $\alpha^2 -3\alpha -1 = 0 \Leftrightarrow \alpha^2  = 3\alpha +1 \Leftrightarrow \alpha^n =
         3\alpha^{n-1} + \alpha^{n-2}$
         
         Ahora, como $\mathbb{Q\left(\alpha\right)} = \mathbb{Q\left(\sqrt{\Delta}\right)}$ con $\left\lbrace1,
@@ -33,13 +33,13 @@
         
         Además, podemos usar la expresión $\alpha^n  = 3\alpha^{n-1} + \alpha^{n-2}$ encontrada antes para
         concluir que $\displaystyle \frac{V_n}{2} + \frac{U_n}{2}\sqrt{\Delta} = \alpha^n  = 3\alpha^{n-1} +
-        \alpha^{n-2} = 3\left(\frac{V_{n-1}}{2} + \frac{U_{n-1}}{2}\sqrt{\Delta}\right) -\left(\frac{V_{n-2}}{2} +
-        \frac{U_{n-2}}{2}\sqrt{\Delta}\right) = \frac{3V_{n-1}-V_{n-2}}{2} + \frac{3U_{n-1}-U_{n-2}}{2}\sqrt{\Delta}$
+        \alpha^{n-2} = 3\left(\frac{V_{n-1}}{2} + \frac{U_{n-1}}{2}\sqrt{\Delta}\right) +\left(\frac{V_{n-2}}{2} +
+        \frac{U_{n-2}}{2}\sqrt{\Delta}\right) = \frac{3V_{n-1}+V_{n-2}}{2} + \frac{3U_{n-1}+U_{n-2}}{2}\sqrt{\Delta}$
 
         De donde concluimos que:
         $$\left\lbrace
-   			V_n = 3V_{n-1}-V_{n-2} \atop
-   			U_n = 3U_{n-1}-U_{n-2}
+   			V_n = 3V_{n-1}+V_{n-2} \atop
+   			U_n = 3U_{n-1}+U_{n-2}
    		\right.$$
    		
    		Cumplen por tanto una relación de recurrencia, ahora sólo tenemos que calcular algunos valores para tener
