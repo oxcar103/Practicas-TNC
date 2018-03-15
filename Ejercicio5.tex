@@ -42,22 +42,22 @@
 		\frac{P^2-(P^2-4Q)}{4} = Q = \left(\frac{1-d}{4}\right) = 2$$
 		
 		De aquí deducimos que su polinomio primitivo mínimo es $f(x) = x^2 -x +2$. A partir de aquí, podemos
-		deducir que $\alpha^2 -3\alpha -1 = 0 \Leftrightarrow \alpha^2  = -\alpha -2 \Leftrightarrow \alpha^n =
-		-\alpha^{n-1} - 2\alpha^{n-2}$
+		deducir que $\alpha^2 -\alpha +2 = 0 \Leftrightarrow \alpha^2  = \alpha -2 \Leftrightarrow \alpha^n =
+		\alpha^{n-1} - 2\alpha^{n-2}$
 		
 		Ahora, como $\mathbb{Q\left(\alpha\right)} = \mathbb{Q\left(\sqrt{\Delta}\right)}$ con $\left\lbrace1,
 		\sqrt{\Delta}\right\rbrace$ es una base de este cuerpo, podemos escribir $\displaystyle \alpha^n =
 		\frac{V_n}{2} + \frac{U_n}{2}\sqrt{\Delta}$ con $U_i, V_i \in \mathbb{Z}$.
 		
-		Además, podemos usar la expresión $\alpha^n  = -\alpha^{n-1} - 2\alpha^{n-2}$ encontrada antes para
-		concluir que $\displaystyle \frac{V_n}{2} + \frac{U_n}{2}\sqrt{\Delta} = \alpha^n  = -\alpha^{n-1} -
-		2\alpha^{n-2} = -\left(\frac{V_{n-1}}{2} + \frac{U_{n-1}}{2}\sqrt{\Delta}\right) -2\left(\frac{V_{n-2}}{2} +
-		\frac{U_{n-2}}{2}\sqrt{\Delta}\right) = -\frac{V_{n-1}+2V_{n-2}}{2} - \frac{U_{n-1}+2U_{n-2}}{2}\sqrt{\Delta}$
+		Además, podemos usar la expresión $\alpha^n  = \alpha^{n-1} - 2\alpha^{n-2}$ encontrada antes para
+		concluir que $\displaystyle \frac{V_n}{2} + \frac{U_n}{2}\sqrt{\Delta} = \alpha^n  = \alpha^{n-1} -
+		2\alpha^{n-2} = \left(\frac{V_{n-1}}{2} + \frac{U_{n-1}}{2}\sqrt{\Delta}\right) -2\left(\frac{V_{n-2}}{2} +
+		\frac{U_{n-2}}{2}\sqrt{\Delta}\right) = \frac{V_{n-1}-2V_{n-2}}{2} + \frac{U_{n-1}-2U_{n-2}}{2}\sqrt{\Delta}$
 		
 		De donde concluimos que:
 		$$\left\lbrace
-			V_n = -(V_{n-1}+2V_{n-2}) \atop
-			U_n = -(U_{n-1}+2U_{n-2})
+			V_n = V_{n-1}-2V_{n-2} \atop
+			U_n = U_{n-1}-2U_{n-2}
 		\right.$$
 		
 		Cumplen por tanto una relación de recurrencia, ahora sólo tenemos que calcular algunos valores para tener
