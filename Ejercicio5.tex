@@ -82,10 +82,40 @@
 		Por lo que para nuestro caso particular se tiene que $\displaystyle \alpha^r \equiv_n Q = \left(\frac{1-d}
 		{4}\right) = 2$. Trivialmente se deduce que $U_r \equiv_n 0$ y $V_r \equiv_n 2Q = 4$
 		
+		
+		\item Para calcular los valores $V_i$ y $U_i$ de la sucesión de Lucas(FCS) de $\alpha$ usaremos el
+		siguiente algoritmo:
+		\begin{algorithm}[H]
+			\begin{algorithmic}[1]
+				\REQUIRE \ \\
+					\texttt{($P$,$Q$)}, parámetros de definición de $\alpha$ \\
+					\texttt{$b =_b e_je_{j-1}e_{j-2}\dots e_2e_1e_0$}, exponente y su expresión en binario \\
+					\texttt{$c$}, módulo\\ \
+				\STATE{\texttt{$k = 0$}}
+				\STATE{\texttt{$U_k = 0$}}
+				\STATE{\texttt{$U_{k+1} = 1$}}
+				\STATE{\texttt{$i = j$; $j$ es el número de dígitos en binario de $b$}}
+				\WHILE{\texttt{$i > 0$}}
+					\IF{\texttt{$e_i = 0$}}
+						\STATE{\texttt{$(U_k, U_{k+1})= \left(2 U_k U_{k+1} - P U_k^2, \quad U_{k+1}^2 - Q U_k^2 \right) \mod c$}}
+						\STATE{\texttt{$k = 2 \cdot k$}}
+					\ELSE
+						\STATE{\texttt{$(U_k, U_{k+1}) = \left(U_{k+1}^2 - Q U_k^2, \quad P U_{k+1}^2 - 2 Q U_k U_{k+1}\right) \mod c$}}
+						\STATE{\texttt{$k = 2\cdot k + 1$}}
+					\ENDIF
+					\STATE{\texttt{$i = i - 1$}}
+				\ENDWHILE
+				\STATE{\texttt{$V_k = 2 U_{k+1} - P U_k \mod c$}}
+				\PRINT{\texttt{$V_k$, $U_k$}}
+			\end{algorithmic}
+			\caption{Algoritmo de cálculo de la Sucesión de Lucas.}
+			\label{Lucas-Suc}
+		\end{algorithm}
+		
 		\begin{center}
 			\begin{tabular}{ | r | c | c |}
 				\hline
-				i               & $V_i$        & $U_i$ \\
+				i               & $V_i$           & $U_i$ \\
 				\hline
 				1               & 1               & 1 \\
 				2               & 678650380744576 & 1 \\
