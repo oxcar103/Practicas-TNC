@@ -30,8 +30,8 @@ for j in $digits
             U_big=$aux
         else
             let i=2*i+1
-            U_lit=$aux
             U_big=`echo "($P*$U_big^2-2*$Q*$U_lit*$U_big)%$mod" | bc`
+            U_lit=$aux
         fi
 
         aux=`echo "(2*$U_big-($P)*$U_lit)%$mod" | bc`
@@ -40,7 +40,6 @@ for j in $digits
         let U_lit=(U_lit+mod)%mod
         let U_big=(U_big+mod)%mod
 
-        #echo "V_$i = $aux, U_$i = $U_lit"
-        echo "$i & $aux  & $U_lit \\\\"
+        echo "V_$i = $aux, U_$i = $U_lit"
     done
     
