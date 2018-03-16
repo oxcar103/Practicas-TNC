@@ -69,4 +69,16 @@
 		
 		A las sucesiones de estos valores $V_n$ y $U_n$ que siguen la recurrencia que acabamos de ver es lo que
 		llamaremos \textit{Sucesiones de Lucas}.
+		
+		\item Si $n$ es primo, tenemos que $\displaystyle |m| < |n| \Rightarrow \gcd(m, n) = 1 \quad \forall m \in
+		\mathbb{Q}$ y podemos aplicar un resultado que se deduce del Pequeño Teorema de Fermat(PTF)\footnote{Hay un
+		resultado análogo para $V_r$ y $U_r$ que básicamente dice que $U_r \equiv_n 0$ y que $V_r \equiv_n 2\alpha^r$.}.
+		En particular, tenemos que $|2Q\Delta| < |n|$ por lo que se cumple dicho resultado:
+		$$\alpha^r = \alpha^{n-\left(\frac{\Delta}{n}\right)} \equiv_n \left\lbrace
+			1 \qquad \text{Si } \left(\frac{\Delta}{n}\right) = 1 \atop
+			Q \qquad \text{Si } \left(\frac{\Delta}{n}\right) = -1
+		\right.$$
+		
+		Por lo que para nuestro caso particular se tiene que $\displaystyle \alpha^r \equiv_n Q = \left(\frac{1-d}
+		{4}\right) = 2$. Trivialmente se deduce que $U_r \equiv_n 0$ y $V_r \equiv_n 2Q = 4$
 	\end{enumerate}
