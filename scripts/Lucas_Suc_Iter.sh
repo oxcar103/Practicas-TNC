@@ -16,18 +16,17 @@ i=0
 U_lit=0
 U_big=1
 
-aux=`echo "(2*$U_big-$P*$U_lit)%$mod" | bc`
-
-echo "U_$i = $U_lit, V_$i = $aux, i = $i"
+aux=`echo "(2*$U_big-($P)*$U_lit)%$mod" | bc`
+let aux=(aux+mod)%mod
 
 for j in $digits
     do
-        aux=`echo "($U_big^2-$Q*$U_lit^2)%$mod" | bc`
+        aux=`echo "($U_big^2-($Q)*$U_lit^2)%$mod" | bc`
 
         if (( $j == 0))
         then
             let i=2*i
-            U_lit=`echo "(2*$U_lit*$U_big-$P*$U_lit^2)%$mod" | bc`
+            U_lit=`echo "(2*$U_lit*$U_big-($P)*$U_lit^2)%$mod" | bc`
             U_big=$aux
         else
             let i=2*i+1
@@ -35,9 +34,13 @@ for j in $digits
             U_lit=$aux
         fi
 
-        aux=`echo "(2*$U_big-$P*$U_lit)%$mod" | bc`
+        aux=`echo "(2*$U_big-($P)*$U_lit)%$mod" | bc`
 
-        echo "U_$i = $U_lit, V_$i = $aux, i = $i"
+        let aux=(aux+mod)%mod
+        let U_lit=(U_lit+mod)%mod
+        let U_big=(U_big+mod)%mod
 
+        #echo "V_$i = $aux, U_$i = $U_lit"
+        echo "$i & $aux  & $U_lit \\\\"
     done
-
+    

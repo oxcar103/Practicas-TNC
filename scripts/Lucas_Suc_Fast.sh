@@ -7,7 +7,7 @@ mod=$3                                          # Tercer parámetro: módulo
 
 let Delta=P**2-4*Q                              # Calculamos Delta, el valor del interior de la raíz
 let half=(mod+1)/2%mod                          # Calculamos el inverso de 2 módulo n
-let half_P=P*half%mod                           # Calculamos P/2 módulo n
+let half_P=(P*half%mod+mod)%mod                 # Calculamos P/2 módulo n
 symbol=`./scripts/Jacobi_symbol.sh $Delta $mod` # Calculamos el símbolo de Jacobi
 let exp=mod-symbol                              # Calculamos el exponente
 
