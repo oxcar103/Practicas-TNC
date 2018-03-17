@@ -18,7 +18,7 @@
 	\begin{enumerate}
 		\item Para calcular el símbolo de Jacobi $\displaystyle \left(\frac{d}{n}\right)$\footnote{Recordemos que
 		para este ejercicio, nuestro $n$ era distinto, en lugar de ser el DNI, es $n = 678650380744579$.} haremos
-		uso del algorimto \ref{Jac-symbol} para cada uno de los valores hasta encontrar el que nos devuelva el
+		uso del algoritmo \ref{Jac-symbol} para cada uno de los valores hasta encontrar el que nos devuelva el
 		valor deseado:
 		$$\left(\frac{5}{n}\right) = \left(\frac{5}{678650380744579} \right)= \left(\frac{678650380744579}{5}\right)
 		= \left(\frac{4}{5}\right) = \left(\frac{2^2}{5}\right) = \left(\frac{2}{5}\right)^2 = 1$$
@@ -81,6 +81,37 @@
 		
 		Por lo que para nuestro caso particular se tiene que $\displaystyle \alpha^r \equiv_n Q = \left(\frac{1-d}
 		{4}\right) = 2$. Trivialmente se deduce que $U_r \equiv_n 0$ y $V_r \equiv_n 2Q = 4$
+		
+		Para calcular los valores teóricos de $V_{\frac{r}{2}}$ y $U_{\frac{r}{2}}$ haremos uso de:
+		$$V_{2k} = V_k^2 - 2Q^k, \qquad U_{2k} = U_kV_k$$
+		
+		De aquí deducimos que $2Q \equiv_n V_r = V_{\frac{r}{2}}^2 - 2Q^{\frac{r}{2}} \Rightarrow 2\left(Q +
+		Q^{\frac{r}{2}}\right) = 2Q\left(1 + Q^{\frac{r}{2}-1}\right) \equiv_n V_{\frac{r}{2}}^2$
+		
+		Si suponemos que nuestro $n$ es primo, podemos utilizar el Pequeño Teorema de Fermat(PTF) que nos dice
+		que $Q^{n-1} \equiv_n 1$. Ahora bien, sabemos también que las únicas raíces de 1 son 1 y -1. Por lo que
+		tenemos:		
+		$$Q^{\frac{r}{2}-1} = Q^{\frac{n-1}{2}} \equiv_n 
+		\left\lbrace
+			\displaystyle 1 \quad \text{si } \left(\frac{Q}{n}\right) = 1 \atop
+			\displaystyle -1 \quad \text{si } \left(\frac{Q}{n}\right) = -1
+		\right.$$
+		
+		$$V_{\frac{r}{2}}^2 \equiv_n 2Q\left(1 + Q^{\frac{r}{2}-1}\right) \equiv_n
+		\left\lbrace
+			\displaystyle 4Q \quad \text{si } \left(\frac{Q}{n}\right) =\footnote{} 1 \Rightarrow V_{\frac{r}{2}} = 2\sqrt{Q} \atop
+			\displaystyle 0 \quad \text{si } \left(\frac{Q}{n}\right) = -1 \Rightarrow V_{\frac{r}{2}} = 0
+		\right.$$
+		
+		\footnotetext{Este valor del símbolo de Jacobi asegura la existencia de, al menos, una raíz de Q que
+		notaremos $\sqrt{Q}$.}
+		
+		Además, como $0 \equiv_n U_r = U_{\frac{r}{2}}V_{\frac{r}{2}} \Rightarrow U_{\frac{r}{2}} \equiv_n 0 \quad
+		\text{si } \displaystyle \left(\frac{Q}{n}\right) = 1$. Lamentablemente, no tenemos información sobre el
+		valor de $U_{\frac{r}{2}}$ si $\displaystyle \left(\frac{Q}{n}\right) = -1$.
+		
+		En nuestro caso particular, tenemos $\displaystyle \left(\frac{Q}{n}\right) = \left(\frac{2}{678650380744579}
+		\right)= -1$. Por tanto, tenemos que $V_{\frac{r}{2}} = 0$.
 		
 		\item Para calcular los valores $V_i$ y $U_i$ de la sucesión de Lucas(FCS) de $\alpha$ usaremos el
 		siguiente algoritmo:
