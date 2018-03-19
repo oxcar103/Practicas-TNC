@@ -39,20 +39,22 @@
 				\ENDIF
 				\IF{\texttt{$Encontrado == \TRUE$}}
 					\PRINT{\texttt{$Q$, $d$, $s$}}
-					\FOR{\texttt{$p_i \in Prime_Factors(n+1)$}}
+					\FOR{\texttt{$p_i \in Prime\_Factors(n+1)$}}
 						\PRINT{\texttt{$U_\frac{n+1}{p_i} \mod n$}}
 					\ENDFOR
 				\ELSE
 					\STATE{\texttt{$Q += 1$}}
 				\ENDIF
 			\ENDWHILE
-			\PRINT{\texttt{Aceptado $Q$}}
+			\IF{\texttt{$Encontrado == \FALSE$}}
+				\PRINT{\texttt{No existe $Q$ cumpliendo las condiciones}}
+			\ENDIF
 		\end{algorithmic}
 		\caption{Test de primalidad usando sucesiones de Lucas.}
 		\label{Primarity}
 		\end{algorithm}
 		
-		Tras aplicar el algoritmo a nuestro $n$ \footnote{Recordemos que para este ejercicio, nuestro $n$ era
+		Tras aplicar el algoritmo a nuestro $n$\footnote{Recordemos que para este ejercicio, nuestro $n$ era
 		distinto, en lugar de ser el DNI, es el siguiente primo, en mi caso, $n = 26050967$. Además, cabe destacar
 		que $n+1 = 2^3 \cdot 3^2 \cdot 181 \cdot 1999$ y que:
 		\begin{itemize}
@@ -63,12 +65,12 @@
 		\end{itemize}} obtenemos:
 		\begin{itemize}
 			\item $Q = 2$ \\
-			$U_{13025484} = 0$ \\
-			$U_{8683656} = 0$
+			$U_{13025484} \equiv_n 0$ \\
+			$U_{8683656} \equiv_n 0$
 			
 			\item $Q = 3$ \\
-			$U_{13025484} = 0$ \\
-			$U_{8683656} = 0$
+			$U_{13025484} \equiv_n 0$ \\
+			$U_{8683656} \equiv_n 0$
 			
 			\item $Q = 4$ \\
 			$Jacobi\ symbol = 1$
@@ -84,6 +86,45 @@
 			\item Aceptado $Q = 5$
 		\end{itemize}
 
-				
-			
+		\item Un elemento primitivo $a$ de un grupo cíclico $\mathbb{Z}_n$ es aquel que genera completamente
+		$\mathbb{Z}_n^*$ mediante la multiplicación sucesiva consigo mismo. Por tanto, claramente se tiene que
+		dar que el orden de $a$ es el mismo que el de $\mathbb{Z}_n^*$ que es $n-1$.
+		
+		Por tanto, para comprobar que un elemento es primitivo haremos dos comprobaciones:
+		\begin{enumerate}
+			\item $a^{n-1} \equiv_n 1$
+			\item $a^\frac{n-1}{p_i} \not\equiv_n 1 \quad \forall p_i$ divisor primo de $n-1$
+		\end{enumerate}
+		
+		Por tanto, el algoritmo nos queda:
+		\begin{algorithm}[H]
+		\begin{algorithmic}[1]
+			\REQUIRE \ \\
+				\texttt{$n$}, número al que hacer el test \\
+			\STATE{\texttt{$a = 2$, valor inicial de la búsqueda}}
+			\STATE{\texttt{$Encontrado = \FALSE$}}
+			\WHILE{\texttt{$Encontrado == \FALSE$ \AND $a < r$}}
+				\STATE{\texttt{$Encontrado = \TRUE$}}
+				\IF{\texttt{$a^{n-1} \not\equiv_n 1$}}
+					\STATE{\texttt{$Encontrado = \FALSE$}}
+				\ELSE
+					\FOR{\texttt{$p_i \in Prime\_Factors(n+1)$}}
+						\IF{\texttt{$a^\frac{n-1}{p_i} \equiv_n 1$}}
+							\STATE{\texttt{$Encontrado = \FALSE$}}
+						\ENDIF
+					\ENDFOR
+				\ENDIF
+				\IF{\texttt{$Encontrado == \TRUE$}}
+					\PRINT{\texttt{$a$}}
+				\ELSE
+					\STATE{\texttt{$a += 1$}}
+				\ENDIF
+			\ENDWHILE
+			\IF{\texttt{$Encontrado == \FALSE$}}
+				\PRINT{\texttt{No hay elementos primitivos}}
+			\ENDIF
+		\end{algorithmic}
+		\caption{Algoritmo de búsqueda de elementos primitivos de $\mathbb{Z}_n$.}
+		\label{Primitive}
+		\end{algorithm}
 	\end{enumerate}
