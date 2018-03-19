@@ -17,7 +17,6 @@ then
     let exp=mod-symbol
 fi
 
-
 touch tmp.txt                                   # Archivo para el scipt Fast_exp_irr.sh
 ./scripts/Fast_exp_irr.sh $half_P $half $Delta $exp $mod > /dev/null
 
@@ -25,6 +24,7 @@ for j in `cat tmp.txt`
 do
     i=`echo $j | cut -f 3 -d ","`
 
+    # Mostramos V_i y U_i
     aux=`echo $j | cut -f 1 -d ","`
     let aux=aux*2%mod
     echo -ne "V_$i = $aux, "
