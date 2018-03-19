@@ -11,7 +11,9 @@
 
 \section*{Solución}
 	\begin{enumerate}
-		\item En este apartado, usaremos los conocimientos que ya tenemos del cálculo del símbolo de Jacobi (algoritmo \ref{Jac-symbol}) y del cálculo rápido de términos de la sucesión de Lucas (algoritmo \ref{Lucas-Suc}) en el siguiente algoritmo:
+		\item En este apartado, usaremos los conocimientos que ya tenemos del cálculo del símbolo de Jacobi (algoritmo
+		\ref{Jac-symbol}) y del cálculo rápido de términos de la sucesión de Lucas (algoritmo \ref{Lucas-Suc}) en el
+		siguiente algoritmo:
 		
 		\begin{algorithm}[H]
 		\begin{algorithmic}[1]
@@ -49,5 +51,39 @@
 		\caption{Test de primalidad usando sucesiones de Lucas.}
 		\label{Primarity}
 		\end{algorithm}
+		
+		Tras aplicar el algoritmo a nuestro $n$ \footnote{Recordemos que para este ejercicio, nuestro $n$ era
+		distinto, en lugar de ser el DNI, es el siguiente primo, en mi caso, $n = 26050967$. Además, cabe destacar
+		que $n+1 = 2^3 \cdot 3^2 \cdot 181 \cdot 1999$ y que:
+		\begin{itemize}
+			\item $\displaystyle \frac{n+1}{2} = 13025484$
+			\item $\displaystyle \frac{n+1}{3} = 8683656$
+			\item $\displaystyle \frac{n+1}{181} = 143928$
+			\item $\displaystyle \frac{n+1}{1999} = 13032$
+		\end{itemize}} obtenemos:
+		\begin{itemize}
+			\item $Q = 2$ \\
+			$U_{13025484} = 0$ \\
+			$U_{8683656} = 0$
+			
+			\item $Q = 3$ \\
+			$U_{13025484} = 0$ \\
+			$U_{8683656} = 0$
+			
+			\item $Q = 4$ \\
+			$Jacobi\ symbol = 1$
+			
+			\item $Q = 5$ \\
+			$d = -19$ \\
+			$Jacobi\ symbol = -1$ \\
+			$U_{13025484} \equiv_n 13006485$ \\
+			$U_{8683656} \equiv_n 5392704$ \\
+			$U_{143928} \equiv_n 18519423$ \\
+			$U_{13032} \equiv_n 20065576$
+			
+			\item Aceptado $Q = 5$
+		\end{itemize}
+
+				
 			
 	\end{enumerate}
