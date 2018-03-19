@@ -106,16 +106,21 @@
 			\WHILE{\texttt{$Encontrado == \FALSE$ \AND $a < r$}}
 				\STATE{\texttt{$Encontrado = \TRUE$}}
 				\IF{\texttt{$a^{n-1} \not\equiv_n 1$}}
+					\PRINT{\texttt{$a$, $a^{n-1} \mod n$}}
 					\STATE{\texttt{$Encontrado = \FALSE$}}
 				\ELSE
-					\FOR{\texttt{$p_i \in Prime\_Factors(n+1)$}}
+					\FOR{\texttt{$p_i \in Prime\_Factors(n-1)$}}
 						\IF{\texttt{$a^\frac{n-1}{p_i} \equiv_n 1$}}
+							\PRINT{\texttt{$a$, $a^\frac{n-1}{p_i} \equiv_n 1$}}
 							\STATE{\texttt{$Encontrado = \FALSE$}}
 						\ENDIF
 					\ENDFOR
 				\ENDIF
 				\IF{\texttt{$Encontrado == \TRUE$}}
-					\PRINT{\texttt{$a$}}
+					\PRINT{\texttt{$a$, $a^{n-1} \equiv_n 1$}}
+					\FOR{\texttt{$p_i \in Prime\_Factors(n-1)$}}
+						\PRINT{\texttt{$a^\frac{n-1}{p_i} \mod n$}}
+					\ENDFOR
 				\ELSE
 					\STATE{\texttt{$a += 1$}}
 				\ENDIF
@@ -127,4 +132,29 @@
 		\caption{Algoritmo de búsqueda de elementos primitivos de $\mathbb{Z}_n$.}
 		\label{Primitive}
 		\end{algorithm}
+		
+		Tras aplicar el algoritmo a nuestro $n$\footnote{Cabe destacar que $n-1 = 2 \cdot 103 \cdot 126461$ y que:
+		\begin{itemize}
+			\item $\displaystyle \frac{n-1}{2} = 13025483$
+			\item $\displaystyle \frac{n-1}{103} = 252922$
+			\item $\displaystyle \frac{n-1}{126461} = 206$
+		\end{itemize}} obtenemos:
+		\begin{itemize}
+			\item $a = 2$ \\
+			$a^{13025483} \equiv_n  1$ \\
+			
+			\item $a = 3$ \\
+			$a^{13025483} \equiv_n  1$ \\
+			
+			\item $a = 4$ \\
+			$a^{13025483} \equiv_n  1$
+			
+			\item $a = 5$ \\
+			$a^{n-1} \equiv_n 1$ \\
+			$a^{13025483} \equiv_n 26050966$ \\
+			$a^{252922} \equiv_n 6740802$ \\
+			$a^{206} \equiv_n 14116605$ \\
+			
+			\item 5 es un elemento primitivo de $\mathbb{Z}_{26050967}$
+		\end{itemize}
 	\end{enumerate}
