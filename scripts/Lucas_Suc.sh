@@ -14,17 +14,17 @@ echo "U_0 = $U, V_0 = $V"
 echo "U_1 = $u, V_1 = $v"
 
 for i in `seq 2 $n`
-    do
-        # Calculamos V_i, U_i
-        let aux_U=P*u-Q*U
-        let aux_V=P*v-Q*V
+do
+    # Calculamos V_i, U_i
+    let aux_U=P*u-Q*U
+    let aux_V=P*v-Q*V
 
-        echo "U_$i = $aux_U, V_$i = $aux_V"     # Mostramos los valores
+    echo "U_$i = $aux_U, V_$i = $aux_V"         # Mostramos los valores
 
-        # Establecemos los siguientes U_(i-2), U_(i-1), V_(i-2) y V_(i-1)
-        U=$u
-        V=$v
-        u=$aux_U
-        v=$aux_V
-    done
+    # Establecemos los siguientes U_(i-2), U_(i-1), V_(i-2) y V_(i-1)
+    U=$u
+    V=$v
+    u=$aux_U
+    v=$aux_V
+done
 

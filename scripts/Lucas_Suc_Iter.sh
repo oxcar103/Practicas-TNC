@@ -8,10 +8,10 @@ exp=${4:-0}                                     # Cuarto parámetro: exponente, 
 
 # Si no nos han pasado un exponente, calculamos uno a partir del símbolo de Jacobi
 if (( $exp == 0))
-    then
-        let Delta=P**2-4*Q
-        symbol=`./scripts/Jacobi_symbol.sh $Delta $mod`
-        let exp=mod-symbol
+then
+    let Delta=P**2-4*Q
+    symbol=`./scripts/Jacobi_symbol.sh $Delta $mod`
+    let exp=mod-symbol
 fi
 
 echo $exp
@@ -26,26 +26,26 @@ aux=`echo "(2*$U_big-($P)*$U_lit)%$mod" | bc`
 let aux=(aux+mod)%mod
 
 for j in $digits
-    do
-        aux=`echo "($U_big^2-($Q)*$U_lit^2)%$mod" | bc`
+do
+    aux=`echo "($U_big^2-($Q)*$U_lit^2)%$mod" | bc`
 
-        if (( $j == 0))
-        then
-            let i=2*i
-            U_lit=`echo "(2*$U_lit*$U_big-($P)*$U_lit^2)%$mod" | bc`
-            U_big=$aux
-        else
-            let i=2*i+1
-            U_big=`echo "($P*$U_big^2-2*$Q*$U_lit*$U_big)%$mod" | bc`
-            U_lit=$aux
-        fi
+    if (( $j == 0))
+    then
+        let i=2*i
+        U_lit=`echo "(2*$U_lit*$U_big-($P)*$U_lit^2)%$mod" | bc`
+        U_big=$aux
+    else
+        let i=2*i+1
+        U_big=`echo "($P*$U_big^2-2*$Q*$U_lit*$U_big)%$mod" | bc`
+        U_lit=$aux
+    fi
 
-        aux=`echo "(2*$U_big-($P)*$U_lit)%$mod" | bc`
+    aux=`echo "(2*$U_big-($P)*$U_lit)%$mod" | bc`
 
-        let aux=(aux+mod)%mod
-        let U_lit=(U_lit+mod)%mod
-        let U_big=(U_big+mod)%mod
+    let aux=(aux+mod)%mod
+    let U_lit=(U_lit+mod)%mod
+    let U_big=(U_big+mod)%mod
 
-        echo "V_$i = $aux, U_$i = $U_lit"
-    done
+    echo "V_$i = $aux, U_$i = $U_lit"
+done
     

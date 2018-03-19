@@ -15,15 +15,16 @@ echo "P_$i = $P_i, Q_$i = $Q_i, q_$i = $q_i"    # Mostramos los valores en cada 
 echo -n "$q_i " >> tmp.txt                      # Escribimos el archivo de comunicación con Convergent.sh 
 
 while (( $q_i < 2*$q_0 ))                       # Iteramos hasta que un valor sea el doble de q_0 porque el perido acaba ahí (hay un teorema)
-    do
-        let i=i+1                               # Siguiente iteración
+do
+    let i=i+1                                   # Siguiente iteración
 
-        # Cálculo de los valores
-        let P_i=q_i*Q_i-P_i
-        let Q_i=(num-P_i**2)/Q_i
-        let q_i=(P_i+q_0)/Q_i
+    # Cálculo de los valores
+    let P_i=q_i*Q_i-P_i
+    let Q_i=(num-P_i**2)/Q_i
+    let q_i=(P_i+q_0)/Q_i
 
-        echo "P_$i = $P_i, Q_$i = $Q_i, q_$i = $q_i"
-        echo -n "$q_i " >> tmp.txt              # Escribimos el archivo de comunicación con Convergent.sh 
-    done
+    echo "P_$i = $P_i, Q_$i = $Q_i, q_$i = $q_i"
+    echo -n "$q_i " >> tmp.txt                  # Escribimos el archivo de comunicación con Convergent.sh 
+done
+
 echo "" >> tmp.txt

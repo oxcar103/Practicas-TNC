@@ -13,20 +13,20 @@ b=1                                             # B_(i-1)
 i=0
 
 for q_i in `cat tmp.txt | cut -f 2- -d ' '`
-    do
-        # Calculamos A_i, B_i
-        let aux_A=q_i*a+A
-        let aux_B=q_i*b+B
-        let i=i+1
+do
+    # Calculamos A_i, B_i
+    let aux_A=q_i*a+A
+    let aux_B=q_i*b+B
+    let i=i+1
 
-        echo "A_$i = $aux_A, B_$i = $aux_B"     # Mostramos los valores
+    echo "A_$i = $aux_A, B_$i = $aux_B"         # Mostramos los valores
 
-        # Establecemos los siguientes A_(i-2), A_(i-1), B_(i-2) y B_(i-1)
-        A=$a
-        B=$b
-        a=$aux_A
-        b=$aux_B
-    done
+    # Establecemos los siguientes A_(i-2), A_(i-1), B_(i-2) y B_(i-1)
+    A=$a
+    B=$b
+    a=$aux_A
+    b=$aux_B
+done
 
 sub=`echo "scale=20; sqrt($num)-$A/$B" | bc`
 echo "|sqrt(\$num) - A_{r-1}/B_{r-1}| = |sqrt($num) - $A/$B| = ${sub#-}"

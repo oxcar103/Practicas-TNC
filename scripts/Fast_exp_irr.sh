@@ -23,27 +23,27 @@ prod(){
 }
 
 for i in $digits                                # Recorremos cada dígito
-    do
-        # Elevamos al cuadrado y hacemos módulo
-        prod $acu_rat $acu_irr $acu_rat $acu_irr $root        
+do
+    # Elevamos al cuadrado y hacemos módulo
+    prod $acu_rat $acu_irr $acu_rat $acu_irr $root        
+    let acu_rat=prod_rat%mod
+    let acu_irr=prod_irr%mod
+    let c_exp=2*c_exp                           # Duplicamos el exponente
+
+    # Si el dígito actual es 1...
+    if (( $i == 1))
+    then
+        # Multiplicamos además por la base
+        prod $acu_rat $acu_irr $rat $irr $root        
         let acu_rat=prod_rat%mod
         let acu_irr=prod_irr%mod
-        let c_exp=2*c_exp                       # Duplicamos el exponente
+        let c_exp=c_exp+1                       # Sumamos 1 al exponente
+    fi
 
-        # Si el dígito actual es 1...
-        if (( $i == 1))
-        then
-            # Multiplicamos además por la base
-            prod $acu_rat $acu_irr $rat $irr $root        
-            let acu_rat=prod_rat%mod
-            let acu_irr=prod_irr%mod
-            let c_exp=c_exp+1                   # Sumamos 1 al exponente
-        fi
+    # Devolvemos el valor y exponente actuales
+    echo "acu_rat = $acu_rat, acu_irr = $acu_irr, exp = $c_exp"
 
-        # Devolvemos el valor y exponente actuales
-        echo "acu_rat = $acu_rat, acu_irr = $acu_irr, exp = $c_exp"
-
-        # Escribimos el archivo de comunicación con Lucas_Suc_Fast.sh
-        echo -n "$acu_rat,$acu_irr,$c_exp " >> tmp.txt
-    done
+    # Escribimos el archivo de comunicación con Lucas_Suc_Fast.sh
+    echo -n "$acu_rat,$acu_irr,$c_exp " >> tmp.txt
+done
 

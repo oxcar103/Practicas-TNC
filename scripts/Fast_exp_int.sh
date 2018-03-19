@@ -10,17 +10,17 @@ acu=1
 c_exp=0
 
 for i in $digits                                # Recorremos cada dígito
-    do
-        let acu=acu**2%mod                      # Elevamos al cuadrado y hacemos módulo
-        let c_exp=2*c_exp                       # Duplicamos el exponente
+do
+    let acu=acu**2%mod                          # Elevamos al cuadrado y hacemos módulo
+    let c_exp=2*c_exp                           # Duplicamos el exponente
 
-        # Si el dígito actual es 1...
-        if (( $i == 1))
-        then
-            let acu=acu*base%mod                # Multiplicamos además por la base
-            let c_exp=c_exp+1                   # Sumamos 1 al exponente
-        fi
+    # Si el dígito actual es 1...
+    if (( $i == 1))
+    then
+        let acu=acu*base%mod                    # Multiplicamos además por la base
+        let c_exp=c_exp+1                       # Sumamos 1 al exponente
+    fi
 
-        echo acu = $acu, exp = $c_exp           # Devolvemos el valor y exponente actuales
-    done
+    echo acu = $acu, exp = $c_exp               # Devolvemos el valor y exponente actuales
+done
 
