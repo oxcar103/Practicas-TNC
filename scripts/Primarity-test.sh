@@ -55,5 +55,12 @@ do
 done
 
 echo "---------------------------------------------------------"
-echo "Aceptado Q = $q"
+
+# Resultado final
+if $found
+then
+    echo "Aceptado Q = $q"
+else
+    echo "No existe Q cumpliendo las condiciones"
+fi
 
