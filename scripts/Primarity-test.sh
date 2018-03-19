@@ -29,9 +29,9 @@ do
         msg+="\nJacobi_symbol = "$sym           # Almacenamos por si acaso fuera el correcto
 
         # Recorremos los divisores de r
-        for i in `factor $r | cut -f 2 -d : | tr ' ' '\n' | sort -u | tr '\n' ' '`
+        for p_i in `factor $r | cut -f 2 -d : | tr ' ' '\n' | sort -u | tr '\n' ' '`
         do
-            exp=`echo "($n+1)/$i" | bc`
+            exp=`echo "($n+1)/$p_i" | bc`
             # Vemos si U_r/e = 0 mod n con e un divisor de r
             U_e=`./scripts/Lucas_Suc_Iter.sh 1 $q $n $exp | tail -n 1 | cut -f 2 -d ,`
             v_U_e=`echo $U_e | cut -f 2 -d =`

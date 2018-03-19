@@ -22,10 +22,10 @@ do
         found=false                             # No es el correcto
     else
         # Recorremos los divisores de r
-        for i in `factor $r | cut -f 2 -d :`
+        for p_i in `factor $r | cut -f 2 -d :`
             do
-            exp=`echo "$r/$i" | bc`
-            # Calculamos a^((n-1)/p) mod n
+            exp=`echo "$r/$p_i" | bc`
+            # Calculamos a^((n-1)/p_i) mod n
             aux=`./scripts/Fast_exp_int.sh $a $exp $n | tail -n 1 | cut -f 2 -d = | cut -f 1 -d ,`
 
             # Si es 1...
