@@ -11,86 +11,43 @@
 
 \section*{Solución}
 	\begin{enumerate}
-		\item \footnote{En este apartado, no se justificarán los pasos a seguir pues ya han sido explicados.}
-		Procedemos a comprobar los resultados con cada uno de los posibles valores de $Q$ aunque en mi caso basta
-		con probar el 2 como ya veremos:
+		\item En este apartado, usaremos los conocimientos que ya tenemos del cálculo del símbolo de Jacobi (algoritmo \ref{Jac-symbol}) y del cálculo rápido de términos de la sucesión de Lucas (algoritmo \ref{Lucas-Suc}) en el siguiente algoritmo:
 		
-		\begin{itemize}
-			\item $P = 1$
-			\item $Q = 2$
-			\item $d = P^2 - 4Q = -7$
-			$$\displaystyle \left(\frac{d}{n}\right) = \left(\frac{-7}{n}\right) = \left(\frac{26050960}{26050967}
-			\right)= \left(\frac{13025480}{26050967}\right) = \left(\frac{6512740}{26050967}\right) =
-			\left(\frac{3256370}{26050967}\right) = \left(\frac{1628185}{26050967}\right) = \atop
-			\displaystyle \left(\frac{26050967}{1628185}\right) = \left(\frac{7}{1628185}\right) =
-			\left(\frac{1628185}{7}\right) = \left(\frac{6}{7}\right) = \left(\frac{3}{7}\right) =
-			-\left(\frac{7}{3}\right) = -\left(\frac{1}{3}\right) = -1$$
-			\item $r = n+1 = 26050968$
-			\item $\displaystyle \alpha = \frac{P + \sqrt{d}}{2} = \frac{1 + \sqrt{-7}}{2}$
-			\item El polinomio primitivo mínimo de $\alpha$ es $f(x) = x^2 -x +2$
-			\item La sucesión de Lucas se define como $\displaystyle \alpha^n = \frac{V_n}{2} + \frac{U_n}{2}\sqrt{d}$ con $U_i, V_i \in \mathbb{Z}$.
-			$$\left\lbrace
-				V_n = V_{n-1}-2V_{n-2} \qquad \text{con } V_0 = 2, \quad V_1 = P = 1 \atop
-				U_n = U_{n-1}-2U_{n-2} \qquad \text{con } U_0 = 0, \quad U_1 = 1
-			\right.$$
-			\item Si $n$ es primo, tenemos que:
-			$$\alpha^r = \alpha^{n-\left(\frac{d}{n}\right)} \equiv_n
-			\left\lbrace
-				\displaystyle 1 \qquad \text{Si } \left(\frac{d}{n}\right) = 1 \atop
-				\displaystyle Q \qquad \text{Si } \left(\frac{d}{n}\right) = -1
-			\right.$$
+		\begin{algorithm}[H]
+		\begin{algorithmic}[1]
+			\REQUIRE \ \\
+				\texttt{$P$}, parámetro de definición de $\alpha$ \\
+				\texttt{$n$}, número al que hacer el test \\
+			\STATE{\texttt{$Q = 2$, valor inicial de la búsqueda}}
+			\STATE{\texttt{$Encontrado = \FALSE$}}
+			\WHILE{\texttt{$Encontrado == \FALSE$ \AND $Q < r$}}
+				\STATE{\texttt{$Encontrado = \TRUE$}}
+				\STATE{\texttt{$d = P^2-4Q$}}
+				\STATE{\texttt{$s = Jac\_symbol(d, n)$}}
+				\IF{\texttt{$s == 1$}}
+					\PRINT{\texttt{$Q$, $s$}}
+					\STATE{\texttt{$Encontrado = \FALSE$}}
+				\ELSE
+					\FOR{\texttt{$p_i \in Prime\_Factors(n+1)$}}
+						\IF{\texttt{$U_\frac{n+1}{p_i} \equiv_n 0$}}
+							\PRINT{\texttt{$Q$, $U_\frac{n+1}{p_i} \equiv_n 0$}}
+							\STATE{\texttt{$Encontrado = \FALSE$}}
+						\ENDIF
+					\ENDFOR
+				\ENDIF
+				\IF{\texttt{$Encontrado == \TRUE$}}
+					\PRINT{\texttt{$Q$, $d$, $s$}}
+					\FOR{\texttt{$p_i \in Prime_Factors(n+1)$}}
+						\PRINT{\texttt{$U_\frac{n+1}{p_i} \mod n$}}
+					\ENDFOR
+				\ELSE
+					\STATE{\texttt{$Q += 1$}}
+				\ENDIF
+			\ENDWHILE
+			\PRINT{\texttt{Aceptado $Q$}}
+		\end{algorithmic}
+		\caption{Test de primalidad usando sucesiones de Lucas.}
+		\label{Primarity}
+		\end{algorithm}
 			
-			$$U_r \equiv_n 0 \text{ y } V_r \equiv_n 2\alpha^r$$
-			
-			$$V_{\frac{r}{2}}^2 \equiv_n 2Q\left(1 + Q^{\frac{r}{2}-1}\right) \equiv_n
-			\left\lbrace
-				\displaystyle 4Q \quad \text{si } \left(\frac{Q}{n}\right) =\footnote{} 1 \Rightarrow V_{\frac{r}{2}} = 2\sqrt{Q} \atop
-				\displaystyle 0 \quad \text{si } \left(\frac{Q}{n}\right) = -1 \Rightarrow V_{\frac{r}{2}} = 0
-			\right.$$
-			
-			\footnotetext{Este valor del símbolo de Jacobi asegura la existencia de, al menos, una raíz de Q que
-			notaremos $\sqrt{Q}$.}
-			
-			$$U_{\frac{r}{2}} \equiv_n 0 \quad \text{si } \displaystyle \left(\frac{Q}{n}\right) = 1$$
-			
-			\item Los resultados obtenidos son:
-			\begin{center}
-				\begin{tabular}{ | r | c | c |}
-					\hline
-					i        & $V_i$    & $U_i$ \\
-					\hline
-					1        & 1        & 1 \\
-					3        & 26050962 & 26050966 \\
-					6        & 9        & 5 \\
-					12       & 26050920 & 45 \\
-					24       & 26044984 & 26048852 \\
-					49       & 8933705  & 7447951 \\
-					99       & 18087249 & 17180450 \\
-					198      & 16844930 & 18943141 \\
-					397      & 11268102 & 7494412 \\
-					795      & 22482324 & 25661603 \\
-					1590     & 24654452 & 20686173 \\
-					3180     & 15566822 & 17693380 \\
-					6360     & 13786398 & 13014252 \\
-					12720    & 24958959 & 5018711 \\
-					25440    & 22538925 & 25671904 \\
-					50880    & 8020730  & 2610045 \\
-					101761   & 19654530 & 20974668 \\
-					203523   & 16940953 & 24507923 \\
-					407046   & 6104124  & 24598449 \\
-					814092   & 23323159 & 18481317 \\
-					1628185  & 8774083  & 15973888 \\
-					3256371  & 0        & 16990013 \\
-					6512742  & 1550734  & 0 \\
-					13025484 & 5587493  & 0 \\
-					26050968 & 4        & 0 \\
-					\hline
-				\end{tabular}
-			\end{center}
-					
-			\item Dado que $\displaystyle \left(\frac{Q}{n}\right) = \left(\frac{2}{26050967} \right)= 1$, claramente
-			se cumplen los pronósticos calculados, por lo que se $n$ sería candidato a primo.
-			
-			\item Por tanto, $Q = 2$ verifica todas las hipótesis necesarias para este ejercicio.
-		\end{itemize}
 	\end{enumerate}
