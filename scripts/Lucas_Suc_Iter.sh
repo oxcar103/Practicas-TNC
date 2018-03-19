@@ -4,11 +4,17 @@
 P=$1                                            # Primer parámetro: valor de P
 Q=$2                                            # Segundo parámetro: valor de Q
 mod=$3                                          # Tercer parámetro: módulo
+exp=${4:-0}                                     # Cuarto parámetro: exponente, por defecto, 0
 
-let Delta=P**2-4*Q                              # Calculamos Delta, el valor del interior de la raíz
+# Si no nos han pasado un exponente, calculamos uno a partir del símbolo de Jacobi
+if (( $exp == 0))
+    then
+        let Delta=P**2-4*Q
+        symbol=`./scripts/Jacobi_symbol.sh $Delta $mod`
+        let exp=mod-symbol
+fi
 
-symbol=`./scripts/Jacobi_symbol.sh $Delta $mod` # Calculamos el símbolo de Jacobi
-let exp=mod-symbol                              # Calculamos el exponente
+echo $exp
 
 digits=`echo "obase=2; $exp" | bc | fold -w1`   # Convertimos el exponente a binario y con los dígitos separados
 

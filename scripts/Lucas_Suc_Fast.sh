@@ -4,12 +4,19 @@
 P=$1                                            # Primer parámetro: valor de P
 Q=$2                                            # Segundo parámetro: valor de Q
 mod=$3                                          # Tercer parámetro: módulo
+exp=${4:-0}                                     # Cuarto parámetro: exponente, por defecto, 0
 
 let Delta=P**2-4*Q                              # Calculamos Delta, el valor del interior de la raíz
 let half=(mod+1)/2%mod                          # Calculamos el inverso de 2 módulo n
 let half_P=(P*half%mod+mod)%mod                 # Calculamos P/2 módulo n
-symbol=`./scripts/Jacobi_symbol.sh $Delta $mod` # Calculamos el símbolo de Jacobi
-let exp=mod-symbol                              # Calculamos el exponente
+
+# Si no nos han pasado un exponente, calculamos uno a partir del símbolo de Jacobi
+if (( $exp == 0))
+    then
+        symbol=`./scripts/Jacobi_symbol.sh $Delta $mod`
+        let exp=mod-symbol
+fi
+
 
 touch tmp.txt                                   # Archivo para el scipt Fast_exp_irr.sh
 ./scripts/Fast_exp_irr.sh $half_P $half $Delta $exp $mod > /dev/null
