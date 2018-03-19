@@ -5,28 +5,55 @@ P=$1                                            # Primer parámetro: valor de P
 n=$2                                            # Segundo parámetro: número
 
 let r=n+1
+found=false                                     # No conocemos ningún elemento primitivo a priori
+q=2                                             # Primer candidato
 
-for q in `seq 2 20`                             # Para un puñado de Q's
-    do
-        echo "---------------------------------------------------------"
-        echo "Q = $q"
-        d=`echo "$P^2-4*$q" | bc`               # Calculamos d
-        echo "d = $d"
-        sym=`./scripts/Jacobi_symbol.sh $d $n`  # Calculamos su símbolo de Jacobi
-        echo "Jacobi_symbol = $sym"
+# Hasta que lo encontremos o hayamos probado todos...
+until $found || [ $q -ge $r ]
+do
+    found=true                                  # Suponemos que es el correcto
 
-        # Si no es 1...
-        if (( $sym != 1 ))
+    echo "---------------------------------------------------------"
+    echo "Q = $q"
+    d=`echo "$P^2-4*$q" | bc`                   # Calculamos d
+    msg="d = $d"                                # Almacenamos por si acaso fuera el correcto
+    sym=`./scripts/Jacobi_symbol.sh $d $n`      # Calculamos su símbolo de Jacobi
+
+    # Si el símbolo de Jacobi es 1...
+    if [ $sym -eq "1" ]
+    then
+        echo "Jacobi_symbol = $sym"             # Lo mostramos
+        found=false                             # Lo descartamos
+    # Si no...
+    else
+        msg+="\nJacobi_symbol = "$sym           # Almacenamos por si acaso fuera el correcto
+
+        # Recorremos los divisores de r
+        for i in `factor $r | cut -f 2 -d : | tr ' ' '\n' | sort -u | tr '\n' ' '`
+        do
+            exp=`echo "($n+1)/$i" | bc`
+            # Vemos si U_r/e = 0 mod n con e un divisor de r
+            U_e=`./scripts/Lucas_Suc_Iter.sh 1 $q $n $exp | tail -n 1 | cut -f 2 -d ,`
+            v_U_e=`echo $U_e | cut -f 2 -d =`
+            if [ $v_U_e -eq "0" ]
             then
-                # Recorremos los divisores de r
-                for i in `factor $r | cut -f 2 -d :`
-                    do
-                        exp=`echo "($n+1)/$i" | bc`
-                        # Vemos si U_r/e = 0 mod n con e un divisor de r
-                        ./scripts/Lucas_Suc_Iter.sh 1 $q $n $exp | tail -n 1
-                    done
+                echo $U_e                       # Muestra el valor de U_e
+                found=false                     # Lo descartamos
+            else
+                msg+="\n"`echo $U_e`            # Almacenamos por si acaso fuera el correcto
+            fi
+        done
+    fi
 
-                # Comprobamos que U_r = 0 mod n
-                ./scripts/Lucas_Suc_Iter.sh 1 $q $n | tail -n 1
-        fi
+    # Si es el correcto...
+    if $found
+    then
+        echo -e $msg                            # Mostramos los valores
+    else
+        let q=q+1                               # Siguiente candidato
+    fi
 done
+
+echo "---------------------------------------------------------"
+echo "Aceptado Q = $q"
+
