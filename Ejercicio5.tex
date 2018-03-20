@@ -129,15 +129,15 @@
 				\STATE{\texttt{$i = j$; $j$ es el número de dígitos en binario de $b$}}
 				\WHILE{\texttt{$i > 0$}}
 					\IF{\texttt{$e_i = 0$}}
-						\STATE{\texttt{$(U_k, U_{k+1})= \left(2 U_k U_{k+1} - P U_k^2, \quad U_{k+1}^2 - Q U_k^2 \right) \mod c$}}
+						\STATE{\texttt{$(U_k, U_{k+1})= \left(2 U_k U_{k+1} - P U_k^2, \quad U_{k+1}^2 - Q U_k^2 \right) \mod{c}$}}
 						\STATE{\texttt{$k = 2 \cdot k$}}
 					\ELSE
-						\STATE{\texttt{$(U_k, U_{k+1}) = \left(U_{k+1}^2 - Q U_k^2, \quad P U_{k+1}^2 - 2 Q U_k U_{k+1}\right) \mod c$}}
+						\STATE{\texttt{$(U_k, U_{k+1}) = \left(U_{k+1}^2 - Q U_k^2, \quad P U_{k+1}^2 - 2 Q U_k U_{k+1}\right) \mod{c}$}}
 						\STATE{\texttt{$k = 2\cdot k + 1$}}
 					\ENDIF
 					\STATE{\texttt{$i = i - 1$}}
 				\ENDWHILE
-				\STATE{\texttt{$V_k = 2 U_{k+1} - P U_k \mod c$}}
+				\STATE{\texttt{$V_k = 2 U_{k+1} - P U_k \mod{c}$}}
 				\PRINT{\texttt{$V_k$, $U_k$}}
 			\end{algorithmic}
 			\caption{Algoritmo de cálculo de la Sucesión de Lucas.}

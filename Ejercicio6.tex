@@ -41,9 +41,9 @@
 					\ENDFOR
 				\ENDIF
 				\IF{\texttt{$Encontrado == \TRUE$}}
-					\PRINT{\texttt{$Q$, $d$, $s$, $U_{n+1}$}}
+					\PRINT{\texttt{$Q$, $d$, $s$, $U_{n+1} \equiv_n 0$}}
 					\FOR{\texttt{$p_i \in Prime\_Factors(n+1)$}}
-						\PRINT{\texttt{$U_\frac{n+1}{p_i} \mod n$}}
+						\PRINT{\texttt{$U_\frac{n+1}{p_i} \mod{n}$}}
 					\ENDFOR
 				\ELSE
 					\STATE{\texttt{$Q += 1$}}
@@ -109,7 +109,7 @@
 			\WHILE{\texttt{$Encontrado == \FALSE$ \AND $a < r$}}
 				\STATE{\texttt{$Encontrado = \TRUE$}}
 				\IF{\texttt{$a^{n-1} \not\equiv_n 1$}}
-					\PRINT{\texttt{$a$, $a^{n-1} \mod n$}}
+					\PRINT{\texttt{$a$, $a^{n-1} \mod{n}$}}
 					\STATE{\texttt{$Encontrado = \FALSE$}}
 				\ELSE
 					\FOR{\texttt{$p_i \in Prime\_Factors(n-1)$}}
@@ -122,7 +122,7 @@
 				\IF{\texttt{$Encontrado == \TRUE$}}
 					\PRINT{\texttt{$a$, $a^{n-1} \equiv_n 1$}}
 					\FOR{\texttt{$p_i \in Prime\_Factors(n-1)$}}
-						\PRINT{\texttt{$a^\frac{n-1}{p_i} \mod n$}}
+						\PRINT{\texttt{$a^\frac{n-1}{p_i} \mod{n}$}}
 					\ENDFOR
 				\ELSE
 					\STATE{\texttt{$a += 1$}}
