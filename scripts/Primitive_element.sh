@@ -22,7 +22,7 @@ do
         found=false                             # No es el correcto
     else
         # Recorremos los divisores de r
-        for p_i in `factor $r | cut -f 2 -d :`
+        for p_i in `factor $r | cut -f 2 -d : | tr ' ' '\n' | sort -nu | tr '\n' ' '`
             do
             exp=`echo "$r/$p_i" | bc`
             # Calculamos a^((n-1)/p_i) mod n

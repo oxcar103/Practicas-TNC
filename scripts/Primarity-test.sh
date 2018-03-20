@@ -39,7 +39,7 @@ do
         msg+="\nU_r = $v_U_r"
 
         # Recorremos los divisores de r
-        for p_i in `factor $r | cut -f 2 -d : | tr ' ' '\n' | sort -u | tr '\n' ' '`
+        for p_i in `factor $r | cut -f 2 -d : | tr ' ' '\n' | sort -nu | tr '\n' ' '`
         do
             exp=`echo "($n+1)/$p_i" | bc`
             # Vemos si U_r/e = 0 mod n con e un divisor de r
