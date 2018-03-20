@@ -19,14 +19,24 @@ do
     msg="d = $d"                                # Almacenamos por si acaso fuera el correcto
     sym=`./scripts/Jacobi_symbol.sh $d $n`      # Calculamos su símbolo de Jacobi
 
-    # Si el símbolo de Jacobi es 1...
-    if [ $sym -eq "1" ]
+    # Valor de U_r
+    v_U_r=`./scripts/Lucas_Suc_Iter.sh 1 $q $n | tail -n 1 | cut -f 3 -d =`
+
+    # Si el símbolo de Jacobi no es -1...
+    if [ $sym -ne "-1" ]
     then
         echo "Jacobi_symbol = $sym"             # Lo mostramos
         found=false                             # Lo descartamos
+    # Si el último valor de la sucesión de Lucas no es 0...
+    elif [ $v_U_r -ne "0" ]
+    then
+        echo "U_r = $v_U_r"                     # Lo mostramos
+        found=false                             # Lo descartamos
     # Si no...
     else
-        msg+="\nJacobi_symbol = "$sym           # Almacenamos por si acaso fuera el correcto
+        # Almacenamos por si acaso fuera el correcto
+        msg+="\nJacobi_symbol = $sym"
+        msg+="\nU_r = $v_U_r"
 
         # Recorremos los divisores de r
         for p_i in `factor $r | cut -f 2 -d : | tr ' ' '\n' | sort -u | tr '\n' ' '`

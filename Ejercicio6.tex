@@ -29,6 +29,9 @@
 				\IF{\texttt{$s == 1$}}
 					\PRINT{\texttt{$Q$, $s$}}
 					\STATE{\texttt{$Encontrado = \FALSE$}}
+				\ELSIF{\texttt{$U_{n+1} \not\equiv_n 0$}}
+					\PRINT{\texttt{$Q$, $U_{n+1} \mod{n}$}}
+					\STATE{\texttt{$Encontrado = \FALSE$}}
 				\ELSE
 					\FOR{\texttt{$p_i \in Prime\_Factors(n+1)$}}
 						\IF{\texttt{$U_\frac{n+1}{p_i} \equiv_n 0$}}
@@ -38,7 +41,7 @@
 					\ENDFOR
 				\ENDIF
 				\IF{\texttt{$Encontrado == \TRUE$}}
-					\PRINT{\texttt{$Q$, $d$, $s$}}
+					\PRINT{\texttt{$Q$, $d$, $s$, $U_{n+1}$}}
 					\FOR{\texttt{$p_i \in Prime\_Factors(n+1)$}}
 						\PRINT{\texttt{$U_\frac{n+1}{p_i} \mod n$}}
 					\ENDFOR
