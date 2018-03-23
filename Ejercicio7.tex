@@ -1,0 +1,19 @@
+	Sea $n$ el siguiente número primo\footnote{Aunque conocemos este hecho, dado que la utilidad de este ejercicio
+	es conocer y poner a prueba nuestro conocimiento sobre tests de primalidad, lo ignoraremos y trataremos a $n$
+	como un número que queremos ver si es primo.} mayor estricto que tu DNI, así $n$ tendrá 8 cifras decimales.
+
+	\begin{enumerate}
+		\item Extrae los factores potencias de 2 de $n-1$ y de $n+1$. Toma $n_1$ y $n_2$ los cofactores impares
+		respectivos.
+		\item Pasa el test de Miller-Rabin para varias bases y si fuera necesario el de Solovay-Strassen para ver
+		si $n_1$ y $n_2$ son compuestos.
+		\begin{enumerate}
+			\item En caso de que hayas encontrado un certificado de composición para $n_1$ y $n_2$, aplica el método
+			$\rho$ de Pollard o el de Fermat para encontrar factores de ambos.
+			\item Si los factores son grandes y no has demostrado que sean compuestos, encuentra un elemento primitivo
+			o una sucesión de Lucas para certificar su primalidad.
+		\end{enumerate}
+		\item Aplica recursivamente lo anterior hasta encontrar las factorizaciones en primos de $n-1$ y $n+1$.
+	\end{enumerate}
+
+\section*{Solución}
