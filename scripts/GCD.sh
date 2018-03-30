@@ -7,7 +7,7 @@ b=$2                                            # Segundo parámetro: otro núme
 # Algoritmo de Euclides
 until [ $b -eq "0" ]
 do
-    aux=`echo "$b%$a" | bc`
+    aux=`echo "$a%$b" | bc`
     a=$b
     b=$aux
 done
