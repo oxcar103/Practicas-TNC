@@ -9,7 +9,7 @@ prim=-1
 a=2                                             # Primer candidato
 
 # Hasta que lo encontremos o hayamos probado todos...
-until $found || [ $a -ge $r ]
+until $found || [ $a -gt $r ]
 do
     found=true                                  # Suponemos que es el correcto
 

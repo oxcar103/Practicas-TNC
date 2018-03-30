@@ -2,7 +2,7 @@
 
 # Parámetros del programa:
 n=$1                                            # Primer parámetro: número
-p=$2                                            # Segundo parámetro: primo
+p=${2:-103}                                     # Segundo parámetro: primo
 
 let m=n-1
 acu=`./scripts/Fast_exp_int.sh $p $m $n | tail -n 1 | cut -f 1 -d , | cut -f 2 -d =`
@@ -45,8 +45,6 @@ else
                 
                 let i=i-1
             fi
-
-            echo "i = $i, $acu"
         done
     fi
 fi
