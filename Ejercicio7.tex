@@ -63,5 +63,11 @@
 		\end{algorithmic}
 		\caption{Test de Miller-Rabin.}
 		\label{Miller-Rabin}
-		\end{algorithm}	
+		\end{algorithm}
+		
+		Claramente, ni $n_1$ ni $n_2$ son primos pues fallan en la primera prueba:
+		\begin{itemize}
+			\item $2^{n_1-1} \equiv_{n_1} 9704949 \neq 1$
+			\item $2^{n_2-1} \equiv_{n_2} 2931403 \neq 1$
+		\end{itemize}
 	\end{enumerate}
