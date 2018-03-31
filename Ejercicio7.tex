@@ -87,7 +87,7 @@
 				\REQUIRE \ \\
 					\texttt{$n$}, número a descomponer \\ \
 				\STATE{\texttt{$s = \lfloor \sqrt{n} \rfloor$}}
-				\IF{\texttt{$s^2 - n = 0$}}
+				\IF{\texttt{$s^2 - n == 0$}}
 					\PRINT{\texttt{$\{s, s\}$}}
 				\ELSE
 					\STATE{\texttt{$s = s+1$}}
@@ -113,5 +113,68 @@
 			El problema de este algoritmo salta a la vista pues necesitamos 3231867 pasos para descomponer
 			$n_1 = 3234983 \cdot 3$ y 634 pasos para descomponer $n_2 = 2347 \cdot 1249$. Por lo que en la
 			práctica no se suele usar.
+			
+			Sin embargo, el algoritmo $\rho$ de Pollard suele tener mejores resultados. Su definición sería la
+			siguiente \footnote{Nótese que hemos usado la función $f_m: \mathbb{N} \rightarrow \mathbb{N}$
+			con $z \mapsto z^2+1 \mod{m}$ aunque la función original era la dada por $z \mapsto z^2-1 \mod{m}$}:
+			\begin{algorithm}[H]
+			\begin{algorithmic}[1]
+				\REQUIRE \ \\
+					\texttt{$n$}, número a descomponer \\ \
+				\STATE{\texttt{$x = 1, \quad y = 1, \quad d = 1$, valores iniciales}}
+				\WHILE{\texttt{$d == 1$}}
+					\STATE{\texttt{$x = f(x)$}}
+					\STATE{\texttt{$y = f(f(y))$}}
+					\STATE{\texttt{$d = GCD(|x-y|, n)$}}
+				\ENDWHILE
+				\IF{\texttt{$d == n$}}
+					\PRINT{\texttt{$n$ es primo}}
+				\ELSE
+					\PRINT{\texttt{$\displaystyle n = d \cdot \frac{n}{d}$}}
+				\ENDIF
+			\end{algorithmic}
+			\caption{Método de factorización $\rho$ de Pollard.}
+			\label{Rho-Pollard}
+			\end{algorithm}
+			
+			Los resultados obtenidos para $n_1$ son:
+			\begin{center}
+			\begin{tabular}{ | r | c | c | c |}
+				\hline
+				i   & $x$       & $y$       & GCD \\
+				\hline
+				0   & 1         & 1         & 1 \\
+				1   & 2         & 5         & 1 \\
+				2   & 5         & 677       & 1 \\
+				3   & 26        & 4424560   & 1 \\
+				4   & 677       & 476428    & 1 \\
+				5   & 458330    & 3436304   & 1 \\
+				6   & 4424560   & 7695078   & 1 \\
+				7   & 3365853   & 11721924  & 1 \\
+				8   & 476428    & 9496733   & 1 \\
+				9   & 1572427   & 12797088  & 1 \\
+				10  & 3436304   & 9648514   & 1 \\
+				11  & 11719665  & 3898809   & 1 \\
+				12  & 7695078   & 11911865  & 1 \\
+				13  & 1969078   & 7882229   & 1 \\
+				14  & 11721924  & 5631328   & 103 \\
+				\hline
+			\end{tabular}
+			\end{center}
+
+			Para $n_2$ simplemente tenemos:
+			\begin{center}
+			\begin{tabular}{ | r | c | c | c |}
+				\hline
+				i   & $x$       & $y$       & GCD \\
+				\hline
+				0   & 1         & 1         & 1 \\
+				1   & 2         & 5         & 3 \\
+				\hline
+			\end{tabular}
+			\end{center}
+
+			\item Si los factores son grandes y no has demostrado que sean compuestos, encuentra un elemento primitivo
+			o una sucesión de Lucas para certificar su primalidad.
 		\end{enumerate}
 	\end{enumerate}
