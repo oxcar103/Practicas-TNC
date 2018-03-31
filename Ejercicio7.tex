@@ -103,15 +103,15 @@
 							\STATE{\texttt{$u = u + 2$}}
 						\ENDIF
 					\ENDWHILE
-					\PRINT{\texttt{$\displaystyle \{\frac{u-v}{2}, \frac{u+v-2}{2}\}$}}
+					\PRINT{\texttt{$\displaystyle n = \frac{u-v}{2} \cdot \frac{u+v-2}{2}$}}
 				\ENDIF
 			\end{algorithmic}
 			\caption{Método de factorización de Fermat.}
 			\label{Fermat-factors}
 			\end{algorithm}
 			
-			El problema de este algoritmo salta a la vista pues necesitamos 3231867 pasos para descomponer
-			$n_1 = 3234983 \cdot 3$ y 634 pasos para descomponer $n_2 = 2347 \cdot 1249$. Por lo que en la
+			El problema de este algoritmo salta a la vista pues necesitamos 122851 pasos para descomponer
+			$n_1 = 103 \cdot 126461$ y 194 pasos para descomponer $n_2 = 1629 \cdot 1999$. Por lo que en la
 			práctica no se suele usar.
 			
 			Sin embargo, el algoritmo $\rho$ de Pollard suele tener mejores resultados. Su definición sería la
@@ -137,7 +137,7 @@
 			\label{Rho-Pollard}
 			\end{algorithm}
 			
-			Los resultados obtenidos para $n_1$ son:
+			Podemos descomponer $n_1 = 103 \cdot 126461$ mediante:
 			\begin{center}
 			\begin{tabular}{ | r | c | c | c |}
 				\hline
@@ -162,7 +162,7 @@
 			\end{tabular}
 			\end{center}
 
-			Para $n_2$ simplemente tenemos:
+			Para descomponer $n_2 = 3 \cdot 1085457$ simplemente tenemos:
 			\begin{center}
 			\begin{tabular}{ | r | c | c | c |}
 				\hline
@@ -174,7 +174,40 @@
 			\end{tabular}
 			\end{center}
 
-			\item Si los factores son grandes y no has demostrado que sean compuestos, encuentra un elemento primitivo
-			o una sucesión de Lucas para certificar su primalidad.
+			\item En caso de que sea un posible primo, se probaría mediante los algoritmos \ref{Primarity} usando
+			sucesiones de Lucas u \ref{Primitive} de búsqueda de elementos primitivos.
+			
+			Pero en este paso, ambos nos salían compuestos.
 		\end{enumerate}
+		
+		\item Finalmente, tras repetir los pasos anteriores tenemos:
+		\begin{itemize}
+			\item $n_1 = 103 \cdot 126461$ con:
+			\begin{itemize}
+				\item 5 un elemento primitivo de $\mathbb{Z}^*_{103}$
+				\item 2 un elemento primitivo de $\mathbb{Z}^*_{126461}$
+			\end{itemize}
+			Al tener sólo dos componentes, ambos algoritmos pasan por los mismos números.
+			
+			\item $n_2 = 3^2 \cdot 181 \cdot 1999$ con:
+			\begin{itemize}
+				\item 2 un elemento primitivo de $\mathbb{Z}^*_{3}$
+				\item 2 un elemento primitivo de $\mathbb{Z}^*_{181}$
+				\item 3 un elemento primitivo de $\mathbb{Z}^*_{1999}$
+				\item El algoritmo de Fermat pasa por:
+				\begin{itemize}
+					\item $n_2 = 1629 \cdot 1999$ en 194 pasos.
+					\item $n_2 = 9 \cdot 181 \cdot 1999$ en 140 pasos.
+					\item $n_2 = 3^2 \cdot 181 \cdot 1999$ en 1 paso.
+				\end{itemize}
+				
+				\item El algoritmo $\rho$ de Pollard pasa por:
+				\begin{itemize}
+					\item $n_2 = 3 \cdot 1085457$ en 1 paso.
+					\item $n_2 = 3^2 \cdot 361819$ en 1 paso.
+					\item $n_2 = 3^2 \cdot 181 \cdot 1999$ en 14 pasos.
+				\end{itemize}
+			\end{itemize}
+			
+		\end{itemize}
 	\end{enumerate}
