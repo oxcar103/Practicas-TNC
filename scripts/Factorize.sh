@@ -53,7 +53,7 @@ msg+="n = "
 # Quitamos la paridad
 while (( $n % 2 == 0 ))
     do
-        let n=n/2
+        n=`echo "$n/2" | bc`
         msg+="2·"
     done
 

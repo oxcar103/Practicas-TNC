@@ -1,7 +1,7 @@
 #! /bin/bash
 
 # Parámetros del programa:
-n=$1                                            # Primer parámetro: número a descomponer
+n=$1                                            # Primer parámetro: número a descomponer en dos factores
 
 s=`echo "sqrt($n)" | bc`
 r=`echo "$s^2-$n" | bc`
@@ -31,8 +31,8 @@ else
         let i=i+1
     done
 
-    a=`echo "($u+$v-2)/2" | bc`
-    b=`echo "($u-$v)/2" | bc`
+    a=`echo "($u-$v)/2" | bc`
+    b=`echo "($u+$v-2)/2" | bc`
 
     echo "$n = $a·$b"
 fi

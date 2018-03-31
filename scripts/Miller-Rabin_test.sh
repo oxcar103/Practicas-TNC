@@ -27,7 +27,7 @@ else
     else
         while [ $i -gt 0 ]
         do
-            let acu=acu**2%n
+            acu=`echo "$acu^2%$n" | bc`
 
             if [ $acu -eq "1" ]
             then

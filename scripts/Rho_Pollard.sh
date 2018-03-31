@@ -22,6 +22,6 @@ then
     echo "$n es primo"
 else
     res=`echo "$n/$d" | bc`
-    echo "$n = $res·$d"
+    echo "$n = $d·$res"
 fi
 
