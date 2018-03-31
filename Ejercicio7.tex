@@ -65,9 +65,53 @@
 		\label{Miller-Rabin}
 		\end{algorithm}
 		
-		Claramente, ni $n_1$ ni $n_2$ son primos pues fallan en la primera prueba:
+		Claramente, ni $n_1$ ni $n_2$ son compuestos pues fallan en la primera prueba\footnote{Nótese que deberían
+		hacerse varias pruebas antes de declarar un número posible primo pero basta hacer una que nos diga que es
+		compuesto para poder parar y tener seguridad de que es compuesto, como ha sido nuestro caso en el primer
+		paso}:
 		\begin{itemize}
 			\item $2^{n_1-1} \equiv_{n_1} 9704949 \neq 1$
 			\item $2^{n_2-1} \equiv_{n_2} 2931403 \neq 1$
 		\end{itemize}
+		
+		Llegados a este paso, quedarían dos vertientes en función de la salida del test de Miller-Rabin: compuesto
+		o posible primo:
+		
+		\begin{enumerate}
+			\item En caso de que sea compuesto, aplicaremos el método de Fermat o el $\rho$ de Pollard para
+			encontrar factores de ambos.
+			
+			Empezaremos viendo el método de Fermat, cuyo algoritmo sería:
+			\begin{algorithm}[H]
+			\begin{algorithmic}[1]
+				\REQUIRE \ \\
+					\texttt{$n$}, número a descomponer \\ \
+				\STATE{\texttt{$s = \lfloor \sqrt{n} \rfloor$}}
+				\IF{\texttt{$s^2 - n = 0$}}
+					\PRINT{\texttt{$\{s, s\}$}}
+				\ELSE
+					\STATE{\texttt{$s = s+1$}}
+					\STATE{\texttt{$r = s^2 - n$}}
+					\STATE{\texttt{$u = 2s + 1$}}
+					\STATE{\texttt{$v = 1$}}
+					\WHILE{\texttt{$r \neq 0$}}
+						\IF{\texttt{$r > 0$}}
+							\STATE{\texttt{$r = r - v$}}
+							\STATE{\texttt{$v = v + 2$}}
+						\ELSIF{\texttt{$r < 0$}}
+							\STATE{\texttt{$r = r + u$}}
+							\STATE{\texttt{$u = u + 2$}}
+						\ENDIF
+					\ENDWHILE
+					\PRINT{\texttt{$\displaystyle \{\frac{u-v}{2}, \frac{u+v-2}{2}\}$}}
+				\ENDIF
+			\end{algorithmic}
+			\caption{Método de factorización de Fermat.}
+			\label{Fermat-factors}
+			\end{algorithm}
+			
+			El problema de este algoritmo salta a la vista pues necesitamos 3231867 pasos para descomponer
+			$n_1 = 3234983 \cdot 3$ y 634 pasos para descomponer $n_2 = 2347 \cdot 1249$. Por lo que en la
+			práctica no se suele usar.
+		\end{enumerate}
 	\end{enumerate}
