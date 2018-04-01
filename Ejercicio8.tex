@@ -1,0 +1,47 @@
+	Sea $n$ el siguiente número primo mayor estricto que tu DNI$^2$, así $n$ tendrá 15 cifras decimales.
+	\begin{enumerate}
+		\item Repite el ejercicio anterior\footnote{Por tanto, las explicaciones quedarán relegadas pues ya se
+		dieron.} para el nuevo $n$.
+	\end{enumerate}
+	
+\section*{Solución}
+	\begin{enumerate}
+		\item Tenemos $n-1 = 2 \cdot 339325190372289 = 2 \cdot n_1$ y $n+1 = 2^2 \cdot 169662595186145 = 2^2 \cdot n_2$.
+		
+		Tras realizar las etapas del algoritmo tenemos:
+		\begin{itemize}
+			\item $n_1 = 3 \cdot 11 \cdot 17 \cdot 137 \cdot 4415019977$ con:
+			\begin{itemize}
+				\item 2 un elemento primitivo de $\mathbb{Z}^*_{3}$.
+				\item 2 un elemento primitivo de $\mathbb{Z}^*_{11}$.
+				\item 3 un elemento primitivo de $\mathbb{Z}^*_{17}$.
+				\item 3 un elemento primitivo de $\mathbb{Z}^*_{137}$.
+				\item 3 un elemento primitivo de $\mathbb{Z}^*_{4415019977}$.
+				\item El algoritmo de Fermat necesita demasiados pasos, por lo que no tiene sentido utilizarlo.
+				\item El algoritmo $\rho$ de Pollard pasa por:
+				\begin{itemize}
+					\item $n_1 = 3 \cdot 113108396790763$ en 1 paso.
+					\item $n_1 = 3 \cdot 11 \cdot 10282581526433$ en 4 pasos.
+					\item $n_1 = 3 \cdot 11 \cdot 17 \cdot 604857736849$ en 6 pasos.
+					\item $n_1 = 3 \cdot 11 \cdot 17 \cdot 137 \cdot 4415019977$ en 17 pasos.
+				\end{itemize}
+			\end{itemize}
+			
+			\item $n_2 = 5 \cdot 19 \cdot 43 \cdot 61 \cdot 680870017$ con:
+			\begin{itemize}
+				\item 2 un elemento primitivo de $\mathbb{Z}^*_{5}$.
+				\item 2 un elemento primitivo de $\mathbb{Z}^*_{19}$.
+				\item 3 un elemento primitivo de $\mathbb{Z}^*_{43}$.
+				\item 2 un elemento primitivo de $\mathbb{Z}^*_{61}$.
+				\item 10 un elemento primitivo de $\mathbb{Z}^*_{680870017}$.
+				\item El algoritmo de Fermat necesita demasiados pasos, por lo que no tiene sentido utilizarlo.
+				\item El algoritmo $\rho$ de Pollard pasa por:
+				\begin{itemize}
+					\item $n_2 = 5 \cdot 33932519037229$ en 3 pasos.
+					\item $n_2 = 5 \cdot 19 \cdot 1785922054591$ en 4 pasos.
+					\item $n_2 = 5 \cdot 19 \cdot 43 \cdot 41533071037$ en 6 pasos.
+					\item $n_2 = 5 \cdot 19 \cdot 43 \cdot 61 \cdot 680870017$ en 10 pasos.
+				\end{itemize}
+			\end{itemize}
+		\end{itemize}
+	\end{enumerate}
