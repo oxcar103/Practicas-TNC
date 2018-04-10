@@ -1,7 +1,28 @@
-	Sea $p$ el siguiente número primo mayor estricto que tu DNI y sea la curva elíptica $y^2 = x^3 + 4x$.
+	Sea $p$ el siguiente número primo mayor estricto que tu DNI y sea la curva elíptica $E: y^2 = x^3 + 4x$.
 	\begin{enumerate}
-		\item Calcula el número de puntos módulo $p$.
-		\item Dado el punto $P = (2,4)$, calcula el orden en el grupo abeliano de la curva elíptica.
+		\item Calcula el número de puntos módulo $p$, que denotaremos $M_p(E)$.
+		\item Dado el punto $P = (2,4)$, calcula el orden en el grupo abeliano de la curva elíptica $E$.
 	\end{enumerate}
 	
 \section*{Solución}
+	\begin{enumerate}
+		\item Para calcular el número de puntos módulos $p$ podríamos basarnos en un resultado visto en teoría
+		en el cuál si $p$ es un primo impar, se tiene una expresión para calcularlo:
+		$$\displaystyle M_p(E) = p + 1 + \sum_{x=0}^{p-1} \left( \frac{x^3 + ax^2 + bx + c}{p} \right)$$
+		
+		Sin embargo, este resultado, aunque eficaz, no es eficiente dado el gran número de veces que es necesario
+		aplicar el símbolo de Jacobi.
+		
+		Por ello, nos aprovecharemos de otro resultado que tiene como condiciones:
+		\begin{itemize}
+			\item $q \equiv_4 3$ primo.
+			\item La curva elíptica $F$ sea de la forma $y^2 = x^3 + bx$
+			\item $b \in \mathbb{Z}$ no múltiplo de $q$
+		\end{itemize}
+		Entonces, se tiene que $M_q(F) = q+1$.
+
+		Claramente, nuestro $p$, nuestra $E$ y nuestro $b$ cumplen las condiciones, por lo que tenemos $M_p(E)
+		= p+1 = 26050968$.
+		
+		\item 
+	\end{enumerate}
