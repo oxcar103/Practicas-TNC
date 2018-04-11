@@ -13,7 +13,7 @@ let points=p+1                                  # Valor incial del número de pu
 for x in `seq 0 $(( p-1 ))`
 do
     z=`echo "($x^3+$a*$x^2+$b*$x+$c) %$p" | bc` # Calculamos su valor y^2 = z en la curva
-    s=`./scripts/Jacobi_symbol.sh $x $p`        # Calculamos su símbolo de Jacobi
+    s=`./scripts/Jacobi_symbol.sh $z $p`        # Calculamos su símbolo de Jacobi
     let points=points+s                         # Lo añadimos al número de puntos
 done
 
