@@ -28,8 +28,8 @@ sum_p(){
         if [ $y_m -ne $y_n ]
         then
             # La suma es el punto del infinito
-            x_r=0
-            y_r=0
+            x_r=inf
+            y_r=inf
 
         # Si no...
         else
@@ -74,8 +74,8 @@ let x_i=x_e%p
 let y_i=y_e%p
 i=1
 
-# Mientras no nos devuelva el punto del infinito...
-while [ $x_i -ne "0" ]
+# Hasta que nos devuelva el punto del infinito...
+until [ "$x_i" == "inf" ]
 do
     element=`sum_p $x_e $y_e $x_i $y_i`         # Calculamos (i+1)*elemento
     x_i=`echo $element | cut -f 1 -d ,`
