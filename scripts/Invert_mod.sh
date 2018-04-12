@@ -4,6 +4,8 @@
 num=$1                                          # Primer parámetro: número que invertir
 p=$2                                            # Segundo parámetro: primo
 
+num=`echo "(($num%$p)+$p)%$p" | bc`
+
 # Si num es nulo...
 if [ $num -eq "0" ]
 then
@@ -25,3 +27,4 @@ fi
 
 # Devolvemos el inverso
 echo $inv
+
