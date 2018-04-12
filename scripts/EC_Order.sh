@@ -18,12 +18,14 @@ sum_p(){
     x_n=$3
     y_n=$4
 
+    s=0
+
     # Si las coordenadas x coinciden...
     if [ $x_m -eq $x_n ]
     then
 
         # Si son opuestos...
-        if [ $y_m -eq $y_n ]
+        if [ $y_m -ne $y_n ]
         then
             # La suma es el punto del infinito
             x_r=0
@@ -32,15 +34,19 @@ sum_p(){
         # Si no...
         else
             # Calculamos x_r e y_r de forma apropiada
-            s=`echo "(3*$x_m^2 + 2*$a*$x_m + $b) / (2*$y_m)" | bc`
-            x_r=`echo "((($s^2 - $a - 2*$x_m) % $p) + $p) % $p" | bc`
-            y_r=`echo "(((-($y_m + $s*($x_r - $x_m))) % $p) + $p) % $p" | bc`
+            inv=`./scripts/Invert_mod.sh $(( 2*$y_m )) $p`
+            s=`echo "(3*$x_m^2 + 2*$a*$x_m + $b) * $inv" | bc`
         fi
 
     # Si no...
     else
         # Calculamos x_r e y_r de forma apropiada
-        s=`echo "($y_n - $y_m) / ($x_n - $x_m)" | bc`
+        inv=`./scripts/Invert_mod.sh $(( $x_n-$x_m )) $p`
+        s=`echo "($y_n - $y_m) * $inv" | bc`
+    fi
+
+    if [ $s -ne "0" ]
+    then
         x_r=`echo "((($s^2 - $a - $x_m - $x_n) % $p) + $p) % $p" | bc`
         y_r=`echo "(((-($y_m + $s*($x_r - $x_m))) % $p) + $p) % $p" | bc`
     fi
