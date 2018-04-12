@@ -24,5 +24,18 @@
 		Claramente, nuestro $p$, nuestra $E$ y nuestro $b$ cumplen las condiciones, por lo que tenemos $M_p(E)
 		= p+1 = 26050968$.
 		
-		\item 
+		\item Para calcular el orden de $P$, nos basta con sumarlo sucesivamente consigo mismo hasta obtener
+		como resultado el punto del infinito: $<0, 1, 0>$
+		
+		Previamente, tenemos que tener en cuenta algunos detalles:
+		\begin{itemize}
+			\item Si tenemos $Q = (x_q, y_q)$ y $R = (x_r, y_r)$, entonces:
+			$$S = Q + R = (x_s, y_s) \equiv_p (m^2 - a - x_q - x_r, -y_q - m(x_s - x_q)) \quad \text{con }
+			m=\frac{y_r - y_q}{x_r - x_q}$$
+			\item Si tenemos $Q = (x, y)$ y $-Q = (x, -y)$, entonces:
+			$$S = Q + (-Q) = (x_s, y_s) \equiv_p <0, 1, 0>$$
+			\item Si tenemos $Q = (x, y)$, entonces:
+			$$S = Q + Q = (x_s, y_s) \equiv_p (m^2 - a - 2x, -y - m(x_s - x)) \quad \text{con }
+			m=\frac{3x^2 + 2ax + b}{2y}$$
+		\end{itemize}
 	\end{enumerate}
