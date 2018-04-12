@@ -4,21 +4,24 @@
 num=$1                                          # Primer parámetro: número que invertir
 p=$2                                            # Segundo parámetro: primo
 
-num=`echo "(($num%$p)+$p)%$p" | bc`
+num=`echo "(($num%$p)+$p)%$p" | bc`             # Hacemos módulo a la entrada
+inv=0                                           # Si p es primo, existe y es único
 
-# Si num es nulo...
-if [ $num -eq "0" ]
+# Si num no es nulo...
+if [ $num -ne "0" ]
 then
-    inv=0                                       # No existe el inverso
+    # Valores iniciales
+    prod=0
+    i=0
 
-# Si no...
-else
-    # Buscamos el inverso a fuerza bruta...
-    for i in `seq $(( p-1 ))`
+    # Buscamos el inverso por fuerza bruta...
+    while [ $inv -eq "0" ]
     do
-        prod=`echo "($num*$i)%$p" | bc`
+        let prod=($prod+$num)%$p                # Valor del producto entre el número y el candidato
+        let i=i+1                               # Siguiente candidato
 
-        if [ $prod -eq "1" ]                    # Si p es primo, es único
+        # Si el candidato es la identidad...
+        if [ $prod -eq "1" ]
         then
             inv=$i                              # Guardamos el inverso
         fi
