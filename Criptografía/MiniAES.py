@@ -24,3 +24,6 @@ def SubBytes(a0, a1, a2, a3):
 def ShiftRows(a0, a1, a2, a3):
     return [a0, a3, a2, a1]
 
+def AddRoundKey(k0, k1, k2, k3, a0, a1, a2, a3):
+    return [k0^a0, k1^a1, k2^a2, k3^a3]
+
