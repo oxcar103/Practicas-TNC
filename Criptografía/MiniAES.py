@@ -7,7 +7,17 @@ EXP = {
 0xC: 0b1111, 0xD: 0b1101, 0xE: 0b1001, 0xF: 0b0001}
 EXP_INV = {}
 
+SUB = {
+0b0000: 0b0011, 0b0001: 0b1000, 0b0010: 0b1111, 0b0011: 0b0111,
+0b0100: 0b0001, 0b0101: 0b0010, 0b0110: 0b1011, 0b0111: 0b000,
+0b1000: 0b1100, 0b1001: 0b1110, 0b1010: 0b1010, 0b1011: 0b0110,
+0b1100: 0b1001, 0b1101: 0b1101, 0b1110: 0b0101, 0b1111: 0b0100}
+SUB_INV = {}
+
 for i in EXP:
   EXP_INV[EXP[i]] = i
+  SUB_INV[SUB[i]] = i
 
+def SubBytes(a0, a1, a2, a3):
+    return [SUB[a0], SUB[a1], SUB[a2], SUB[a3]]
 
