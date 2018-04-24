@@ -21,3 +21,6 @@ for i in EXP:
 def SubBytes(a0, a1, a2, a3):
     return [SUB[a0], SUB[a1], SUB[a2], SUB[a3]]
 
+def ShiftRows(a0, a1, a2, a3):
+    return [a0, a3, a2, a1]
+
