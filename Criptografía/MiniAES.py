@@ -18,11 +18,26 @@ for i in EXP:
   EXP_INV[EXP[i]] = i
   SUB_INV[SUB[i]] = i
 
+def Prod(a, b):
+    if a == 0 or b == 0:
+        return 0
+    else:
+        exp = EXP_INV[a] + EXP_INV[b]
+        if exp >= len(EXP):
+            exp = exp % len(EXP) + 1
+
+        return EXP[exp]
+
 def SubBytes(a0, a1, a2, a3):
     return [SUB[a0], SUB[a1], SUB[a2], SUB[a3]]
 
 def ShiftRows(a0, a1, a2, a3):
     return [a0, a3, a2, a1]
+
+def MixColumns(a0, a1, a2, a3):
+    C = [0b0011, 0b0010, 0b0010, 0b0011]
+
+    return [Prod(a0, C[0])^Prod(a1, C[2]), Prod(a0, C[1])^Prod(a1, C[3]), Prod(a2, C[0])^Prod(a3, C[2]), Prod(a2, C[1])^Prod(a3, C[3])]
 
 def AddRoundKey(k0, k1, k2, k3, a0, a1, a2, a3):
     return [k0^a0, k1^a1, k2^a2, k3^a3]
