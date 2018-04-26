@@ -39,16 +39,6 @@ def Prod(a, b):
         # Devolvemos el polinomio
         return EXP[exp]
 
-def PrintBin(args):
-    msg=""
-
-    for i in args:
-        binary = bin(i).split("b")[-1][-4:]
-        binary = '0'*(4-len(binary))+binary
-        msg+=binary + " "
-
-    print(msg)
-
 def digits (num, base):
     digits=[]
 
@@ -101,4 +91,3 @@ def MiniAES(k, a):
     k2=[w[8], w[9], w[10], w[11]]
     return AddRoundKey(k2, ShiftRows(SubBytes(AddRoundKey(k1, MixColumns(ShiftRows(SubBytes(AddRoundKey(k0, digits(a, 0x10)))))))))
 
-PrintBin(MiniAES(0x1234, 0x5678))
