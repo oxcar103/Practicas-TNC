@@ -221,3 +221,4 @@ TSWLatexianTemp*
 
 # Temporal files
 *~
+__pycache__/
