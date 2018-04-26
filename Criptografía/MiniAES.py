@@ -39,15 +39,6 @@ def Prod(a, b):
         # Devolvemos el polinomio
         return EXP[exp]
 
-def digits (num, base):
-    digits=[]
-
-    while(num != 0):
-        digits = [num%base] + digits
-        num//=base
-
-    return digits
-
 # Nótese que en las siguientes funciones trabajaremos por lista con la matriz:
 #      | a[0]  a[2] |
 #  a = | a[1]  a[3] |
