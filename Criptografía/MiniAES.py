@@ -59,26 +59,26 @@ def digits (num, base):
     return digits
 
 # Nótese que en las siguientes funciones trabajaremos por lista con la matriz:
-#  | a0  a2 |
-#  | a1  a3 |
+#      | a[0]  a[2] |
+#  a = | a[1]  a[3] |
 
-def SubBytes(a0, a1, a2, a3):
+def SubBytes(a):
     # Sustituimos cada valor por su correspondiente valor
-    return [SUB[a0], SUB[a1], SUB[a2], SUB[a3]]
+    return [SUB[a[0]], SUB[a[1]], SUB[a[2]], SUB[a[3]]]
 
-def ShiftRows(a0, a1, a2, a3):
+def ShiftRows(a):
     # Permutamos la segunda fila de la matriz A
-    return [a0, a3, a2, a1]
+    return [a[0], a[3], a[2], a[1]]
 
-def MixColumns(a0, a1, a2, a3):
+def MixColumns(a):
     # Creamos la matriz C
     C = [0b0011, 0b0010, 0b0010, 0b0011]
 
     # Multiplicamos la matriz C por la matriz A
-    return [Prod(a0, C[0])^Prod(a1, C[2]), Prod(a0, C[1])^Prod(a1, C[3]), Prod(a2, C[0])^Prod(a3, C[2]), Prod(a2, C[1])^Prod(a3, C[3])]
+    return [Prod(a[0], C[0])^Prod(a[1], C[2]), Prod(a[0], C[1])^Prod(a[1], C[3]), Prod(a[2], C[0])^Prod(a[3], C[2]), Prod(a[2], C[1])^Prod(a[3], C[3])]
 
-def AddRoundKey(k0, k1, k2, k3, a0, a1, a2, a3):
+def AddRoundKey(k, a):
     # Sumamos las matrices K y A
-    return [k0^a0, k1^a1, k2^a2, k3^a3]
+    return [k[0]^a[0], k[1]^a[1], k[2]^a[2], k[3]^a[3]]
 
 PrintBin(SubBytes(1,2,3,4))
