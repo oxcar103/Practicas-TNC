@@ -50,6 +50,38 @@ def PrintBin(args):
     # Mostramos el mensaje
     print(msg)
 
+def EncECB(m, k):
+    # Criptograma inicial
+    c = []
+
+    # Troceamos el mensaje y la clave en bloques
+    m = Digits(m, 0x10000)
+    k = Digits(k, 0x10)
+
+    # Para cada trozo del mensaje...
+    for i in m:
+        # Añadimos el nuevo criptograma cifrando el trozo de mensaje
+        c = c + [DigitsInv(EncMiniAES(k, Digits(i, 0x10)), 0x10)]
+
+    # Devolvemos el criptograma
+    return DigitsInv(c, 0x10000)
+
+def DecECB(m, k):
+    # Mensaje inicial
+    m = []
+
+    # Troceamos el criptograma y la clave en bloques
+    c = Digits(c, 0x10000)
+    k = Digits(k, 0x10)
+
+    # Para cada trozo del criptograma...
+    for i in c:
+        # Restauramos el mensaje descifrando el trozo de criptograma
+        m = m + [DigitsInv(EncMiniAES(k, Digits(i, 0x10)), 0x10)]
+
+    # Devolvemos el mensaje
+    return DigitsInv(m, 0x10000)
+
 def EncOFB(m, k, IV):
     # Criptograma inicial
     c = []
