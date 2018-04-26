@@ -68,7 +68,7 @@ def EncECB(m, k):
     return DigitsInv(c, 0x10000)
 
 # Descifrado usando Electronic CodeBook
-def DecECB(m, k):
+def DecECB(c, k):
     # Mensaje inicial
     m = []
 
@@ -79,7 +79,7 @@ def DecECB(m, k):
     # Para cada trozo del criptograma...
     for i in c:
         # Restauramos el mensaje descifrando el trozo de criptograma
-        m = m + [DigitsInv(EncMiniAES(k, Digits(i, 0x10)), 0x10)]
+        m = m + [DigitsInv(DecMiniAES(k, Digits(i, 0x10)), 0x10)]
 
     # Devolvemos el mensaje
     return DigitsInv(m, 0x10000)
@@ -130,4 +130,4 @@ def DecOFB(c, k, IV):
     # Devolvemos el mensaje
     return DigitsInv(m, 0x10000)
 
-PrintBin(Digits(DecOFB(EncOFB(0x01234567, 33127, 0x10000), 33127, 0x10000),0x10))
+PrintBin(Digits(DecECB(EncECB(0x01234567, 33127), 33127),0x10))
