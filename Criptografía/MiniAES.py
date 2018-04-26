@@ -39,6 +39,16 @@ def Prod(a, b):
         # Devolvemos el polinomio
         return EXP[exp]
 
+def PrintBin(args):
+    msg=""
+
+    for i in args:
+        binary = bin(i).split("b")[-1][-4:]
+        binary = '0'*(4-len(binary))+binary
+        msg+=binary + " "
+
+    print(msg)
+
 # Nótese que en las siguientes funciones trabajaremos por lista con la matriz:
 #  | a0  a2 |
 #  | a1  a3 |
@@ -62,3 +72,4 @@ def AddRoundKey(k0, k1, k2, k3, a0, a1, a2, a3):
     # Sumamos las matrices K y A
     return [k0^a0, k1^a1, k2^a2, k3^a3]
 
+PrintBin(SubBytes(1,2,3,4))
