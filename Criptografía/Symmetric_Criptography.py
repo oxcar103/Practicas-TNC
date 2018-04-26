@@ -1,4 +1,15 @@
+#!/usr/bin/env python
+
 from MiniAES import MiniAES
+
+def digits (num, base):
+    digits=[]
+
+    while(num != 0):
+        digits = [num%base] + digits
+        num//=base
+
+    return digits
 
 def PrintBin(args):
     msg=""

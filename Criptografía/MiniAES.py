@@ -72,7 +72,7 @@ def AddRoundKey(k, a):
     return [k[0]^a[0], k[1]^a[1], k[2]^a[2], k[3]^a[3]]
 
 def GenerateKeys(k):
-    w = digits(k, 0x10)
+    w = k
 
     for i in range(4, 12):
         if i == 4:
@@ -86,8 +86,9 @@ def GenerateKeys(k):
 
 def MiniAES(k, a):
     w = GenerateKeys(k)
-    k0=[w[0], w[1], w[2], w[3]]
-    k1=[w[4], w[5], w[6], w[7]]
-    k2=[w[8], w[9], w[10], w[11]]
-    return AddRoundKey(k2, ShiftRows(SubBytes(AddRoundKey(k1, MixColumns(ShiftRows(SubBytes(AddRoundKey(k0, digits(a, 0x10)))))))))
+    k0=w[0:4]
+    k1=w[4:8]
+    k2=w[8:12]
+
+    return AddRoundKey(k2, ShiftRows(SubBytes(AddRoundKey(k1, MixColumns(ShiftRows(SubBytes(AddRoundKey(k0, a))))))))
 
