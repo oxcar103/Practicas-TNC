@@ -83,7 +83,15 @@ def AddRoundKey(k, a):
 
 def GenerateKeys(k):
     w = digits(k, 0x10)
-    w = w + w + w
+
+    for i in range(4, 12):
+        if i == 4:
+            w = w + [w[0]^SUB[w[3]]^0b0001]
+        elif i == 8:
+            w = w + [w[4]^SUB[w[7]]^0b0010]
+        else:
+            w = w + [w[i-4]^w[i-1]]
+
     return w
 
 def MiniAES(k, a):
