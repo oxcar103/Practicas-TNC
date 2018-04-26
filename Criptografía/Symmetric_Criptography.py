@@ -50,4 +50,27 @@ def PrintBin(args):
     # Mostramos el mensaje
     print(msg)
 
-PrintBin(DecMiniAES(digits(0x1234,0x10), EncMiniAES(digits(0x1234,0x10), digits(0x5678,0x10))))
+def EncOFB(m, k, IV):
+    # Lista inicial de criptogramas
+    c = []
+
+    # Valor inicial
+    x = IV
+
+    # Troceamos el mensaje y la clave en bloques
+    m = Digits(m, 0x10000)
+    k = Digits(k, 0x10)
+
+    print(k)
+    # Crear el code en bloques:
+    for i in m:
+        # Calculamos el nuevo valor
+        x = DigitsInv(EncMiniAES(k, Digits(x, 0x10)), 0x10)
+
+        # Añadimos el nuevo criptograma
+        c = c + [i^x]
+
+    # Devolvemos los criptogramas
+    return DigitsInv(c, 0x10000)
+
+PrintBin(Digits(DecOFB(EncOFB(0x01234567, 33127, 0x10000), 33127, 0x10000),0x10))
