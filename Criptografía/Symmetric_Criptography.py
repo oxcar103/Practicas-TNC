@@ -50,6 +50,7 @@ def PrintBin(args):
     # Mostramos el mensaje
     print(msg)
 
+# Cifrado usando Electronic CodeBook
 def EncECB(m, k):
     # Criptograma inicial
     c = []
@@ -66,6 +67,7 @@ def EncECB(m, k):
     # Devolvemos el criptograma
     return DigitsInv(c, 0x10000)
 
+# Descifrado usando Electronic CodeBook
 def DecECB(m, k):
     # Mensaje inicial
     m = []
@@ -82,6 +84,7 @@ def DecECB(m, k):
     # Devolvemos el mensaje
     return DigitsInv(m, 0x10000)
 
+# Cifrado usando Output FeedBack
 def EncOFB(m, k, IV):
     # Criptograma inicial
     c = []
@@ -104,6 +107,7 @@ def EncOFB(m, k, IV):
     # Devolvemos el criptograma
     return DigitsInv(c, 0x10000)
 
+# Descifrado usando Output FeedBack
 def DecOFB(c, k, IV):
     # Mensaje inicial
     m = []
