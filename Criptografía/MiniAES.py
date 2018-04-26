@@ -56,6 +56,10 @@ def SubBytes(a):
     # Sustituimos cada valor por su correspondiente valor
     return [SUB[a[0]], SUB[a[1]], SUB[a[2]], SUB[a[3]]]
 
+def SubBytesInv(a):
+    # Sustituimos cada valor por su correspondiente valor
+    return [SUB_INV[a[0]], SUB_INV[a[1]], SUB_INV[a[2]], SUB_INV[a[3]]]
+
 def ShiftRows(a):
     # Permutamos la segunda fila de la matriz A
     return [a[0], a[3], a[2], a[1]]
@@ -84,11 +88,19 @@ def GenerateKeys(k):
 
     return w
 
-def MiniAES(k, a):
+def EncMiniAES(k, a):
     w = GenerateKeys(k)
     k0=w[0:4]
     k1=w[4:8]
     k2=w[8:12]
 
     return AddRoundKey(k2, ShiftRows(SubBytes(AddRoundKey(k1, MixColumns(ShiftRows(SubBytes(AddRoundKey(k0, a))))))))
+
+def DecMiniAES(k, a):
+    w = GenerateKeys(k)
+    k0=w[0:4]
+    k1=MixColumns(w[4:8])
+    k2=w[8:12]
+
+    return AddRoundKey(k0, ShiftRows(SubBytesInv(AddRoundKey(k1, MixColumns(ShiftRows(SubBytesInv(AddRoundKey(k2, a))))))))
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from MiniAES import MiniAES
+from MiniAES import EncMiniAES, DecMiniAES
 
 def digits (num, base):
     digits=[]
@@ -10,6 +10,7 @@ def digits (num, base):
         num//=base
 
     return digits
+
 
 def PrintBin(args):
     msg=""
@@ -21,4 +22,4 @@ def PrintBin(args):
 
     print(msg)
 
-PrintBin(MiniAES(0x1234, 0x5678))
+PrintBin(DecMiniAES(digits(0x1234,0x10), EncMiniAES(digits(0x1234,0x10), digits(0x5678,0x10))))
