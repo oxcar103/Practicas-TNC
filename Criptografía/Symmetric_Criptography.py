@@ -2,15 +2,22 @@
 
 from MiniAES import EncMiniAES, DecMiniAES
 
-def digits (num, base):
+def Digits (num, base):
     digits=[]
 
     while(num != 0):
         digits = [num%base] + digits
-        num//=base
+        num //= base
 
     return digits
 
+def DigitsInv (digits, base):
+    num=0
+
+    for i in digits:
+        num = num*base + i
+
+    return num
 
 def PrintBin(args):
     msg=""
