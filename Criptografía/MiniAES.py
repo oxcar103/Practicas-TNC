@@ -49,6 +49,15 @@ def PrintBin(args):
 
     print(msg)
 
+def digits (num, base):
+    digits=[]
+
+    while(num != 0):
+        digits = [num%base] + digits
+        num//=base
+
+    return digits
+
 # Nótese que en las siguientes funciones trabajaremos por lista con la matriz:
 #  | a0  a2 |
 #  | a1  a3 |
