@@ -94,6 +94,55 @@ def DecECB(k, c):
     # Devolvemos el mensaje
     return DigitsInv(m, 0x10000)
 
+# Cifrado usando Cypher-Book Chaining
+def EncCBC(k, m, IV):
+    # Criptograma inicial
+    c = [IV]
+
+    # Troceamos el mensaje y la clave en bloques
+    m = Digits(m, 0x10000)
+    k = Digits(k, 0x10)
+
+    # Para cada trozo del mensaje...
+    for i in m:
+        # Le sumamos c_(i-1) y lo transformamos en 4 dígitos
+        d_i = Digits(i^c[-1], 0x10)
+        while len(d_i) < 4:
+            d_i = [0] + d_i
+
+        # Añadimos el nuevo criptograma cifrando el trozo de mensaje
+        c = c + [DigitsInv(EncMiniAES(k, d_i), 0x10)]
+
+    # Devolvemos el criptograma
+    return DigitsInv(c, 0x10000)
+
+# Descifrado usando Cypher-Book Chaining
+def DecCBC(k, c):
+    # Mensaje inicial
+    m = []
+
+    # Troceamos el criptograma y la clave en bloques
+    c = Digits(c, 0x10000)
+    (c_previous, c) = (c[0], c[1:])
+    k = Digits(k, 0x10)
+
+    # Para cada trozo del criptograma...
+    for i in c:
+        # Lo transformamos en 4 dígitos
+        d_i = Digits(i, 0x10)
+        while len(d_i) < 4:
+            d_i = [0] + d_i
+
+        # Restauramos el mensaje descifrando el trozo de criptograma
+        m = m + [DigitsInv(DecMiniAES(k, d_i), 0x10)^c_previous]
+
+        # Actualizamos c_(i-1)
+        c_previous = i
+
+    # Devolvemos el mensaje
+    return DigitsInv(m, 0x10000)
+
+
 # Cifrado usando Output FeedBack
 def EncOFB(k, m, IV):
     # Criptograma inicial
@@ -144,5 +193,6 @@ def DecOFB(k, c, IV):
     # Devolvemos el mensaje
     return DigitsInv(m, 0x10000)
 
-PrintBin(Digits(DecOFB(33127, EncOFB(33127, 0x01234567, 0x10000), 0x10000),0x10))
 PrintBin(Digits(DecECB(33127, EncECB(33127, 0x01234567)),0x10))
+PrintBin(Digits(DecCBC(33127, EncCBC(33127, 0x01234567, 0x1000)),0x10))
+PrintBin(Digits(DecOFB(33127, EncOFB(33127, 0x01234567, 0x1000), 0x10000),0x10))
