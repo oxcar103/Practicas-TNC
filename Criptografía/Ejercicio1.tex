@@ -4,3 +4,102 @@
 		\item Calcula $E_{dni}(\mathrm{0x01234567})$ usando el modo CFB, $r = 3$ e $IV = \mathrm{0x0001}$
 	\end{enumerate}
 \section*{Solución}
+	Para mi DNI particular se tiene que $dni = 1000\ 0001\ 0110\ 0111_2 = \mathrm{0x8167}$.
+	
+	Antes de pasar a la descripción de los modos de operación, repasaremos el algoritmo MiniAES visto en clase.
+	
+	Lo primero es notar que tiene las mismas bases matemáticas que el algoritmo AES pero tomando números y
+	polinomios menores. Esto es, mientras el AES requiere 128 bits, MiniAES sólo 16 bits, y mientras que AES
+	trabaja sobre $\mathbb{Z}_2(\xi)_{\xi^8+\xi^4+\xi^3+\xi+1}$, MiniAES sobre $\mathbb{Z}_2(\xi)_{\xi^4+\xi+1}$.
+	
+	El algoritmo básico de cifrado de MiniAES es:
+	\begin{algorithm}[H]
+		\begin{algorithmic}[1]
+			\REQUIRE \ \\
+				\texttt{$m$}, mensaje \\
+				\texttt{$k$}, clave\\ \
+			\STATE{\texttt{$k_0, k_1, k_2 = GenerateKeys(k)$}}
+			\STATE{\texttt{$aes_0 = m$}}
+			\STATE{\texttt{$aes_1 = AddRoundKey(k_0, aes_0)$}}
+			\STATE{\texttt{$aes_2 = SubBytes(aes_1)$}}
+			\STATE{\texttt{$aes_3 = ShiftRows(aes_2)$}}
+			\STATE{\texttt{$aes_4 = MixColumns(aes_3)$}}
+			\STATE{\texttt{$aes_5 = AddRoundKey(k_1, aes_4)$}}
+			\STATE{\texttt{$aes_6 = SubBytes(aes_5)$}}
+			\STATE{\texttt{$aes_7 = ShiftRows(aes_6)$}}
+			\STATE{\texttt{$c = aes_8 = AddRoundKey(k_2, aes_7)$}}
+
+			\PRINT{\texttt{$c$}, criptograma}
+		\end{algorithmic}
+		\caption{Algoritmo de cifrado MiniAES para 16 bits.}
+		\label{EncMiniAES}
+	\end{algorithm}
+	
+	Y el de descifrado sería:	
+	\begin{algorithm}[H]
+		\begin{algorithmic}[1]
+			\REQUIRE \ \\
+				\texttt{$c$}, criptograma \\
+				\texttt{$k$}, clave\\ \
+			\STATE{\texttt{$k_0, k_1, k_2 = GenerateKeys(k)$}}
+			\STATE{\texttt{$aes_8 = c$}}
+			\STATE{\texttt{$aes_7 = AddRoundKey(k_2, aes_8)$}}
+			\STATE{\texttt{$aes_6 = SubBytesInv(aes_7)$}}
+			\STATE{\texttt{$aes_5 = ShiftRows(aes_6)$}}
+			\STATE{\texttt{$aes_4 = MixColumns(aes_5)$}}
+			\STATE{\texttt{$aes_3 = AddRoundKey(MixColumns(k_1), aes_4)$}}
+			\STATE{\texttt{$aes_2 = SubBytesInv(aes_3)$}}
+			\STATE{\texttt{$aes_1 = ShiftRows(aes_2)$}}
+			\STATE{\texttt{$m = aes_0 = AddRoundKey(k_0, aes_1)$}}
+
+			\PRINT{\texttt{$m$}, mensaje}
+		\end{algorithmic}
+		\caption{Algoritmo de descifrado MiniAES para 16 bits.}
+		\label{DecMiniAES}
+	\end{algorithm}
+	
+	A continuación, desgranemos cada una de estas funciones.
+	
+	Empecemos por la más simple, $AddRoundKey(k_r, aes_i) = k_r \oplus aes_i$, mezcla la clave de ronda $k_r$
+	con la variable temporal $aes_i$.
+	
+	La función $SubBytes$ se calcula como $SubBytes \left[\begin{matrix}a_0 & a_2\\ a_1 & a_3\end{matrix}\right]
+	= \left[\begin{matrix}\gamma(a_0) & \gamma(a_2) \\ \gamma(a_1) & \gamma(a_3)\end{matrix}\right]$ con:
+	$$\gamma(a) = a^{-1} \cdot \left(\begin{matrix} 0 & 1 & 1 & 1 \\ 1 & 1 & 1 & 0 \\ 1 & 1 & 0 & 1 \\
+	1 & 0 & 1 & 1 \end{matrix}\right) + \left(\begin{matrix} 0 & 0 & 1 & 1 \end{matrix}\right)$$
+	
+	La única salvedad es que por eficiencia se calculan previamente los 16 posibles valores de $\gamma(a)$ y se
+	almacenan en una tabla en lugar de calcularlos en cada llamada a $SubBytes$. Además, esto nos permite también
+	calcular fácilmente $SubBytesInv \left[\begin{matrix}a_0 & a_2\\ a_1 & a_3\end{matrix}\right] =
+	\left[\begin{matrix}\gamma^{-1}(a_0) & \gamma^{-1}(a_2) \\ \gamma^{-1}(a_1) & \gamma^{-1}(a_3)\end{matrix}\right]$
+	pues nos basta con mirar la tabla al revés.
+	
+	La función $ShiftRows$ sería $ShiftRows \left[\begin{matrix}a_0 & a_2\\ a_1 & a_3\end{matrix}\right]
+	= \left[\begin{matrix}a_0 & a_2 \\ a_3 & a_1\end{matrix}\right]$ y es su propia inversa.
+	
+	La función $MixColumns \left[\begin{matrix}a_0 & a_2\\ a_1 & a_3\end{matrix}\right] =
+	\left[\begin{matrix}0011 & 0010 \\ 0010 & 0011\end{matrix}\right] \cdot \left[\begin{matrix}a_0 & a_2 \\
+	a_3 & a_1\end{matrix}\right]$ y dado que $\left[\begin{matrix}0011 & 0010 \\ 0010 & 0011\end{matrix}\right]$
+	es su propia inversa, $MixColumns$ también.
+	
+	Por último, la función $GenerateKeys(k)$ sería:
+	\begin{algorithm}[H]
+		\begin{algorithmic}[1]
+			\REQUIRE \ \\
+				\texttt{$k$}, clave\\ \
+			\STATE{\texttt{$k = k_0 k_1 k_2 k_3 = \omega_0 \omega_1 \omega_2 \omega_3$}}
+			\STATE{\texttt{$\omega_4 = \omega_0 \oplus \gamma(\omega_3) \oplus 0001$}}
+			\STATE{\texttt{$\omega_5 = \omega_1 \oplus \omega_4$}}
+			\STATE{\texttt{$\omega_6 = \omega_2 \oplus \omega_5$}}
+			\STATE{\texttt{$\omega_7 = \omega_3 \oplus \omega_6$}}
+			\STATE{\texttt{$\omega_8 = \omega_4 \oplus \gamma(\omega_7) \oplus 0010$}}
+			\STATE{\texttt{$\omega_9 = \omega_5 \oplus \omega_8$}}
+			\STATE{\texttt{$\omega_{10} = \omega_6 \oplus \omega_9$}}
+			\STATE{\texttt{$\omega_{11} = \omega_7 \oplus \omega_{10}$}}
+
+			\PRINT{\texttt{$k_0 = \omega_0 \omega_1 \omega_2 \omega_3, k_1 = \omega_4 \omega_5 \omega_6 \omega_7,
+					k_2 = \omega_8 \omega_9 \omega_{10} \omega_{11}$}}
+		\end{algorithmic}
+		\caption{Algoritmo de generación de claves para MiniAES.}
+		\label{GenKeys}
+	\end{algorithm}
