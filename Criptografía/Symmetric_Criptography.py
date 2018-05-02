@@ -142,6 +142,65 @@ def DecCBC(k, c):
     # Devolvemos el mensaje
     return DigitsInv(m, 0x10000)
 
+# Cifrado usando Cipher FeedBack
+def EncCFB(k, m, r, IV):
+    # Criptograma inicial
+    c = []
+
+    # Troceamos el mensaje y la clave en bloques
+    m = Digits(m, 1 << r)
+    k = Digits(k, 0x10)
+
+    # Valor inicial expresado con 4 dígitos
+    x = Digits(IV, 0x10)
+    while len(x) < 4:
+        x = [0] + x
+
+    # Para cada trozo del mensaje...
+    for i in m:
+        # Calculamos el nuevo valor
+        y = EncMiniAES(k, x)
+
+        # Añadimos el nuevo criptograma sumando el trozo de mensaje y los r dígitos más significativos del nuevo valor
+        c = c + [i^(DigitsInv(y, 0x10)>>(0x10-r))]
+
+        # Tomamos los N-r cifras más significativas y le acoplamos el trozo de criptograma c
+        x = Digits((DigitsInv(x,0x10) << r) + c[-1], 0x10)[-4:]
+        while len(x) < 4:
+            x = [0] + x
+
+    # Devolvemos el criptograma
+    return DigitsInv(c, 1 << r)
+
+# Descifrado usando Cipher FeedBack
+def DecCFB(k, c, r, IV):
+    # Mensaje inicial
+    m = []
+
+    # Troceamos el criptograma y la clave en bloques
+    c = Digits(c, 1 << r)
+    k = Digits(k, 0x10)
+
+    # Valor inicial expresado con 4 dígitos
+    x = Digits(IV, 0x10)
+    while len(x) < 4:
+        x = [0] + x
+
+    # Para cada trozo del criptograma...
+    for i in c:
+        # Calculamos el nuevo valor
+        y = EncMiniAES(k, x)
+
+        # Añadimos el nuevo mensaje sumando el trozo de criptograma y los r dígitos más significativos del nuevo valor
+        m = m + [i^(DigitsInv(y, 0x10)>>(0x10-r))]
+
+        # Tomamos los N-r cifras más significativas y le acoplamos el trozo de criptograma i
+        x = Digits((DigitsInv(x,0x10) << r) + i, 0x10)[-4:]
+        while len(x) < 4:
+            x = [0] + x
+
+    # Devolvemos el mensaje
+    return DigitsInv(m, 1 << r)
 
 # Cifrado usando Output FeedBack
 def EncOFB(k, m, IV):
@@ -193,6 +252,9 @@ def DecOFB(k, c, IV):
     # Devolvemos el mensaje
     return DigitsInv(m, 0x10000)
 
-PrintBin(Digits(DecECB(33127, EncECB(33127, 0x01234567)),0x10))
-PrintBin(Digits(DecCBC(33127, EncCBC(33127, 0x01234567, 0x1000)),0x10))
-PrintBin(Digits(DecOFB(33127, EncOFB(33127, 0x01234567, 0x1000), 0x10000),0x10))
+PrintBin(Digits(DecECB(33127, EncECB(33127, 0x01234567)), 0x10))
+PrintBin(Digits(DecCBC(33127, EncCBC(33127, 0x01234567, 0x1000)), 0x10))
+PrintBin(Digits(DecCFB(33127, EncCFB(33127, 0x01234567, 3, 0x1000), 3, 0x1000), 0x10))
+PrintBin(Digits(DecOFB(33127, EncOFB(33127, 0x01234567, 0x1000), 0x1000), 0x10))
+PrintBin(Digits(DecCFB(33127, EncCFB(33127, 0x012345678, 3, 0x1000), 3, 0x1000), 0x10)) # Con padding
+PrintBin(Digits(EncCFB(0b1111001000110001, 0x012345678, 3, 0x1000), 0x10))
