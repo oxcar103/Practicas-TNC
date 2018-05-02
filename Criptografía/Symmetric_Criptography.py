@@ -32,7 +32,9 @@ def DigitsInv (digits, base):
     return num
 
 # Devuelve una lista de números como binarios de 4 cifras
-def PrintBin(args):
+def PrintBin(n):
+    args = Digits(n, 0x10)
+
     # Mensaje inicial vacío
     msg=""
 
@@ -252,9 +254,9 @@ def DecOFB(k, c, IV):
     # Devolvemos el mensaje
     return DigitsInv(m, 0x10000)
 
-PrintBin(Digits(DecECB(33127, EncECB(33127, 0x01234567)), 0x10))
-PrintBin(Digits(DecCBC(33127, EncCBC(33127, 0x01234567, 0x1000)), 0x10))
-PrintBin(Digits(DecCFB(33127, EncCFB(33127, 0x01234567, 3, 0x1000), 3, 0x1000), 0x10))
-PrintBin(Digits(DecOFB(33127, EncOFB(33127, 0x01234567, 0x1000), 0x1000), 0x10))
-PrintBin(Digits(DecCFB(33127, EncCFB(33127, 0x012345678, 3, 0x1000), 3, 0x1000), 0x10)) # Con padding
-PrintBin(Digits(EncCFB(0b1111001000110001, 0x012345678, 3, 0x1000), 0x10))
+PrintBin(DecECB(33127, EncECB(33127, 0x01234567)))
+PrintBin(DecCBC(33127, EncCBC(33127, 0x01234567, 0x1000)))
+PrintBin(DecCFB(33127, EncCFB(33127, 0x01234567, 3, 0x1000), 3, 0x1000))
+PrintBin(DecOFB(33127, EncOFB(33127, 0x01234567, 0x1000), 0x1000))
+PrintBin(DecCFB(33127, EncCFB(33127, 0x012345678, 3, 0x1000), 3, 0x1000)) # Con padding
+PrintBin(EncCFB(0b1111001000110001, 0x012345678, 3, 0x1000))
