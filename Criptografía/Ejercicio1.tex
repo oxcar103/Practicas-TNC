@@ -175,7 +175,7 @@
 			\item $c = [\mathrm{0x3C64}, \mathrm{0x3185}]$
 			\item Y finalmente, se devuelve $c = \mathrm{0x3C643185}$
 			\item Podemos además, corroborar que la cuenta es correcta pues usando este valor de $c$ como
-			entrada para el algoritmo de descifrado, con la misma $k$, se tiene $m = 0x01234567$
+			entrada para el algoritmo de descifrado, con la misma $k$, se tiene $m = \mathrm{0x01234567}$
 		\end{itemize}
 		
 		\item El modo \textbf{Cipher FeedBack} abreviado como \textbf{CFB} permite imitar el comportamiento de
@@ -191,8 +191,9 @@
 				\STATE{\texttt{$c = []$}}
 				\STATE{\texttt{$x = IV$}}
 				\FOR{\texttt{$m_i \in m.split(r\ bits)$}}
-					\STATE{\texttt{$c += c_i = m_i \oplus msb(EncMiniAES(k, x))$}}
-					\STATE{\texttt{$x = lsb(x) || c_i$}}
+					\STATE{\texttt{$y = EncMiniAES(k, x)$}}
+					\STATE{\texttt{$c += c_i = m_i \oplus msb_r(y)$}}
+					\STATE{\texttt{$x = lsb_{16-r}(x) || c_i$}}
 				\ENDFOR
 				\PRINT{\texttt{$c.join()$}, criptograma}
 			\end{algorithmic}
@@ -209,12 +210,77 @@
 				\STATE{\texttt{$m = []$}}
 				\STATE{\texttt{$x = IV$}}
 				\FOR{\texttt{$c_i \in c.split(r\ bits)$}}
-					\STATE{\texttt{$m += c_i \oplus msb(EncMiniAES(k, x))$}}
-					\STATE{\texttt{$x = lsb(x) || c_i$}}
+					\STATE{\texttt{$y = EncMiniAES(k, x)$}}
+					\STATE{\texttt{$m += c_i \oplus msb_r(y)$}}
+					\STATE{\texttt{$x = lsb_{16-r}(x) || c_i$}}
 				\ENDFOR
 				\PRINT{\texttt{$m.join()$}, mensaje}
 			\end{algorithmic}
 			\caption{Modo \textbf{CFB} de descifrado con MiniAES.}
 			\label{DecCFB}
 		\end{algorithm}
+		
+		Para nuestro ejemplo particular, se tiene que $m = \mathrm{0x01234567}$, $k = \mathrm{0x8167}$,
+		$r = 3$ e $IV = \mathrm{0x0001}$. Como la longitud de $m$ no es múltiplo de $r$, le aplicaremos un
+		padding que le añade un $1$ y tantos $0$'s como se necesiten para que la longitud sea múltiplo de
+		$r$, a este nuevo mensaje lo llamaremos $m'$.
+		
+		Aplicando el modo CFB sobre $m'$, $k$, $r$ e $IV$, tenemos:
+		\begin{itemize}
+			\item $m' = [000_2, 000_2, 010_2, 010_2, 001_2, 101_2, 000_2, 101_2, 011_2, 001_2, 111_2, 000_2]$
+			\item $x_1 = IV$
+			\item $c = []$
+			\item $y_1 = EncMiniAES(k, x_1) = \mathrm{0x3D47}$
+			\item Por tanto, $c += c_1 = 000_2 \oplus msb_3(\mathrm{0x3D47}) = 000_3 \oplus 001_2 = 001_2$
+			\item $c = [001_2]$
+			\item $x_2 = lsb_{13}(\mathrm{0x0001}) || c_1 = \mathrm{0x0009}$
+			\item $y_2 = EncMiniAES(k, x_2) = \mathrm{0x4D43}$
+			\item Por tanto, $c += c_2 = 000_2 \oplus msb_3(\mathrm{0x4D43}) = 000_3 \oplus 010_2 = 010_2$
+			\item $c = [001_2, 010_2]$
+			\item $x_3 = lsb_{13}(\mathrm{0x0009}) || c_2 = \mathrm{0x004A}$
+			\item $y_3 = \mathrm{0x597A}$
+			\item Por tanto, $c += c_3 = 010_2 \oplus 010_2 = 000_2$
+			\item $c = [001_2, 010_2, 000_2]$
+			\item $x_4 = \mathrm{0x0250}$
+			\item $y_4 = \mathrm{0x08DD}$
+			\item Por tanto, $c += c_4 = 010_2 \oplus 000_2 = 010_2$
+			\item $c = [001_2, 010_2, 000_2, 010_2]$
+			\item $x_5 = \mathrm{0x1242}$
+			\item $y_5 = \mathrm{0xC772}$
+			\item Por tanto, $c += c_5 = 110_2 \oplus 001_2 = 111_2$
+			\item $c = [001_2, 010_2, 000_2, 010_2, 111_2]$
+			\item $x_6 = \mathrm{0x9217}$
+			\item $y_6 = \mathrm{0x499F}$
+			\item Por tanto, $c += c_6 = 010_2 \oplus 101_2 = 111_2$
+			\item $c = [001_2, 010_2, 000_2, 010_2, 111_2, 111_2]$
+			\item $x_7 = \mathrm{0xA0BF}$
+			\item $y_7 = \mathrm{0x6BD5}$
+			\item Por tanto, $c += c_7 = 011_2 \oplus 000_2 = 011_2$
+			\item $c = [001_2, 010_2, 000_2, 010_2, 111_2, 111_2, 011_2]$
+			\item $x_8 = \mathrm{0x05FB}$
+			\item $y_8 = \mathrm{0x1FEC}$
+			\item Por tanto, $c += c_8 = 000_2 \oplus 101_2 = 101_2$
+			\item $c = [001_2, 010_2, 000_2, 010_2, 111_2, 111_2, 011_2, 101_2]$
+			\item $x_9 = \mathrm{0x2FDD}$
+			\item $y_9 = \mathrm{0x2765}$
+			\item Por tanto, $c += c_9 = 001_2 \oplus 011_2 = 010_2$
+			\item $c = [001_2, 010_2, 000_2, 010_2, 111_2, 111_2, 011_2, 101_2, 010_2]$
+			\item $x_{10} = \mathrm{0x7EEA}$
+			\item $y_{10} = \mathrm{0xC8BB}$
+			\item Por tanto, $c += c_{10} = 110_2 \oplus 001_2 = 111_2$
+			\item $c = [001_2, 010_2, 000_2, 010_2, 111_2, 111_2, 011_2, 101_2, 010_2, 111_2]$
+			\item $x_{11} = \mathrm{0xF757}$
+			\item $y_{11} = \mathrm{0x13C7}$
+			\item Por tanto, $c += c_{11} = 000_2 \oplus 111_2 = 111_2$
+			\item $c = [001_2, 010_2, 000_2, 010_2, 111_2, 111_2, 011_2, 101_2, 010_2, 111_2, 111_2]$
+			\item $x_{12} = \mathrm{0xBABF}$
+			\item $y_{12} = \mathrm{0x3782}$
+			\item Por tanto, $c += c_{12} = 001_2 \oplus 000_2 = 001_2$
+			\item $c = [001_2, 010_2, 000_2, 010_2, 111_2, 111_2, 011_2, 101_2, 010_2, 111_2, 111_2, 001_2]$
+			\item $x_{13} = \mathrm{0xD5F9}$
+			\item Y finalmente, se devuelve $c = \mathrm{0x282FDD5F9}$
+			\item Podemos además, corroborar que la cuenta es correcta pues usando este valor de $c$ como
+			entrada para el algoritmo de descifrado, con la misma $k$, se tiene $m' = \mathrm{0x012345678}$.
+			\item Quitando el padding de $m'$, obtenemos $m = \mathrm{0x01234567}$
+		\end{itemize}
 	\end{enumerate}
