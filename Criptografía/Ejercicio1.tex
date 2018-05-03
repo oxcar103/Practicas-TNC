@@ -150,6 +150,34 @@
 			\label{DecOFB}
 		\end{algorithm}
 		
+		Para nuestro ejemplo particular, se tiene que $m = \mathrm{0x01234567}$, $k = \mathrm{0x8167}$ e
+		$IV = \mathrm{0x0001}$ por lo que tenemos que:
+		\begin{itemize}
+			\item $m = [\mathrm{0x0123}, \mathrm{0x4567}]$
+			\item $x_0 = IV$
+			\item $c = []$
+			\item En el cálculo de $x_1$ se tiene:
+			\begin{itemize}
+				\item $aes_0 = x_0 = \mathrm{0x0001}$
+				\item $aes_1 = AddRoundKey(k_0, aes_0) = \mathrm{0x8166}$
+				\item $aes_2 = SubBytes(aes_1) = \mathrm{0xC8BB}$
+				\item $aes_3 = ShiftRows(aes_2) = \mathrm{0xCBB8}$
+				\item $aes_4 = MixColumns(aes_3) = \mathrm{0x25DE}$
+				\item $aes_5 = AddRoundKey(k_1, aes_4) = \mathrm{0xBD37}$
+				\item $aes_6 = SubBytes(aes_5) = \mathrm{0x6D70}$
+				\item $aes_7 = ShiftRows(aes_6) = \mathrm{0x607D}$
+				\item $x_1 = aes_8 = AddRoundKey(k_2, aes_7) = \mathrm{0x3D47}$
+			\end{itemize}
+			\item Por tanto, $c += \mathrm{0x0123} \oplus \mathrm{0x3D47} = \mathrm{0x3C64}$
+			\item $c = [\mathrm{0x3C64}]$
+			\item Análogamente, se tiene $x_2 = \mathrm{0x74E2}$
+			\item Por tanto, $c += \mathrm{0x4567} \oplus \mathrm{0x74E2} = \mathrm{0x3185}$
+			\item $c = [\mathrm{0x3C64}, \mathrm{0x3185}]$
+			\item Y finalmente, se devuelve $c = \mathrm{0x3C643185}$
+			\item Podemos además, corroborar que la cuenta es correcta pues usando este valor de $c$ como
+			entrada para el algoritmo de descifrado, con la misma $k$, se tiene $m = 0x01234567$
+		\end{itemize}
+		
 		\item El modo \textbf{Cipher FeedBack} abreviado como \textbf{CFB} permite imitar el comportamiento de
 		un cifrado de flujo auto-síncrono usando un cifrado en bloques mediante los siguientes algoritmos de
 		cifrado y descifrado:
