@@ -80,7 +80,7 @@
 	La función $MixColumns \left[\begin{matrix}a_0 & a_2\\ a_1 & a_3\end{matrix}\right] =
 	\left[\begin{matrix}0011 & 0010 \\ 0010 & 0011\end{matrix}\right] \cdot \left[\begin{matrix}a_0 & a_2 \\
 	a_3 & a_1\end{matrix}\right]$ y dado que $\left[\begin{matrix}0011 & 0010 \\ 0010 & 0011\end{matrix}\right]$
-	es su propia inversa, $MixColumns$ también.
+	es su propia inversa, $MixColumns$ también lo es.
 	
 	Por último, la función $GenerateKeys(k)$ sería:
 	\begin{algorithm}[H]
@@ -97,9 +97,56 @@
 			\STATE{\texttt{$\omega_{10} = \omega_6 \oplus \omega_9$}}
 			\STATE{\texttt{$\omega_{11} = \omega_7 \oplus \omega_{10}$}}
 
-			\PRINT{\texttt{$k_0 = \omega_0 \omega_1 \omega_2 \omega_3, k_1 = \omega_4 \omega_5 \omega_6 \omega_7,
-					k_2 = \omega_8 \omega_9 \omega_{10} \omega_{11}$}}
+			\PRINT{\texttt{$k_0 = \omega_0 \omega_1 \omega_2 \omega_3,\ k_1 = \omega_4 \omega_5 \omega_6 \omega_7,\
+					k_2 = \omega_8 \omega_9 \omega_{10} \omega_{11}$}, claves de ronda}
 		\end{algorithmic}
 		\caption{Algoritmo de generación de claves para MiniAES.}
 		\label{GenKeys}
 	\end{algorithm}
+	
+	Dado que los modos de operación no alteran la clave, las claves de ronda permanecerán siempre iguales. En
+	particular, con mi $dni$ se tiene: $k_0 = 0x8167,\ k_1 = 0x98E9,\ k_2 = 0x5D3A$.
+	
+	Una vez explicado MiniAES, procederemos a explicar los modos de operación tanto de forma teórica como sobre
+	nuestro ejercicio particular:
+	
+	\begin{enumerate}
+		\item El modo \textbf{Output FeedBack} abreviado como \textbf{OFB} permite imitar el comportamiento de
+		un cifrado de flujo síncrono usando un cifrado en bloques mediante los siguientes algoritmos de cifrado
+		y descifrado:
+		\begin{algorithm}[H]
+			\begin{algorithmic}[1]
+				\REQUIRE \ \\
+					\texttt{$k$}, clave\\
+					\texttt{$m$}, mensaje\\
+					\texttt{$IV$}, vector de inicialización\\ \
+				\STATE{\texttt{$c = []$}}
+				\STATE{\texttt{$x = IV$}}
+				\FOR{\texttt{$m_i \in m.split(16 bits)$}}
+					\STATE{\texttt{$x = EncMiniAES(k, x)$}}
+					\STATE{\texttt{$c += m_i \oplus x $}}
+				\ENDFOR
+				\PRINT{\texttt{$c$}, criptograma}
+			\end{algorithmic}
+			\caption{Modo \textbf{OFB} de cifrado con MiniAES.}
+			\label{EncOFB}
+		\end{algorithm}
+		
+		\begin{algorithm}[H]
+			\begin{algorithmic}[1]
+				\REQUIRE \ \\
+					\texttt{$k$}, clave\\
+					\texttt{$c$}, criptograma\\
+					\texttt{$IV$}, vector de inicialización\\ \
+				\STATE{\texttt{$m = []$}}
+				\STATE{\texttt{$x = IV$}}
+				\FOR{\texttt{$c_i \in c.split(16 bits)$}}
+					\STATE{\texttt{$x = EncMiniAES(k, x)$}}
+					\STATE{\texttt{$m += c_i \oplus x $}}
+				\ENDFOR
+				\PRINT{\texttt{$m$}, mensaje}
+			\end{algorithmic}
+			\caption{Modo OFB de cifrado con MiniAES.}
+			\label{DecOFB}
+		\end{algorithm}
+	\end{enumerate}
