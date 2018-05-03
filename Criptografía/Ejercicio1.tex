@@ -146,7 +146,47 @@
 				\ENDFOR
 				\PRINT{\texttt{$m$}, mensaje}
 			\end{algorithmic}
-			\caption{Modo OFB de cifrado con MiniAES.}
+			\caption{Modo OFB de descifrado con MiniAES.}
 			\label{DecOFB}
+		\end{algorithm}
+		
+		\item El modo \textbf{Cipher FeedBack} abreviado como \textbf{CFB} permite imitar el comportamiento de
+		un cifrado de flujo auto-síncrono usando un cifrado en bloques mediante los siguientes algoritmos de
+		cifrado y descifrado:
+		\begin{algorithm}[H]
+			\begin{algorithmic}[1]
+				\REQUIRE \ \\
+					\texttt{$k$}, clave\\
+					\texttt{$m$}, mensaje\\
+					\texttt{$r$}, bits a renovar\\
+					\texttt{$IV$}, vector de inicialización\\ \
+				\STATE{\texttt{$c = []$}}
+				\STATE{\texttt{$x = IV$}}
+				\FOR{\texttt{$m_i \in m.split(r bits)$}}
+					\STATE{\texttt{$c += c_i = m_i \oplus msb(EncMiniAES(k, x))$}}
+					\STATE{\texttt{$x = lsb(x) || c_i$}}
+				\ENDFOR
+				\PRINT{\texttt{$c$}, criptograma}
+			\end{algorithmic}
+			\caption{Modo \textbf{CFB} de cifrado con MiniAES.}
+			\label{EncCFB}
+		\end{algorithm}
+		\begin{algorithm}[H]
+			\begin{algorithmic}[1]
+				\REQUIRE \ \\
+					\texttt{$k$}, clave\\
+					\texttt{$c$}, criptograma\\
+					\texttt{$r$}, bits a renovar\\
+					\texttt{$IV$}, vector de inicialización\\ \
+				\STATE{\texttt{$m = []$}}
+				\STATE{\texttt{$x = IV$}}
+				\FOR{\texttt{$c_i \in c.split(r bits)$}}
+					\STATE{\texttt{$m += c_i \oplus msb(EncMiniAES(k, x))$}}
+					\STATE{\texttt{$x = lsb(x) || c_i$}}
+				\ENDFOR
+				\PRINT{\texttt{$m$}, mensaje}
+			\end{algorithmic}
+			\caption{Modo \textbf{CFB} de descifrado con MiniAES.}
+			\label{DecCFB}
 		\end{algorithm}
 	\end{enumerate}
