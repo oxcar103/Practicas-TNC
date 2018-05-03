@@ -66,7 +66,7 @@
 	La función $SubBytes$ se calcula como $SubBytes \left[\begin{matrix}a_0 & a_2\\ a_1 & a_3\end{matrix}\right]
 	= \left[\begin{matrix}\gamma(a_0) & \gamma(a_2) \\ \gamma(a_1) & \gamma(a_3)\end{matrix}\right]$ con:
 	$$\gamma(a) = a^{-1} \cdot \left(\begin{matrix} 0 & 1 & 1 & 1 \\ 1 & 1 & 1 & 0 \\ 1 & 1 & 0 & 1 \\
-	1 & 0 & 1 & 1 \end{matrix}\right) + \left(\begin{matrix} 0 & 0 & 1 & 1 \end{matrix}\right)$$
+	1 & 0 & 1 & 1 \end{matrix}\right)_2 + \left(\begin{matrix} 0 & 0 & 1 & 1 \end{matrix}\right)_2$$
 	
 	La única salvedad es que por eficiencia se calculan previamente los 16 posibles valores de $\gamma(a)$ y se
 	almacenan en una tabla en lugar de calcularlos en cada llamada a $SubBytes$. Además, esto nos permite también
@@ -78,8 +78,8 @@
 	= \left[\begin{matrix}a_0 & a_2 \\ a_3 & a_1\end{matrix}\right]$ y es su propia inversa.
 	
 	La función $MixColumns \left[\begin{matrix}a_0 & a_2\\ a_1 & a_3\end{matrix}\right] =
-	\left[\begin{matrix}0011 & 0010 \\ 0010 & 0011\end{matrix}\right] \cdot \left[\begin{matrix}a_0 & a_2 \\
-	a_3 & a_1\end{matrix}\right]$ y dado que $\left[\begin{matrix}0011 & 0010 \\ 0010 & 0011\end{matrix}\right]$
+	\left[\begin{matrix}0011 & 0010 \\ 0010 & 0011\end{matrix}\right]_2 \cdot \left[\begin{matrix}a_0 & a_2 \\
+	a_3 & a_1\end{matrix}\right]$ y dado que $\left[\begin{matrix}0011 & 0010 \\ 0010 & 0011\end{matrix}\right]_2$
 	es su propia inversa, $MixColumns$ también lo es.
 	
 	Por último, la función $GenerateKeys(k)$ sería:
@@ -105,7 +105,7 @@
 	\end{algorithm}
 	
 	Dado que los modos de operación no alteran la clave, las claves de ronda permanecerán siempre iguales. En
-	particular, con mi $dni$ se tiene: $k_0 = 0x8167,\ k_1 = 0x98E9,\ k_2 = 0x5D3A$.
+	particular, con mi $dni$ se tiene: $k_0 = \mathrm{0x8167},\ k_1 = \mathrm{0x98E9},\ k_2 = \mathrm{0x5D3A}$.
 	
 	Una vez explicado MiniAES, procederemos a explicar los modos de operación tanto de forma teórica como sobre
 	nuestro ejercicio particular:
@@ -122,11 +122,11 @@
 					\texttt{$IV$}, vector de inicialización\\ \
 				\STATE{\texttt{$c = []$}}
 				\STATE{\texttt{$x = IV$}}
-				\FOR{\texttt{$m_i \in m.split(16 bits)$}}
+				\FOR{\texttt{$m_i \in m.split(16\ bits)$}}
 					\STATE{\texttt{$x = EncMiniAES(k, x)$}}
 					\STATE{\texttt{$c += m_i \oplus x $}}
 				\ENDFOR
-				\PRINT{\texttt{$c$}, criptograma}
+				\PRINT{\texttt{$c.join()$}, criptograma}
 			\end{algorithmic}
 			\caption{Modo \textbf{OFB} de cifrado con MiniAES.}
 			\label{EncOFB}
@@ -140,11 +140,11 @@
 					\texttt{$IV$}, vector de inicialización\\ \
 				\STATE{\texttt{$m = []$}}
 				\STATE{\texttt{$x = IV$}}
-				\FOR{\texttt{$c_i \in c.split(16 bits)$}}
+				\FOR{\texttt{$c_i \in c.split(16\ bits)$}}
 					\STATE{\texttt{$x = EncMiniAES(k, x)$}}
 					\STATE{\texttt{$m += c_i \oplus x $}}
 				\ENDFOR
-				\PRINT{\texttt{$m$}, mensaje}
+				\PRINT{\texttt{$m.join()$}, mensaje}
 			\end{algorithmic}
 			\caption{Modo OFB de descifrado con MiniAES.}
 			\label{DecOFB}
@@ -162,11 +162,11 @@
 					\texttt{$IV$}, vector de inicialización\\ \
 				\STATE{\texttt{$c = []$}}
 				\STATE{\texttt{$x = IV$}}
-				\FOR{\texttt{$m_i \in m.split(r bits)$}}
+				\FOR{\texttt{$m_i \in m.split(r\ bits)$}}
 					\STATE{\texttt{$c += c_i = m_i \oplus msb(EncMiniAES(k, x))$}}
 					\STATE{\texttt{$x = lsb(x) || c_i$}}
 				\ENDFOR
-				\PRINT{\texttt{$c$}, criptograma}
+				\PRINT{\texttt{$c.join()$}, criptograma}
 			\end{algorithmic}
 			\caption{Modo \textbf{CFB} de cifrado con MiniAES.}
 			\label{EncCFB}
@@ -180,11 +180,11 @@
 					\texttt{$IV$}, vector de inicialización\\ \
 				\STATE{\texttt{$m = []$}}
 				\STATE{\texttt{$x = IV$}}
-				\FOR{\texttt{$c_i \in c.split(r bits)$}}
+				\FOR{\texttt{$c_i \in c.split(r\ bits)$}}
 					\STATE{\texttt{$m += c_i \oplus msb(EncMiniAES(k, x))$}}
 					\STATE{\texttt{$x = lsb(x) || c_i$}}
 				\ENDFOR
-				\PRINT{\texttt{$m$}, mensaje}
+				\PRINT{\texttt{$m.join()$}, mensaje}
 			\end{algorithmic}
 			\caption{Modo \textbf{CFB} de descifrado con MiniAES.}
 			\label{DecCFB}
