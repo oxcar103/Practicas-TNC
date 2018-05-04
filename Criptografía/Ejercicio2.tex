@@ -18,7 +18,17 @@
 		
 		Por tanto, comprobar si un número es primo requiere aproximadamente de $\frac{\sqrt{n}}{\log \sqrt{n}}$
 		divisiones de dividendo menor o igual que $\sqrt{n}$, es decir, la comprobación de primalidad es de orden
-		$\mathcal{O}\left(\frac{\sqrt{n}} {\log \sqrt{n}} \cdot (\log n) \cdot \left(\log \sqrt{n}\right)\right)
+		$\mathcal{O}\left(\frac{\sqrt{n}}{\log \sqrt{n}} \cdot (\log n) \cdot \left(\log \sqrt{n}\right)\right)
 		= \mathcal{O} \left(\sqrt{n} \cdot \log n\right)$.
 		
+		\item En este caso, el cálculo del orden de la comprobación de primalidad requiere de una apreciación
+		previa y es que el sabemos que si $n$ no es divisible por un primo menor que $\sqrt{n}$, es primo.
+		Por tanto, debemos dividir en 2 casos:
+		\begin{enumerate}
+			\item $m > \sqrt{n}$: en este caso, tendremos el mismo orden que en el apartado anterior, es decir,
+			$\mathcal{O} \left(\sqrt{n} \cdot \log n\right)$
+			\item $m < \sqrt{n}$: en este caso, tendremos que hacer $\pi (m)$ divisiones con dividendo menor o
+			igual que $m$, esto es, el orden aproximadamente es $\mathcal{O}\left(\frac{m}{\log m} \cdot
+			(\log n) \cdot (\log m)\right) = \mathcal{O} \left(m \cdot \log n\right)$
+		\end{enumerate}
 	\end{enumerate}
