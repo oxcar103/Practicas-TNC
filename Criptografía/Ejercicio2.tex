@@ -4,5 +4,21 @@
 		Recordemos que el teorema del número primo dice:
 		$$\lim\limits_{n \rightarrow \infty} \frac{\pi (n)}{\frac{n}{\log n}} = 1$$
 		donde $\pi (n)$ es el número de primos menores que $n$.
+		\item Calcula una estimación del tiempo necesario para saber si $n$ es divisible por un primo menor o
+		igual que $m$, suponiendo que tenemos una lista con todos los primos menores o iguales que $m$.
+		\item Calcula la complejidad del producto de matrices con coeficientes en $\mathbb{Z}_m$ en función del
+		tamaño de las mismas.
 	\end{enumerate}
 \section*{Solución}
+	\begin{enumerate}
+		\item Como vimos en un ejercicio anterior, sabemos que $\lim\limits_{n \rightarrow \infty} \frac{f(n)}
+		{g(n)} = \lambda \in \mathbb{R} \Rightarrow f = \mathcal{O}(g)$. Por tanto, sabemos que $\pi (n) =
+		\mathcal{O}\left(\frac{n}{\log n}\right)$. Además, sabemos que el coste de calcular el cociente y el
+		resto de la división $\frac{p}{q} = \mathcal{O}((\log p) \cdot (\log q))$.
+		
+		Por tanto, comprobar si un número es primo requiere aproximadamente de $\frac{\sqrt{n}}{\log \sqrt{n}}$
+		divisiones de dividendo menor o igual que $\sqrt{n}$, es decir, la comprobación de primalidad es de orden
+		$\mathcal{O}\left(\frac{\sqrt{n}} {\log \sqrt{n}} \cdot (\log n) \cdot \left(\log \sqrt{n}\right)\right)
+		= \mathcal{O} \left(\sqrt{n} \cdot \log n\right)$.
+		
+	\end{enumerate}
