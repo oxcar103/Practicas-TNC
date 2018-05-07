@@ -31,4 +31,21 @@
 			igual que $m$, esto es, el orden aproximadamente es $\mathcal{O}\left(\frac{m}{\log m} \cdot
 			(\log n) \cdot (\log m)\right) = \mathcal{O} \left(m \cdot \log n\right)$
 		\end{enumerate}
+		
+		\item Para calcular el orden del producto de matrices, tenemos que tener en cuenta qué orden tienen
+		las matrices que tomamos como factores. En nuestro caso, tomaremos como factores las matrices genéricas
+		$A$ y $B$ de orden $i \times j$ y $j \times k$, respectivamente, y $C = A \cdot B$ con orden $i \times k$
+		como matriz producto.
+		
+		Para calcular $c_{ik}$, haremos $\displaystyle c_{ik} = \sum_{l=1}^{j} a_{il} \cdot b_{lk}$ que requiere
+		de $j$ multiplicaciones y $j-1$ sumas del cuerpo $\mathbb{Z}_m$. Además, tenemos que calcular todos los
+		términos de $C$, que tiene $i \cdot k$ elementos. Por tanto, tenemos que:
+		$$\mathcal{O}(C) = \left((j-1) \cdot \mathcal{O}(\text{Suma en }\mathbb{Z}_m) +j \cdot
+		\mathcal{O}(\text{Producto en } \mathbb{Z}_m)\right) \cdot i \cdot k$$
+		
+		Sabemos además que $\mathcal{O}(\text{Suma en }\mathbb{Z}_m) = \mathcal{O}(\log m)$ y que $\mathcal{O}
+		(\text{Producto en } \mathbb{Z}_m) = \mathcal{O}((\log m)^2)$. Por tanto, concluimos que el orden del
+		producto de matrices de orden $i \times j$ y $j \times k$ en $\mathbb{Z}_m$ es
+		$\left((j-1) \cdot \mathcal{O}(\log m) +j \cdot \mathcal{O}\left((\log m)^2\right)\right) \cdot i \cdot k =
+		\mathcal{O}\left(i \cdot j \cdot k \cdot (\log m)^2\right)$.
 	\end{enumerate}
