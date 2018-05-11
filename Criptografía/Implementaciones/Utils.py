@@ -50,3 +50,18 @@ def PrintBin(n):
     # Mostramos el mensaje
     print(msg)
 
+# Devuelve base^exp módulo mod
+def FastExp(base, exp, mod):
+    digits = Digits(exp, 0b10)                      # Descomponemos el exponente en dígitos binarios
+    c_value = 1                                     # Valores inicial
+
+    # Recorremos cada dígito...
+    for d in digits:
+        value = value**2 % mod                      # Elevamos al cuadrado y hacemos módulo
+
+        # Si el dígito actual es 1...
+        if d == 1:
+            value = value*base % mod                # Multiplicamos además por la base
+
+    return value                                    # Devolvemos el valor y exponente actuales
+
