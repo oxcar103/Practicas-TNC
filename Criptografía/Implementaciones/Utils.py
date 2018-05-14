@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 
+from math import sqrt
+from itertools import count, islice
+
 # Descomposición de un número en sus dígitos devueltos como una lista
 def Digits (num, base):
     # Lista inicial vacía
@@ -65,3 +68,30 @@ def FastExp(base, exp, mod):
 
     return value                                    # Devolvemos el valor y exponente actuales
 
+# Comprueba si un número es primo
+def IsPrime(n):
+    return n > 1 and all(n%i for i in islice(count(2), int(sqrt(n)-1)))
+
+# Calcula el Máximo Común Divisor junto con el inverso y un valor auxiliar 
+def gcd(a, b):
+    # Caso base
+    if a == 0:
+        return (b, 0, 1)
+
+    # Caso general
+    else:
+        g, y, x = gcd(b % a, a)
+        return (g, x - (b // a) * y, y)
+
+# Devuelve el inverso modular calculado por gcd()
+def modinv(a, m):
+    # Lanzamos gcd()
+    g, x, y = gcd(a, m)
+
+    # Si a y m no son coprimos, no existe
+    if g != 1:
+        raise Exception('No existe el inverso modular')
+
+    # Si los son, lo devolvemos
+    else:
+        return x % m
