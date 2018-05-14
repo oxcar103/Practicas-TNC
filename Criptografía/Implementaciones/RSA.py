@@ -25,6 +25,26 @@ def GenKeysRSA(p, q):
 
     decipher = ModInv(cipher, phi)
 
+# Algoritmo de cifrado de RSA
+def EncRSA(m):
+    # Si los parámetros de cifrado no están establecidos, fijamos unos
+    if primes[0] == -1:
+        GenKeysRSA(97, 103)    
+
+    # Devolvemos el resultado
+    return FastExp(m, cipher, base)
+
+# Algoritmo de descifrado de RSA
+def DecRSA(c):
+    # Si los parámetros de cifrado no están establecidos, fijamos unos
+    if primes[0] == -1:
+        GenKeysRSA(97, 103)    
+
+    # Devolvemos el resultado
+    return FastExp(c, decipher, base)
+
 GenKeysRSA(2609, 9199)
 print(primes, base, phi, cipher, decipher)
+PrintBin(EncRSA(0xCAFE))
+PrintBin(DecRSA(EncRSA(0xCAFE)))
 
