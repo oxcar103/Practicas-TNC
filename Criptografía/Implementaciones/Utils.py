@@ -56,7 +56,7 @@ def PrintBin(n):
 # Devuelve base^exp módulo mod
 def FastExp(base, exp, mod):
     digits = Digits(exp, 0b10)                      # Descomponemos el exponente en dígitos binarios
-    c_value = 1                                     # Valores inicial
+    value = 1                                       # Valores inicial
 
     # Recorremos cada dígito...
     for d in digits:
@@ -84,7 +84,7 @@ def gcd(a, b):
         return (g, x - (b // a) * y, y)
 
 # Devuelve el inverso modular calculado por gcd()
-def modinv(a, m):
+def ModInv(a, m):
     # Lanzamos gcd()
     g, x, y = gcd(a, m)
 
