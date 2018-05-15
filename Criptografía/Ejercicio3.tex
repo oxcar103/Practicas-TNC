@@ -1,0 +1,16 @@
+	Considerando nuestro $DNI$, lo separamos en 4 cifras decimales y, si alguna de las dos partes empieza por 0,
+	la rotamos a izquierda hasta que no lo sea. En el caso de que esto no sea posible porque una de esas partes
+	es 0000, se puede tomar un número de 4 cifras que no empiece por 0 a elección.
+	
+	Sean $p$ y $q$ los primeros primos mayores o iguales que los bloques anteriores, sea $n = pq$ y $e \geq 11$
+	el menor primo no divisor de $\phi(n)$\footnote{Nótese que $\phi$ es la función totiente de Euler.} y sea
+	$d \equiv e^{-1} \mod \phi(n)$.
+	\begin{enumerate}
+		\item Cifra el mensaje $m = \mathrm{0xCAFE}$.
+		\item Descifra el criptograma anterior.
+		\item Intenta factorizar $n$ mediante el método $P-1$ de Pollard llegando, como máximo\footnote{Spoiler:
+		No voy a respetar este límite.}, a $b = 8$.
+		\item Intenta factorizar $n$ a partir de $\phi(n)$.
+		\item Intenta factorizar $n$ a partir de $d$
+	\end{enumerate}
+\section*{Solución}
