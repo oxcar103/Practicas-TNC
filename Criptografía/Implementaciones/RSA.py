@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
-from Utils import PrintBin, FastExp, IsPrime, ModInv
+from Utils import PrintBin, FastExp, IsPrime, gcd, ModInv
+from math import factorial
 
 # Parámetros del cifrado
 primes = [-1, -1]
@@ -43,8 +44,28 @@ def DecRSA(c):
     # Devolvemos el resultado
     return FastExp(c, decipher, base)
 
+# Aplicamos el método P-1 de Pollard
+def Pollard():
+    # b inicial
+    b = 2
+
+    # MCD de la base y 2^(b!)-1
+    g = gcd(base, FastExp(2, factorial(b), base) - 1)[0]
+
+    # Hasta encontrar un MCD distinto de 1...
+    while g == 1:
+        # Incrementamos b
+        b += 1
+
+        #Recalculamos el MCD
+        g = gcd(base, FastExp(2, factorial(b), base) - 1)[0]
+
+    # Devolvemos (p, q)
+    return (g, base//g)
+
 GenKeysRSA(2609, 9199)
 print(primes, base, phi, cipher, decipher)
 PrintBin(EncRSA(0xCAFE))
 PrintBin(DecRSA(EncRSA(0xCAFE)))
+print(Pollard())
 
