@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from Utils import PrintBin, FastExp, IsPrime, gcd, ModInv
-from math import factorial
+from math import sqrt, factorial
 from random import randint
 
 # Parámetros del cifrado
@@ -64,6 +64,17 @@ def Pollard():
     # Devolvemos (p, q)
     return (g, base//g)
 
+# Factorizar n conociendo phi:
+def FactPhi():
+    # (x-p)(x-q) = x^2 + (p+q)x + pq = x^2 + (n+1-phi)x + n = x^2 + 2b + n
+    b = int((base + 1 - phi)/2)
+
+    # Calculamos el discriminante
+    delta = int(sqrt(b*b - base))
+
+    # Devolvemos (p, q)
+    return (b+delta, b-delta)
+
 # Factorizar n conociendo d:
 def FactD():
     # Almacenamos e*d-1
@@ -97,5 +108,6 @@ print(primes, base, phi, cipher, decipher)
 PrintBin(EncRSA(0xCAFE))
 PrintBin(DecRSA(EncRSA(0xCAFE)))
 print(Pollard())
+print(FactPhi())
 print(FactD())
 
