@@ -2,6 +2,7 @@
 
 from Utils import PrintBin, FastExp, IsPrime, gcd, ModInv
 from math import factorial
+from random import randint
 
 # Parámetros del cifrado
 primes = [-1, -1]
@@ -63,9 +64,38 @@ def Pollard():
     # Devolvemos (p, q)
     return (g, base//g)
 
+# Factorizar n conociendo d:
+def FactD():
+    # Almacenamos e*d-1
+    m = cipher*decipher -1
+    g = 1
+
+    # Mientras el MCD calculado sea un divisor impropio...
+    while g == 1 or g == base:
+        # Establecemos el exponente a m
+        k = m
+
+        # Tomamos un elemento aleatorio
+        a = randint(1, base-1)
+
+        # Calculado el MCD con la base
+        g = gcd(a, base)[0]
+        
+        # Mientras el MCD sea 1 y el exponente sea par...
+        while g == 1 and k%2 == 0:
+            # Dividimos el exponente entre 2
+            k/=2
+
+            # Calculamos el MCD entre a^k-1 y la base
+            g = gcd(FastExp(a, k, base)-1, base)[0]
+    
+    # Devolvemos los dos divisores de la base
+    return (g, base//g)
+
 GenKeysRSA(2609, 9199)
 print(primes, base, phi, cipher, decipher)
 PrintBin(EncRSA(0xCAFE))
 PrintBin(DecRSA(EncRSA(0xCAFE)))
 print(Pollard())
+print(FactD())
 
