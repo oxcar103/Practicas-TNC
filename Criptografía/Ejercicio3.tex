@@ -20,3 +20,25 @@
 		\item $n = 24000191, \quad \phi(n) = 23988384$
 		\item $e = 11, \quad d \equiv e^{-1} \mod \phi(n) = 10903811$
 	\end{itemize}
+	
+	\begin{enumerate}
+		\item Para el cifrado RSA nos basta con calcular $c = m^e \mod n$, veámoslo en nuestro caso particular:
+		$$\mathrm{0xCAFE}^{11} = \mathrm{0xCAFE}^{1011_2} = \left(\left(\left(\mathrm{0xCAFE}^2\right)^2\right)
+		\cdot \mathrm{0xCAFE}\right)^2 \cdot \mathrm{0xCAFE} \equiv \mathrm{0xE3CD33} \mod n$$
+		
+		\item Para el descifrado RSA, utilizaremos $d$ en lugar de $e$, es decir, $m = c^d \mod n$: \\
+		\begin{gather*}
+			\mathrm{0xE3CD33}^{10903811} = \mathrm{0xE3CD33}^{1010\ 0110\ 0110\ 0001\ 0000\ 0011_2} = \\
+			\left(\left( \cdots \left(\left(\left(\mathrm{0xE3CD33}^2\right)^2 \cdot \mathrm{0xE3CD33}
+			\right)^2\right)^2 \cdots \right)^2 \cdot \mathrm{0xE3CD33}\right)^2 \cdot \mathrm{0xE3CD33}
+			\equiv \mathrm{0xCAFE} \mod n
+		\end{gather*}
+		
+		Adicionalmente, y para mejorar la eficiencia del cálculo podemos calcular $m = c^{d \mod \phi(p)} \mod p$
+		y $m = c^{d \mod \phi(q)} \mod q$, y resolver el sistema de congruencias resultante:
+		$$\left.\begin{aligned}
+		        \mathrm{0xE3CD33}^{10903811 \mod \phi(2609)} &= \mathrm{0xE3CD33}^{2371} &\equiv \mathrm{0x95B} \mod 2609\\
+		        \mathrm{0xE3CD33}^{10903811 \mod \phi(9199)} &= \mathrm{0xE3CD33}^{4181} &\equiv \mathrm{0x1753} \mod 9199
+		       \end{aligned}
+		\right\} = \mathrm{0xCAFE} = m$$
+	\end{enumerate}
