@@ -50,16 +50,22 @@ def Pollard():
     # b inicial
     b = 2
 
+    # 2^(b!)
+    a = FastExp(2, b, base)
+    
     # MCD de la base y 2^(b!)-1
-    g = gcd(base, FastExp(2, factorial(b), base) - 1)[0]
+    g = gcd(base, a-1)[0]
 
     # Hasta encontrar un MCD distinto de 1...
     while g == 1:
         # Incrementamos b
         b += 1
 
-        #Recalculamos el MCD
-        g = gcd(base, FastExp(2, factorial(b), base) - 1)[0]
+        # 2^(b!)
+        a = FastExp(a, b, base)
+
+        #Recalculamos el MCD y 2^(b!)
+        g = gcd(base, a-1)[0]
 
     # Devolvemos (p, q)
     return (g, base//g)
