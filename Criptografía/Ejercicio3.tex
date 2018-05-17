@@ -91,4 +91,16 @@
 		\end{center}
 		
 		Y de aquí deducimos que $\displaystyle 24000191 = 9199 \cdot \frac{24000191}{9199} = 9199 \cdot 2609$.
+		
+		\item Para explotar este dato adicional, haremos uso de resultados muy básicos:
+		\begin{itemize}
+			\item $n = pq$ con $p,\ q$ primos $\Rightarrow \phi(n) = (p-1) \cdot (q-1) = pq -p -q +1 = n -(p+q) +1
+			\Rightarrow p+q = n+1-\phi(n)$
+			\item $(x-a) \cdot (x-b) = x^2 -(a+b) \cdot x + ab$
+			\item $\displaystyle a \cdot x^2 + b \cdot x + c = \frac{-b \pm \sqrt{b^2 - 4 \cdot a \cdot c}}{2 \cdot a}$
+		\end{itemize}
+		
+		Por tanto, queda claro que si calculamos $p+q = n+1-\phi(n) = 24000191+1-23988384 = 11808$ y tomamos $2b = p+q =
+		2 \cdot 5904$, tenemos que $\Delta = b^2-n = 10857025 \Rightarrow \sqrt{\Delta} = 3295$, por lo que $(p,\ q) =
+		\left(b-\sqrt{\Delta},\ b+\sqrt{\Delta}\right) = (2609, 9199)$
 	\end{enumerate}
