@@ -131,4 +131,27 @@
 			\label{AtaqueD}
 		\end{algorithm}
 		
+		Una vez visto el algoritmo, pasamos a los resultados prácticos:
+		\begin{table}[H]
+		\centering
+		\begin{tabular}{| c | c | c | c |}
+		\hline
+		$a$         & $k$             & $a^k \mod n$        & GCD       \\ \hline
+		12601639    & -               & -                   & 1         \\ \cline{2-4}
+		            & 59970960        & 1                   & 24000191  \\ 
+		            & 29985480        & 1                   & 24000191  \\ 
+		            & 14992740        & 1                   & 24000191  \\ 
+		            & 7496370         & 1                   & 24000191  \\ 
+		            & 3748185         & 24000190            & 1         \\ \hline
+		23856717    & -               & -                   & 1         \\ \cline{2-4}
+		            & 59970960        & 1                   & 24000191  \\ 
+		            & 29985480        & 1                   & 24000191  \\ 
+		            & 14992740        & 1                   & 24000191  \\ 
+		            & 7496370         & 15288739            & 9199      \\ \hline
+		\end{tabular}
+		\end{table}
+		
+		De nuevo, llegamos a la misma descomposición $\displaystyle 24000191 = 9199 \cdot \frac{24000191}{9199}
+		= 9199 \cdot 2609$. Una peculiaridad que debemos tener en cuenta es que dado que este algoritmo es
+		probabilístico, en cada ejecución, nos saldrá una tabla distinta.
 	\end{enumerate}
