@@ -9,7 +9,7 @@
 		\item Cifra el mensaje $m = \mathrm{0xCAFE}$.
 		\item Descifra el criptograma anterior.
 		\item Intenta factorizar $n$ mediante el método $P-1$ de Pollard llegando, como máximo\footnote{Spoiler:
-		No voy a respetar este límite.}, a $b = 8$.
+		Dado que el número es pequeño, no voy a respetar este límite.}, a $b = 8$.
 		\item Intenta factorizar $n$ a partir de $\phi(n)$.
 		\item Intenta factorizar $n$ a partir de $d$
 	\end{enumerate}
@@ -48,7 +48,7 @@
 			\begin{algorithmic}[1]
 				\REQUIRE \ \\
 					\texttt{$n$}, base\\
-					\texttt{$b_0$}, caso inicial \
+					\texttt{$b_0$}, caso inicial\\ \
 				\STATE{\texttt{$b = b_0$}}
 				\STATE{\texttt{$a = 2^{b!} \mod n$}}
 				\STATE{\texttt{$g = MCD(a-1, n)$}}
@@ -58,7 +58,7 @@
 					\STATE{\texttt{$g = MCD(a-1, n)$}}
 				\ENDWHILE
 				
-				\PRINT{\texttt{$(g,\ n/g)$}, claves de ronda}
+				\PRINT{\texttt{$(g,\ n/g)$}, factores de $n$}
 			\end{algorithmic}
 			\caption{Método P-1 de Pollard.}
 			\label{PollardP-1}
@@ -103,4 +103,32 @@
 		Por tanto, queda claro que si calculamos $p+q = n+1-\phi(n) = 24000191+1-23988384 = 11808$ y tomamos $2b = p+q =
 		2 \cdot 5904$, tenemos que $\Delta = b^2-n = 10857025 \Rightarrow \sqrt{\Delta} = 3295$, por lo que $(p,\ q) =
 		\left(b-\sqrt{\Delta},\ b+\sqrt{\Delta}\right) = (2609, 9199)$
+		
+		\item Si en lugar de $\phi(n)$, conocemos la clave de desencriptado $d$, podemos calcular $n = pq$ basándonos
+		en la propiedad de que como $n$ no es primo, la unidad tiene raíces distintas de $1$ y $-1$:
+		
+		\begin{algorithm}[H]
+			\begin{algorithmic}[1]
+				\REQUIRE \ \\
+					\texttt{$n$}, base\\
+					\texttt{$e$}, clave de cifrado\\
+					\texttt{$d$}, clave de descifrado\\ \
+				\STATE{\texttt{$g = 1$}}
+				\WHILE{\texttt{$g \in \{1, n\}$}}
+					\STATE{\texttt{$k = e \cdot d -1$}}
+					\STATE{\texttt{$a = rand(2, n-1)$}}
+					\STATE{\texttt{$g = MCD(a, n)$}, si el elemento escogido no es coprimo, ya tenemos un factor.}
+					\WHILE{\texttt{$g \in \{1, n\}$ \AND $k \equiv 0 \mod 2$}}
+						\STATE{\texttt{$\displaystyle k = \frac{k}{2}$}}
+						\STATE{\texttt{$a = a^k \mod n$}}
+						\STATE{\texttt{$g = MCD(a-1, n)$}}
+					\ENDWHILE
+				\ENDWHILE
+				
+				\PRINT{\texttt{$(g,\ n/g)$}, factores de $n$}
+			\end{algorithmic}
+			\caption{Factorización de $n$ conociendo la clave $d$ de descifrado.}
+			\label{AtaqueD}
+		\end{algorithm}
+		
 	\end{enumerate}
