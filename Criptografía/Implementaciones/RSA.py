@@ -93,13 +93,13 @@ def FactD():
         k = m
 
         # Tomamos un elemento aleatorio
-        a = randint(1, base-1)
+        a = randint(2, base-1)
 
         # Calculado el MCD con la base
         g = gcd(a, base)[0]
         
         # Mientras el MCD sea 1 y el exponente sea par...
-        while g == 1 and k%2 == 0:
+        while (g == 1 or g == base) and k%2 == 0:
             # Dividimos el exponente entre 2
             k/=2
 
