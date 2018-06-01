@@ -66,5 +66,3 @@ def BabyGiant(base, gen, element):
     # No existe el logaritmo
     return -1
 
-for i in range(211):
-    print(BabyGiant(211, 3, FastExp(3,i,211)))
