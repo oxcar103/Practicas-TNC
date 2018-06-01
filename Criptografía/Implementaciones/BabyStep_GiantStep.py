@@ -10,13 +10,13 @@ GEN = 0
 BABY = {}
 GIANT= 0
 
-# Generados de los pasos si cambiamos de cuerpo
+# Generamos los pasos si cambiamos de cuerpo
 def GenerateBabyGiantSteps(base, gen):
     # Establecemos las variables globales al nuevo valor
     global BASE, GEN, BABY, GIANT
     BASE = base
     GEN = gen
-    print(GEN, BASE)
+
     # Número de iteraciones
     root = ceil(sqrt(base))
 
@@ -36,9 +36,6 @@ def GenerateBabyGiantSteps(base, gen):
     # Calculamos el paso de gigante
     GIANT = FastExp(gen, (base-1)-root, base)
 
-    print(BABY, GIANT, root, base-root)
-
-
 
 # Algoritmo de cálculo de logaritmos Paso de bebé/Paso de Gigante
 def BabyGiant(base, gen, element):
@@ -47,8 +44,6 @@ def BabyGiant(base, gen, element):
 
     # Si no tenemos el generador o la base correctos...
     if base != BASE or gen != GEN:
-        print(base, BASE)
-        print(gen, GEN)
         # Generamos los pasos que usaremos
         GenerateBabyGiantSteps(base, gen) 
 
