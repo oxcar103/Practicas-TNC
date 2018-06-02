@@ -22,8 +22,9 @@
 	Pues no, porque resulta que en nuestro ejemplo particular, actuamos como el atacante, y por tanto no conocemos
 	el valor de $a$, tenemos que descubrirlo a partir de $g^a$. Para ello, veremos dos métodos ampliamente usados.
 	
-	El primero será el algoritmo Paso de bebé - Paso de Gigante\footnote{Nótese además que la tabla del Paso de
-	bebé y el Paso de Gigante se pueden reutilizar si se mantiene tanto el cuerpo como el generador.}:
+	El primero será el algoritmo Paso de bebé - Paso de Gigante conocido así por su modo de funcionamiento o
+	algoritmo de Shanks por ser su autor\footnote{Nótese además que la tabla del Paso de bebé y el Paso de Gigante
+	se pueden reutilizar si se mantiene tanto el cuerpo como el generador.}:
 	
 	\begin{algorithm}[H]
 		\begin{algorithmic}[1]
@@ -76,3 +77,40 @@
 	\end{itemize}
 	
 	En conclusión, vemos que $h_6 = b^6 \Rightarrow h = b^{6 + 6 \cdot 15} = b^{96} \Rightarrow \log_b h = 96$.
+	
+	El otro algoritmo se debe a Roland Silver, Stephen Pohlig y Martin Hellman, es el siguiente:
+	\begin{algorithm}[H]
+		\begin{algorithmic}[1]
+			\REQUIRE \ \\
+				\texttt{$b$}, generador\\
+				\texttt{$n$}, orden del generador\\
+				\texttt{$h = b^a$}, elemento al que calcular el logaritmo\\ \
+			\STATE{Descomponemos el orden como \texttt{$\displaystyle n = \prod_{i = 0}^{r} p_i^{e_i}$} con $p_i$
+			primo, $e_i > 0$}
+			\STATE{\texttt{$ECUACIONES = [\ ]$}}
+			\FOR{\texttt{$0 \leq i \leq r$}}
+				\STATE{\texttt{$ROOTS_i = [\ ]$}, raíces $p_i$-ésimas de la unidad.}
+				\FOR{\texttt{$0 \leq j \leq p_i-1$}}
+					\STATE{\texttt{$ROOTS_i\left[b^{j \cdot \frac{n}{p_i}}\right] = j$}, almacenada así por la futura forma de acceso a ella.}
+				\ENDFOR
+				\STATE{\texttt{$x_i = 0$}}
+				\FOR{\texttt{$0 \leq j \leq e_i-1$}}
+					\STATE{\texttt{$\displaystyle y_j = \frac{h}{b^{x_i}}$}}
+					\STATE{\texttt{$x_i = x_i + ROOTS\left[y_j^{\frac{n}{b^{j+1}}}\right] \cdot p_i^j$}}
+				\ENDFOR
+				\STATE{\texttt{$ECUACIONES[i] = \textquotedblleft a \equiv x_i \mod p_i^{e_i} \textquotedblright$}}
+			\ENDFOR
+			\PRINT{\texttt{$a \text{ resuelve } ECUACIONES[i] \ \forall 0 \leq i \leq r$}}
+		\end{algorithmic}
+		\caption{Algoritmo de Silver-Pohlig-Hellman.}
+		\label{SPH}
+	\end{algorithm}
+
+	Dado que $210 = 2 \cdot 3 \cdot 5 \cdot 7$, tenemos que resolver el sistema:
+	$$\left.\begin{aligned}
+		a \equiv 0 \mod 2 \\
+		a \equiv 0 \mod 3 \\
+		a \equiv 1 \mod 5 \\
+		a \equiv 5 \mod 7
+		\end{aligned}
+	\right\} \Rightarrow a = 96$$
