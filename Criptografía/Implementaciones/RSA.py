@@ -38,7 +38,7 @@ def EncRSA(m):
 
 # Algoritmo de descifrado de RSA
 def DecRSA(c):
-    # Si los parámetros de cifrado no están establecidos, fijamos unos
+    # Si los parámetros de descifrado no están establecidos, fijamos unos
     if primes[0] == -1:
         GenKeysRSA(97, 103)    
 
