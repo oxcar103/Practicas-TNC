@@ -12,15 +12,16 @@
 	\end{itemize}
 	
 	Para el cifrado ElGamal nos basta tomar el mensaje $m$ y un valor aleatorio $1 < k < p-1$ y devolver como
-	criptograma $c = \left(g^k \mod p, m \cdot \left(g^a\right)^k \mod p\right)$.
+	criptograma $c = \left(g^k \mod p, m \cdot \left(g^a\right)^k \mod p\right)$. En particular, para nuestro
+	ejercicio tenemos que $c = (154, 26050919 \mod 211) = (154, 15)$
 	
 	Para el descifrado ElGamal, se utiliza el criptograma $c = \left(x, y\right)$ y el mensaje se obtiene como
 	$m = y \cdot x^{-a}$.
 	
 	Fácil, ¿no?
 	
-	Pues no, porque resulta que en nuestro ejemplo particular, actuamos como el atacante, y por tanto no conocemos
-	el valor de $a$, tenemos que descubrirlo a partir de $g^a$. Para ello, veremos dos métodos ampliamente usados.
+	Pues no. Resulta que en nuestro ejemplo particular, actuamos como el atacante y, por tanto, no conocemos el
+	valor de $a$ y tenemos que descubrirlo a partir de $g^a$. Para ello, veremos dos métodos ampliamente usados.
 	
 	El primero será el algoritmo Paso de bebé - Paso de Gigante conocido así por su modo de funcionamiento o
 	algoritmo de Shanks por ser su autor\footnote{Nótese además que la tabla del Paso de bebé y el Paso de Gigante
@@ -114,3 +115,6 @@
 		a \equiv 5 \mod 7
 		\end{aligned}
 	\right\} \Rightarrow a = 96$$
+	
+	Como es lógico, ambos métodos llegan a la misma solución, esto es, $a = 96 \Rightarrow m = y \cdot x^{-a}
+	= 15 \cdot 154^{-96} = 22$
