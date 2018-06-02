@@ -4,3 +4,21 @@
 	$(154, \textit{dni} \mod 211)$, donde \textit{dni} es nuestro número de DNI. Para calcular los logaritmos
 	discretos necesarios emplea dos de los métodos descritos en la teoría.
 \section*{Solución}
+	Los parámetros públicos que utilizará ElGamal son:
+	\begin{itemize}
+		\item $p = 211$
+		\item $g = 3$
+		\item $g^a = 109$
+	\end{itemize}
+	
+	Para el cifrado ElGamal nos basta tomar el mensaje $m$ y un valor aleatorio $1 < k < p-1$ y devolver como
+	criptograma $c = \left(g^k \mod p, m \cdot \left(g^a\right)^k \mod p\right)$.
+	
+	Para el descifrado ElGamal, se utiliza el criptograma $c = \left(x, y\right)$ y el mensaje se obtiene como
+	$m = y \cdot x^{-a}$.
+	
+	Fácil, ¿no?
+	
+	Pues no, porque resulta que en nuestro ejemplo particular, actuamos como el atacante, y por tanto no conocemos
+	el valor de $a$, tenemos que descubrirlo a partir de $g^a$. Para ello, veremos dos métodos ampliamente usados.
+	
